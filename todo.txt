@@ -1,0 +1,11 @@
+Things to do:
+* disable search button if search term or dir is not yet selected
+* initial state of search directory (~)
+* 'Move to Application folder' http://www.potionfactory.com/node/251
+* do search
+* remember list of all searches (will results?)
+* show list of recent searches in the NSTableView
+* show search results in a nice way
+
+Done:
+* (2009-09-18) started the project
