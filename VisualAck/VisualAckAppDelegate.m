@@ -2,10 +2,9 @@
 
 @implementation VisualAckAppDelegate
 
-@synthesize window;
+@synthesize mainWindowController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	// Insert code here to initialize your application 
 }
 
 @end

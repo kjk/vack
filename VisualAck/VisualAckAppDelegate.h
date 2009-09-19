@@ -1,10 +1,12 @@
 #import <Cocoa/Cocoa.h>
 #import <AppKit/NSApplication.h>
 
+@class MainWindowController;
+
 @interface VisualAckAppDelegate : NSObject {
-    NSWindow *window;
+    MainWindowController *mainWindowController;
 }
 
-@property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet MainWindowController *mainWindowController;
 
 @end
