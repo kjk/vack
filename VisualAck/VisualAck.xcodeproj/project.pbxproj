@@ -11,6 +11,8 @@
 		256AC3DA0F4B6AC300CF3369 /* VisualAckAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* VisualAckAppDelegate.m */; };
 		7F884915106476810041161E /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F884914106476810041161E /* MainWindowController.m */; };
 		7FC0F8F410647CA40000B779 /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7FC0F8F310647CA40000B779 /* todo.txt */; };
+		7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA0106708A500A1927D /* SearchResults.xib */; };
+		7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -30,6 +32,9 @@
 		7F884913106476810041161E /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		7F884914106476810041161E /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		7FC0F8F310647CA40000B779 /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = todo.txt; path = ../todo.txt; sourceTree = SOURCE_ROOT; };
+		7FD0FFA0106708A500A1927D /* SearchResults.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResults.xib; sourceTree = "<group>"; };
+		7FD0FFA31067090A00A1927D /* SearchResultsStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsStatusBarView.h; sourceTree = "<group>"; };
+		7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsStatusBarView.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* VisualAck-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "VisualAck-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* VisualAck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisualAck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -53,6 +58,8 @@
 				256AC3D90F4B6AC300CF3369 /* VisualAckAppDelegate.m */,
 				7F884913106476810041161E /* MainWindowController.h */,
 				7F884914106476810041161E /* MainWindowController.m */,
+				7FD0FFA31067090A00A1927D /* SearchResultsStatusBarView.h */,
+				7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -111,6 +118,7 @@
 				8D1107310486CEB800E47090 /* VisualAck-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				7FD0FFA0106708A500A1927D /* SearchResults.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -173,6 +181,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				7FC0F8F410647CA40000B779 /* todo.txt in Resources */,
+				7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +195,7 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* VisualAckAppDelegate.m in Sources */,
 				7F884915106476810041161E /* MainWindowController.m in Sources */,
+				7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
