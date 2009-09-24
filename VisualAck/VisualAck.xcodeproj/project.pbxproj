@@ -13,10 +13,21 @@
 		7FC0F8F410647CA40000B779 /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7FC0F8F310647CA40000B779 /* todo.txt */; };
 		7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA0106708A500A1927D /* SearchResults.xib */; };
 		7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */; };
+		7FD0FFD7106B0B7000A1927D /* vackmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFD6106B0B7000A1927D /* vackmain.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7FD0FFDA106B0B9D00A1927D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7FD0FFD0106B0A9B00A1927D /* vack */;
+			remoteInfo = vack;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -35,11 +46,20 @@
 		7FD0FFA0106708A500A1927D /* SearchResults.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResults.xib; sourceTree = "<group>"; };
 		7FD0FFA31067090A00A1927D /* SearchResultsStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsStatusBarView.h; sourceTree = "<group>"; };
 		7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsStatusBarView.m; sourceTree = "<group>"; };
+		7FD0FFD1106B0A9B00A1927D /* vack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = vack; path = build/Debug/vack; sourceTree = "<group>"; };
+		7FD0FFD6106B0B7000A1927D /* vackmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vackmain.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* VisualAck-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "VisualAck-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* VisualAck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisualAck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7FD0FFCF106B0A9B00A1927D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -86,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* VisualAck.app */,
+				7FD0FFD1106B0A9B00A1927D /* vack */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -105,6 +126,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7FD0FFD6106B0B7000A1927D /* vackmain.m */,
 				256AC3F00F4B6AF500CF3369 /* VisualAck_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -135,6 +157,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7FD0FFD0106B0A9B00A1927D /* vack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7FD0FFD5106B0AB900A1927D /* Build configuration list for PBXNativeTarget "vack" */;
+			buildPhases = (
+				7FD0FFCE106B0A9B00A1927D /* Sources */,
+				7FD0FFCF106B0A9B00A1927D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = vack;
+			productName = vack;
+			productReference = 7FD0FFD1106B0A9B00A1927D /* vack */;
+			productType = "com.apple.product-type.tool";
+		};
 		8D1107260486CEB800E47090 /* VisualAck */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "VisualAck" */;
@@ -146,6 +184,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7FD0FFDB106B0B9D00A1927D /* PBXTargetDependency */,
 			);
 			name = VisualAck;
 			productInstallPath = "$(HOME)/Applications";
@@ -169,6 +208,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* VisualAck */,
+				7FD0FFD0106B0A9B00A1927D /* vack */,
 			);
 		};
 /* End PBXProject section */
@@ -188,6 +228,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7FD0FFCE106B0A9B00A1927D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7FD0FFD7106B0B7000A1927D /* vackmain.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -200,6 +248,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7FD0FFDB106B0B9D00A1927D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7FD0FFD0106B0A9B00A1927D /* vack */;
+			targetProxy = 7FD0FFDA106B0B9D00A1927D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -221,6 +277,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7FD0FFD3106B0A9B00A1927D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vack;
+			};
+			name = Debug;
+		};
+		7FD0FFD4106B0A9B00A1927D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = vack;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -302,6 +404,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7FD0FFD5106B0AB900A1927D /* Build configuration list for PBXNativeTarget "vack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7FD0FFD3106B0A9B00A1927D /* Debug */,
+				7FD0FFD4106B0A9B00A1927D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "VisualAck" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
