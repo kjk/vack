@@ -37,7 +37,11 @@ sub build_command_line {
 sub build_ack_command_line {
     my @args = @_;
 
-    return build_command_line( './ack', @args );
+    if ($ENV{'ACK_BIN'}) {
+        return build_command_line( $ENV{'ACK_BIN'}, @args);
+    } else {
+        return build_command_line( './ack', @args );
+    }
 }
 
 sub slurp {
@@ -72,6 +76,14 @@ sub run_ack {
 # capture returncode
 our $ack_return_code;
 
+sub logcmd {
+    my $cmd = shift(@_);
+    open( my $fh, ">>cmdlog.txt") or die $!;
+    print $fh $cmd;
+    print $fh "\n";
+    close $fh or die $!;
+}
+
 sub run_ack_with_stderr {
     my @args = @_;
 
@@ -84,6 +96,8 @@ sub run_ack_with_stderr {
     }
 
     my $cmd = build_ack_command_line( @args );
+
+    # logcmd($cmd);
 
     @stdout = `$cmd`;
     my ($sig,$core,$rc) = (($? & 127),  ($? & 128) , ($? >> 8));

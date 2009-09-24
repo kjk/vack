@@ -7,3 +7,6 @@
 #PERL_DL_NONLAZY=1 /opt/local/bin/perl "-MExtUtils::Command::MM" "-e" "test_harness(0, 'blib/lib', 'blib/arch')" t/*.t
 
 perl "-MExtUtils::Command::MM" "-e" "test_harness()" t/*.t
+
+#export ACK_BIN=`pwd`/vack
+#perl "-MExtUtils::Command::MM" "-e" "test_harness()" t/*.t
