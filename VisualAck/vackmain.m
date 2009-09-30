@@ -1,5 +1,8 @@
 #import <Cocoa/Cocoa.h>
 
+#import "FileSearchProtocol.h"
+#import "FileSearcher.h"
+
 /*
  Usage: ack [OPTION]... PATTERN [FILE]
  
@@ -187,12 +190,38 @@ void parse_cmd_line(search_options *opts, int argc, char *argv[])
     }
 }
 
+@interface SearchResults : NSObject <FileSearchProtocol>
+{
+}
+@end
+
+@implementation SearchResults
+- (void) didSkipFile:(NSString*)filePath {
+    NSLog(@"didSkipFile %@", filePath);
+}
+
+- (void) didSkipDir:(NSString*)dirPath {
+    NSLog(@"didSkipDir %@", dirPath);
+}
+
+- (void) didFind:(FileSearchResult*)searchResult {
+    NSLog(@"didFind");
+}
+@end
+
 int main(int argc, char *argv[])
 {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     search_options opts = g_default_search_options;
     parse_cmd_line(&opts, argc, argv);
+    FileSearcher *fileSearcher = [[FileSearcher alloc] init];
+    SearchResults *sr = [[SearchResults alloc] init];
+    [fileSearcher setDelegate:sr];
+    [fileSearcher startSearch];
+
     printf("Vack attack!\n");
-    [pool release];
+    [fileSearcher release];
+    [sr release];
+    [pool drain];
 }
 
