@@ -1,7 +1,7 @@
 #import "FileSearcher.h"
 
 // This list is based on ack
-static const NSString *dirsToIgnore[] = {
+static NSString *dirsToIgnore[] = {
     // putting those at the top based on theory they are most likely
     // to be encountered
     @".svn",
@@ -27,6 +27,9 @@ static const NSString *dirsToIgnore[] = {
     nil
 };
 
+// TODO: this should also take --[no]ignore-dir=name into account
+// Probably should use hash, filled with default values if no --[no]ignore-dir
+// args and apropriately changed
 static BOOL shouldIgnoreDir(NSString *dir) {
     for (int i=0; dirsToIgnore[i]; i++) {
         NSString *dirToIgnore = dirsToIgnore[i];

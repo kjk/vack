@@ -208,6 +208,10 @@ void parse_cmd_line(search_options *opts, int argc, char *argv[])
 - (void) didFind:(FileSearchResult*)searchResult {
     NSLog(@"didFind");
 }
+
+- (void) didNotFind:(NSString*)filePath {
+    NSLog(@"didNotFind in %@", filePath);
+}
 @end
 
 int main(int argc, char *argv[])

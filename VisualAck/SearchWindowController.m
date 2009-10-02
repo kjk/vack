@@ -14,4 +14,8 @@
     NSLog(@"didFind");
 }
 
+- (void) didNotFind:(NSString*)filePath {
+    NSLog(@"didNotFind in %@", filePath);
+}
+
 @end
