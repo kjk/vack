@@ -151,13 +151,14 @@ static inline int streq(const char *s1, const char *s2) {
 
 void parse_cmd_line(search_options *opts, int argc, char *argv[]) 
 {
-    if (argc < 1)
+    if (argc < 2)
 	return;
+
     int curr_arg = 1;
 
     /* special case: if '-' is the first arg, it disables the ui and is the
        equivalent of ack */
-    if (streq("-", argv[1])) {
+    if (streq("-", argv[curr_arg])) {
 	opts->use_gui = NO;
 	++curr_arg;
     }
