@@ -214,7 +214,12 @@ int main(int argc, char *argv[])
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     search_options opts = g_default_search_options;
     parse_cmd_line(&opts, argc, argv);
-    FileSearcher *fileSearcher = [[FileSearcher alloc] init];
+    NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
+    if (nil == cwd) {
+	printf("Couldn't get current directory\n");
+	return 1;
+    }
+    FileSearcher *fileSearcher = [[FileSearcher alloc] initWithDirectory:cwd];
     SearchResults *sr = [[SearchResults alloc] init];
     [fileSearcher setDelegate:sr];
     [fileSearcher startSearch];

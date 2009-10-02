@@ -4,10 +4,14 @@
 
 @interface FileSearcher : NSObject {
     id <FileSearchProtocol>  delegate_;
+    NSString *		     startDir_;
 }
 
--(void)setDelegate:(id <FileSearchProtocol>)delegate;
--(id <FileSearchProtocol>)delegate;
+- (id)initWithDirectory:(NSString*)path;
+
+- (void)setDelegate:(id <FileSearchProtocol>)delegate;
+- (id <FileSearchProtocol>)delegate;
+
 - (void)startSearch;
 
 @end
