@@ -28,9 +28,6 @@ static NSString *dirsToIgnore[] = {
     nil
 };
 
-// TODO: this should also take --[no]ignore-dir=name into account
-// Probably should use hash, filled with default values if no --[no]ignore-dir
-// args and apropriately changed
 static BOOL shouldIgnoreDir(NSString *dir) {
     for (int i=0; dirsToIgnore[i]; i++) {
         NSString *dirToIgnore = dirsToIgnore[i];
@@ -43,15 +40,60 @@ static BOOL shouldIgnoreDir(NSString *dir) {
 
 @interface FileSearcher(Private)
 - (BOOL)shouldSkipDirectory:(NSString*)directory;
+- (void)buildDirsToIgnoreDict:(search_options*)opts;
 @end
 
 @implementation FileSearcher
 
-- (id)initWithDirectory:(NSString*)path {
-    if ((self = [super init])) {
-	startDir_ = [path copy];
+static NSString *nonNilValue = @"dummyString";
+
+// TODO: not sure what is the encoding of opts->ignore_dirs and 
+// opts->no_ignore_dirs. It might be the charset (LC?) of shell
+- (void)buildDirsToIgnoreDict:(search_options*)opts {
+    int i;
+    char **dirs;
+
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:128];
+    for (i=0; dirsToIgnore[i]; i++) {
+	[dict setObject:nonNilValue forKey:dirsToIgnore[i]];
+    }
+    
+    if (opts->ignore_dirs) {
+	dirs = opts->ignore_dirs;
+	for (i=0; dirs[i]; i++) {
+	    char *dirCStr = dirs[i];
+	    NSString *dir = [NSString stringWithUTF8String:dirCStr];
+	    [dict setObject:nonNilValue forKey:dir];	    
+	}
+    }
+    
+    if (opts->no_ignore_dirs) {
+	dirs = opts->no_ignore_dirs;
+	for (i=0; dirs[i]; i++) {
+	    char *dirCStr = dirs[i];
+	    NSString *dir = [NSString stringWithUTF8String:dirCStr];
+	    [dict removeObjectForKey:dir];
+	}
+    }
+
+    dirsToIgnore_ = [dict retain];
+}
+
+- (id)initWithDirectory:(NSString*)path searchOptions:(search_options*)opts {
+    self = [super init];
+    if (!self)
+	return nil;
+
+    startDir_ = [path copy];
+    if (opts->ignore_dirs || opts->no_ignore_dirs) {
+	
+	
     }
     return self;
+}
+
+- (void)dealloc {
+    [dirsToIgnore_ release];
 }
 
 - (void)setDelegate:(id <FileSearchProtocol>)delegate {
@@ -63,7 +105,12 @@ static BOOL shouldIgnoreDir(NSString *dir) {
 }
 
 - (BOOL)shouldSkipDirectory:(NSString*)directory {
-    return shouldIgnoreDir(directory);
+    if (dirsToIgnore_) {
+	id val = [dirsToIgnore_ objectForKey:directory];
+	return val != nil;
+    } else {
+	return shouldIgnoreDir(directory);
+    }
 }
 
 - (void)startSearch {

@@ -116,7 +116,6 @@
  
  Miscellaneous:
  --noenv               Ignore environment variables and ~/.ackrc
- --help                This help
  --man                 Man page
  --thpppt              Bill the Cat
  
@@ -124,7 +123,8 @@
 */
 
 /* Implemented:
---version             Display version & copyright
+ --version             Display version & copyright
+ --help                This help
  
 */
 
@@ -151,8 +151,15 @@
 }
 @end
 
+#define VACK_VER "0.01"
+
 static void print_version() {
-    printf("vack 0.01\n");
+    printf("vack %s\n", VACK_VER);
+}
+
+static void print_help() {
+    printf("vack %s\n", VACK_VER);
+    printf("\nThis is help. Write me.\n");
 }
 
 /* Exit status is 0 if match, 1 if no match. */
@@ -172,7 +179,12 @@ int main(int argc, char *argv[])
 	goto Exit;
     }
 
-    FileSearcher *fileSearcher = [[FileSearcher alloc] initWithDirectory:cwd];
+    if (opts.help) {
+	print_help();
+	goto Exit;
+    }
+
+    FileSearcher *fileSearcher = [[FileSearcher alloc] initWithDirectory:cwd searchOptions:&opts];
     SearchResults *sr = [[SearchResults alloc] init];
     [fileSearcher setDelegate:sr];
     [fileSearcher startSearch];
