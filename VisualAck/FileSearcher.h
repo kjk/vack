@@ -1,6 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "FileSearchProtocol.h"
+#import "SearchOptions.h"
 
 @interface FileSearcher : NSObject {
     id <FileSearchProtocol>  delegate_;

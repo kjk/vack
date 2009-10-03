@@ -9,7 +9,7 @@ static NSString *dirsToIgnore[] = {
     @".bzr",
     @".git",
     @"_build",
-    @"build",
+    @"build", // TODO: not present in ack (name of xcode's build directory)
 
     @".cdv",
     @"~.dep",

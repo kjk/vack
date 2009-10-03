@@ -118,78 +118,15 @@
  --noenv               Ignore environment variables and ~/.ackrc
  --help                This help
  --man                 Man page
- --version             Display version & copyright
  --thpppt              Bill the Cat
  
  Exit status is 0 if match, 1 if no match.
- 
- This is version 1.88 of ack.
 */
 
-typedef struct {
-    int use_gui;
-    int noenv; /* --noenv */
-    int help; /* --help  */
-    int version; /* --version */
-    int thpppt; /* --thppt */
-    int ignore_case; /* -i, --ignore-case */
-    
-} search_options;
-
-static search_options g_default_search_options = {
-    1, /* use_gui */
-    0, /* noenv */
-    0, /* help */
-    0, /* version */
-    0, /* thppt */
-    0, /* ignore_case */
-};
-
-static inline int streq(const char *s1, const char *s2) {
-    return 0 == strcmp(s1, s2);
-}
-
-void parse_cmd_line(search_options *opts, int argc, char *argv[]) 
-{
-    if (argc < 2)
-	return;
-
-    int curr_arg = 1;
-
-    /* special case: if '-' is the first arg, it disables the ui and is the
-       equivalent of ack */
-    if (streq("-", argv[curr_arg])) {
-	opts->use_gui = NO;
-	++curr_arg;
-    }
-
-    for(;;) 
-    {
-	int args_left = argc - curr_arg;
-	if (args_left <= 0)
-	    break;
-
-	char *arg = argv[curr_arg];
-	if (streq(arg, "--noenv")) {
-	    opts->noenv = 1;
-	    ++curr_arg;
-	} else if (streq(arg, "--help")) {
-	    opts->help = 1;
-	    ++curr_arg;
-	} else if (streq(arg, "--version")) {
-	    opts->version = 1;
-	    ++curr_arg;
-	} else if (streq(arg, "--thppt")) {
-	    opts->thpppt = 1;
-	    ++curr_arg;
-	} else if (streq(arg, "-i") || (streq(arg, "--ignore-case"))) {
-	    opts->ignore_case = 1;
-	    ++curr_arg;
-	} else {
-	    
-	}
-    }
-}
+/* Implemented:
+--version             Display version & copyright
+ 
+*/
 
 @interface SearchResults : NSObject <FileSearchProtocol>
 {
@@ -214,16 +151,27 @@ void parse_cmd_line(search_options *opts, int argc, char *argv[])
 }
 @end
 
+static void print_version() {
+    printf("vack 0.01\n");
+}
+
+/* Exit status is 0 if match, 1 if no match. */
 int main(int argc, char *argv[])
 {
+    int exit_status = 0;
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     search_options opts = g_default_search_options;
-    parse_cmd_line(&opts, argc, argv);
+    cmd_line_to_search_options(&opts, argc, argv);
     NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
     if (nil == cwd) {
 	printf("Couldn't get current directory\n");
 	return 1;
     }
+    if (opts.version) {
+	print_version();
+	goto Exit;
+    }
+
     FileSearcher *fileSearcher = [[FileSearcher alloc] initWithDirectory:cwd];
     SearchResults *sr = [[SearchResults alloc] init];
     [fileSearcher setDelegate:sr];
@@ -232,6 +180,9 @@ int main(int argc, char *argv[])
     printf("Vack attack!\n");
     [fileSearcher release];
     [sr release];
+Exit:
     [pool drain];
+    free_search_options(&opts);
+    return exit_status;
 }
 
