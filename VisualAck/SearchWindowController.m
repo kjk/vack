@@ -6,8 +6,8 @@
     NSLog(@"didSkipFile %@", filePath);
 }
 
-- (void) didSkipDir:(NSString*)dirPath {
-    NSLog(@"didSkipDir %@", dirPath);
+- (void) didSkipDirectory:(NSString*)dirPath {
+    NSLog(@"didSkipDirectory %@", dirPath);
 }
 
 - (void) didFind:(FileSearchResult*)searchResult {
@@ -15,7 +15,7 @@
 }
 
 - (void) didNotFind:(NSString*)filePath {
-    NSLog(@"didNotFind in %@", filePath);
+    NSLog(@"didNotFind %@", filePath);
 }
 
 @end

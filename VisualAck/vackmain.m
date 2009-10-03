@@ -201,8 +201,8 @@ void parse_cmd_line(search_options *opts, int argc, char *argv[])
     NSLog(@"didSkipFile %@", filePath);
 }
 
-- (void) didSkipDir:(NSString*)dirPath {
-    NSLog(@"didSkipDir %@", dirPath);
+- (void) didSkipDirectory:(NSString*)dirPath {
+    NSLog(@"didSkipDirectory %@", dirPath);
 }
 
 - (void) didFind:(FileSearchResult*)searchResult {

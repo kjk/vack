@@ -9,6 +9,7 @@ static NSString *dirsToIgnore[] = {
     @".bzr",
     @".git",
     @"_build",
+    @"build",
 
     @".cdv",
     @"~.dep",
@@ -74,10 +75,10 @@ static BOOL shouldIgnoreDir(NSString *dir) {
         NSDictionary *fileAttrs = [dirEnum fileAttributes];
         NSString* fileType = [fileAttrs valueForKey:NSFileType];
         if ([fileType isEqualToString:NSFileTypeRegular]) {
-            NSLog(@"file     : %@", file);
+	    [delegate_ didNotFind:file];
         } else if ([fileType isEqualToString:NSFileTypeDirectory]) {
-            NSLog(@"directory: %@", file);
             if ([self shouldSkipDirectory:file]) {
+		[delegate_ didSkipDirectory:file];
                 [dirEnum skipDescendents];
             }
         } else {

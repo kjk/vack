@@ -5,7 +5,7 @@
 @protocol FileSearchProtocol
 
 - (void) didSkipFile:(NSString*)filePath;
-- (void) didSkipDir:(NSString*)dirPath;
+- (void) didSkipDirectory:(NSString*)dirPath;
 - (void) didFind:(FileSearchResult*)searchResult;
 - (void) didNotFind:(NSString*)filePath;
 
