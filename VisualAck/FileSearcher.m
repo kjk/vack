@@ -86,8 +86,7 @@ static NSString *nonNilValue = @"dummyString";
 
     startDir_ = [path copy];
     if (opts->ignore_dirs || opts->no_ignore_dirs) {
-	
-	
+	[self buildDirsToIgnoreDict:opts];
     }
     return self;
 }
