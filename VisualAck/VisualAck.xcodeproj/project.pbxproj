@@ -17,6 +17,9 @@
 		7F267A861073DEBE000C2C6C /* FileSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A841073DEBE000C2C6C /* FileSearcher.m */; };
 		7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
 		7F267B921076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
+		7F74E22F107D813100D3AB3D /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
+		7F74E234107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
+		7F74E235107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
 		7F884915106476810041161E /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F884914106476810041161E /* MainWindowController.m */; };
 		7FC0F8F410647CA40000B779 /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7FC0F8F310647CA40000B779 /* todo.txt */; };
 		7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA0106708A500A1927D /* SearchResults.xib */; };
@@ -57,6 +60,9 @@
 		7F267A841073DEBE000C2C6C /* FileSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSearcher.m; sourceTree = "<group>"; };
 		7F267B761076E709000C2C6C /* SearchOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOptions.h; sourceTree = "<group>"; };
 		7F267B901076E86D000C2C6C /* SearchOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchOptions.m; sourceTree = "<group>"; };
+		7F74E22E107D813100D3AB3D /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
+		7F74E232107D818200D3AB3D /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = ThirdParty/RegexKitLite.h; sourceTree = "<group>"; };
+		7F74E233107D818200D3AB3D /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = ThirdParty/RegexKitLite.m; sourceTree = "<group>"; };
 		7F884913106476810041161E /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		7F884914106476810041161E /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		7FC0F8F310647CA40000B779 /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = todo.txt; path = ../todo.txt; sourceTree = SOURCE_ROOT; };
@@ -74,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F74E22F107D813100D3AB3D /* libicucore.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,6 +131,7 @@
 				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+				7F74E22E107D813100D3AB3D /* libicucore.dylib */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -140,6 +148,7 @@
 		29B97314FDCFA39411CA2CEA /* VisualAck */ = {
 			isa = PBXGroup;
 			children = (
+				7F74E20D107D804F00D3AB3D /* Third Party */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -178,6 +187,15 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7F74E20D107D804F00D3AB3D /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				7F74E232107D818200D3AB3D /* RegexKitLite.h */,
+				7F74E233107D818200D3AB3D /* RegexKitLite.m */,
+			);
+			name = "Third Party";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +281,7 @@
 				7F267A821073DE7B000C2C6C /* SearchWindowController.m in Sources */,
 				7F267A861073DEBE000C2C6C /* FileSearcher.m in Sources */,
 				7F267B921076E86D000C2C6C /* SearchOptions.m in Sources */,
+				7F74E235107D818200D3AB3D /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +297,7 @@
 				7F267A811073DE7B000C2C6C /* SearchWindowController.m in Sources */,
 				7F267A851073DEBE000C2C6C /* FileSearcher.m in Sources */,
 				7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */,
+				7F74E234107D818200D3AB3D /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
