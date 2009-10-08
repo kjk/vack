@@ -4,11 +4,12 @@
 
 @interface FileLineIterator : NSObject {
     NSString *	    path_;
-    FILE *	    fp_;
+    int		    fd_;
+    size_t	    fileSize_;
+    char *	    fileStart_;
+    char *	    fileEnd_;
+    char *	    fileCurrPos_;
     int		    currLineNo_;
-    char	    buf_[FILE_BUF_SIZE];
-    int		    posInBuf_;
-    int		    charsInBuf_;
 }
 
 - (id)initWithFileName:(NSString*)path;

@@ -1,73 +1,63 @@
 #import "FileLineIterator.h"
 #import <assert.h>
+#import <sys/mman.h>
 
 @implementation FileLineIterator
 
 - (id)initWithFileName:(NSString*)path {
     path_ = [path copy];
+    fd_ = -1;
 }
 
 - (void)dealloc {
     [path_ release];
-    if (fp_)
-	fclose(fp_);
-}
-
-- (int) leftInBuf {
-    assert(charsInBuf_ >= posInBuf_);
-    return charsInBuf_ - posInBuf_;
+    if (fd_ > 0)
+	close(fd_);
 }
 
 // Return next line from the file, nil if end of file. <lineNo> is the line number.
+// TODO: handle unicode files
 - (NSString*)getNextLine:(int*)lineNo {
     NSString *s = nil;
-    if (!fp_) {
+    if (fd_ < 0) {
 	const char *filepath = [path_ UTF8String];
-	fp_ = fopen(filepath, "r");
-	// TODO: some way to return errors to the caller
-	if (!fp_)
+	fd_ = open(filepath, O_RDONLY);
+	if (fd_ < 0)
 	    return nil;
-	currLineNo_ = 0;
-	charsInBuf_ = 0;
-	posInBuf_ = 0;
-    }
-
-    assert(fp_);
-    // TODO: write me
-    if (0 == [self leftInBuf]) {
-	size_t readBytes = fread((void*)buf_, 1, FILE_BUF_SIZE , fp_);
-	if (0 == readBytes)
+	fileSize_ = lseek(fd_, 0, SEEK_END);
+	// TODO: check for size > 4GB
+	fileStart_ = (char*)mmap(NULL, fileSize_, PROT_READ, MAP_SHARED, fd_, 0);
+	if ((void*)fileStart_ == MAP_FAILED) {
+	    close(fd_);
 	    return nil;
-	charsInBuf_ = readBytes;
-	posInBuf_ = 0;
+	}
+	fileEnd_ = fileStart_ + fileSize_;
+	fileCurrPos_ = fileStart_;
     }
-
-    int left = [self leftInBuf];
-    assert(left > 0);
-    char *start = &(buf_[posInBuf_]);
-    char *curr = start;
-    while (left > 0) {
-	char c = *curr;
+    
+    char *lineStart = fileCurrPos_;
+    char *lineEnd = NULL;
+    char *curr = lineStart;
+    while (curr < fileEnd_) {
+	char c = *curr++;
 	if (c == '\n' || c == '\r') {
+	    lineEnd = curr - 1;
+	    if (c == '\n' && curr < fileEnd_) {
+		if (*curr == '\r') {
+		    ++curr;
+		}
+	    }
 	    break;
 	}
-	++curr;
-	left--;
     }
-
-    // TODO: update posInBuf_
-    // TODO; handle \n\r so that it doesn't show as an empty line
-    // didn't find newline
-    // TODO: handle line spanning buffers
-    if (0 == left) {
-	goto Exit;
-    }
-    int len = curr - start;
-    s = [NSString stringWithCString:start length:len];
-    *lineNo = currLineNo_;
-
-Exit:
-    currLineNo_++;
+    if (NULL == lineEnd)
+	return nil;
+    int len = lineEnd - lineStart;
+    assert(len > 0);
+    fileCurrPos_ = curr;
+    // TODO: figure out the right code page
+    s = [NSString stringWithCString:lineStart length:len];
+    *lineNo = currLineNo_++;
     return s;
 }
 
