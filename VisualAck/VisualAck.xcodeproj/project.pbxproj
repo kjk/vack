@@ -20,6 +20,8 @@
 		7F74E22F107D813100D3AB3D /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
 		7F74E234107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
 		7F74E235107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
+		7F74E245107DA1ED00D3AB3D /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
+		7F74E246107DA1ED00D3AB3D /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
 		7F884915106476810041161E /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F884914106476810041161E /* MainWindowController.m */; };
 		7FC0F8F410647CA40000B779 /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7FC0F8F310647CA40000B779 /* todo.txt */; };
 		7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA0106708A500A1927D /* SearchResults.xib */; };
@@ -63,6 +65,8 @@
 		7F74E22E107D813100D3AB3D /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		7F74E232107D818200D3AB3D /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = ThirdParty/RegexKitLite.h; sourceTree = "<group>"; };
 		7F74E233107D818200D3AB3D /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = ThirdParty/RegexKitLite.m; sourceTree = "<group>"; };
+		7F74E243107DA1ED00D3AB3D /* FileLineIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLineIterator.h; sourceTree = "<group>"; };
+		7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLineIterator.m; sourceTree = "<group>"; };
 		7F884913106476810041161E /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		7F884914106476810041161E /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		7FC0F8F310647CA40000B779 /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = todo.txt; path = ../todo.txt; sourceTree = SOURCE_ROOT; };
@@ -113,6 +117,8 @@
 				7F267A801073DE7B000C2C6C /* SearchWindowController.m */,
 				7F267A831073DEBE000C2C6C /* FileSearcher.h */,
 				7F267A841073DEBE000C2C6C /* FileSearcher.m */,
+				7F74E243107DA1ED00D3AB3D /* FileLineIterator.h */,
+				7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -282,6 +288,7 @@
 				7F267A861073DEBE000C2C6C /* FileSearcher.m in Sources */,
 				7F267B921076E86D000C2C6C /* SearchOptions.m in Sources */,
 				7F74E235107D818200D3AB3D /* RegexKitLite.m in Sources */,
+				7F74E245107DA1ED00D3AB3D /* FileLineIterator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +305,7 @@
 				7F267A851073DEBE000C2C6C /* FileSearcher.m in Sources */,
 				7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */,
 				7F74E234107D818200D3AB3D /* RegexKitLite.m in Sources */,
+				7F74E246107DA1ED00D3AB3D /* FileLineIterator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
