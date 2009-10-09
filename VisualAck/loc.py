@@ -2,6 +2,7 @@
 import sys
 import os
 import re
+import StringIO
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -32,6 +33,18 @@ def is_python_comment(l):
 def is_c_comment(l):
     if re.match("\s*//", l):
         return True
+    if re.match("\s*/\*.*\*/", l):
+        return True
+    return False
+
+def c_starts_comment_block(l):
+    if re.match("\s*/\*.*", l):
+        return True
+    return False
+
+def c_ends_comment_block(l):
+    if re.match(".*\*/", l):
+        return True
     return False
 
 class DefaultCommentDetector(object):
@@ -47,6 +60,8 @@ class PythonCommentDetector(DefaultCommentDetector):
 class CCommentDetector(DefaultCommentDetector):
     def __init__(self): pass
     def is_comment_line(self, l): return is_c_comment(l)
+    def starts_comment_block(self, l): return c_starts_comment_block(l)
+    def ends_comment_block(self, l): return c_ends_comment_block(l)
 
 def comment_detector_from_filepath(filepath):
     parts = filepath.split(".")
@@ -65,6 +80,7 @@ def loc_helper(fo, comment_detector):
     comment = 0
     in_comment = False
     for l in fo:
+        #sys.stdout.write(l)
         lines += 1
         if is_empty_line(l):
             empty += 1
@@ -78,6 +94,7 @@ def loc_helper(fo, comment_detector):
                 in_comment = False
         else:
             if comment_detector.starts_comment_block(l):
+                comment += 1
                 in_comment = True
     return (lines,empty,comment)
 
@@ -112,6 +129,37 @@ def main():
     print(skipped_files)
     print(results)
 
+test_python = """#!/usr/bin/python
+  # This is a test python file
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()
+
+          
+
+# another comment
+"""
+
+test_c = """// comment
+/* This is
+
+a comment */
+int main(int main, char **argv) {
+    printf("Hello world"); // this is a hello world
+/* another comment */
+}
+
+"""
+
+def assert_string_results(s, comment_detector, expected_result):
+    fo = StringIO.StringIO(s)
+    res = loc_helper(fo, comment_detector)
+    fo.close()
+    assert res == expected_result, "res is %s and should be %s" % (str(res), str(expected_result))
+
 def tests():
     assert comment_detector_from_filepath("foo.py").__class__.__name__ == "PythonCommentDetector"
     assert comment_detector_from_filepath("foo.c").__class__.__name__ == "CCommentDetector"
@@ -125,10 +173,11 @@ def tests():
     assert not is_python_comment("   print(foo) # this is not a all-comment line")
     assert is_c_comment("// this is a c comment")
     assert is_c_comment("  // this is a c comment too")
-
+    assert_string_results(test_python, PythonCommentDetector(), (12,5,3))
+    assert_string_results(test_c, CCommentDetector(), (9,2,4))
 
 if __name__ == "__main__":
-    if "-test" in sys.argv:
+    if "-test" in sys.argv or "--test" in sys.argv:
         tests()
         sys.exit(1)
     main()
