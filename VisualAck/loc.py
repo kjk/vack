@@ -24,12 +24,6 @@ def path_relative_to_script_dir(path):
 
 def is_empty_line(l): return 0 == len(l.strip())
 
-def starts_comment(l, filepath):
-    return False
-
-def ends_comment(l, filepath):
-    return False
-
 def is_python_comment(l):
     if re.match("\s*#", l):
         return True
@@ -40,20 +34,32 @@ def is_c_comment(l):
         return True
     return False
 
-def is_comment_line(l, filepath):
+class DefaultCommentDetector(object):
+    def __int__(self): pass
+    def is_comment_line(self, l): return False
+    def starts_comment_block(self, l): return False
+    def ends_comment_block(self, l): return False
+
+class PythonCommentDetector(DefaultCommentDetector):
+    def __init__(self): pass
+    def is_comment_line(self, l): return is_python_comment(l)
+
+class CCommentDetector(DefaultCommentDetector):
+    def __init__(self): pass
+    def is_comment_line(self, l): return is_c_comment(l)
+
+def comment_detector_from_filepath(filepath):
     parts = filepath.split(".")
     if 1 == len(parts):
-        # can't determine type of the file
-        return False
+        return DefaultCommentDetector()
     ext = parts[-1]
     if ext == "py":
-        return is_python_comment(l)
+        return PythonCommentDetector()
     if ext in ["c", "h", "m", "mm", "cpp", "cc"]:
-        return is_c_comment(l)
+        return CCommentDetector()
+    return DefaultCommentDetector()
 
-# Return tuple (total number of lines, empty lines, comment lines)
-def loc(filepath):
-    fo = open(filepath, "r")
+def loc_helper(fo, comment_detector):
     lines = 0
     empty = 0
     comment = 0
@@ -63,11 +69,25 @@ def loc(filepath):
         if is_empty_line(l):
             empty += 1
             continue
-        if is_comment_line(l, filepath):
+        if comment_detector.is_comment_line(l):
             comment += 1
             continue
-    fo.close()
+        if in_comment:
+            comment += 1
+            if comment_detector.ends_comment_block(l):
+                in_comment = False
+        else:
+            if comment_detector.starts_comment_block(l):
+                in_comment = True
     return (lines,empty,comment)
+
+# Return tuple (total number of lines, empty lines, comment lines)
+def loc(filepath):
+    fo = open(filepath, "r")
+    comment_detector = comment_detector_from_filepath(filepath)
+    res = loc_helper(fo, comment_detector)
+    fo.close()
+    return res
 
 def main():
     skipped_dirs = []
@@ -93,6 +113,10 @@ def main():
     print(results)
 
 def tests():
+    assert comment_detector_from_filepath("foo.py").__class__.__name__ == "PythonCommentDetector"
+    assert comment_detector_from_filepath("foo.c").__class__.__name__ == "CCommentDetector"
+    assert comment_detector_from_filepath("foo").__class__.__name__ == "DefaultCommentDetector"
+    assert comment_detector_from_filepath("foo.o").__class__.__name__ == "DefaultCommentDetector"
     assert is_empty_line("")
     assert is_empty_line("   ")
     assert is_empty_line("  \t   ")
@@ -101,6 +125,7 @@ def tests():
     assert not is_python_comment("   print(foo) # this is not a all-comment line")
     assert is_c_comment("// this is a c comment")
     assert is_c_comment("  // this is a c comment too")
+
 
 if __name__ == "__main__":
     if "-test" in sys.argv:
