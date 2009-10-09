@@ -36,6 +36,8 @@ def is_python_comment(l):
     return False
 
 def is_c_comment(l):
+    if re.match("\s*//", l):
+        return True
     return False
 
 def is_comment_line(l, filepath):
@@ -91,9 +93,14 @@ def main():
     print(results)
 
 def tests():
+    assert is_empty_line("")
+    assert is_empty_line("   ")
+    assert is_empty_line("  \t   ")
     assert is_python_comment("# this is a comment")
     assert is_python_comment("   # this is also a comment")
     assert not is_python_comment("   print(foo) # this is not a all-comment line")
+    assert is_c_comment("// this is a c comment")
+    assert is_c_comment("  // this is a c comment too")
 
 if __name__ == "__main__":
     if "-test" in sys.argv:
