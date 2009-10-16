@@ -17,6 +17,7 @@
 		7F267A861073DEBE000C2C6C /* FileSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A841073DEBE000C2C6C /* FileSearcher.m */; };
 		7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
 		7F267B921076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
+		7F69A1711088582D00E8DDAC /* utvackmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F69A1701088582D00E8DDAC /* utvackmain.m */; };
 		7F74E22F107D813100D3AB3D /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
 		7F74E234107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
 		7F74E235107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
@@ -33,6 +34,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7F69A17410885A0200E8DDAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F69A1671088578D00E8DDAC /* utvack */;
+			remoteInfo = utvack;
+		};
+		7F69A17610885A0F00E8DDAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7F69A1671088578D00E8DDAC /* utvack */;
+			remoteInfo = utvack;
+		};
 		7FD0FFDA106B0B9D00A1927D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -62,6 +77,8 @@
 		7F267A841073DEBE000C2C6C /* FileSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSearcher.m; sourceTree = "<group>"; };
 		7F267B761076E709000C2C6C /* SearchOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOptions.h; sourceTree = "<group>"; };
 		7F267B901076E86D000C2C6C /* SearchOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchOptions.m; sourceTree = "<group>"; };
+		7F69A1681088578D00E8DDAC /* utvack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = utvack; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F69A1701088582D00E8DDAC /* utvackmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = utvackmain.m; sourceTree = "<group>"; };
 		7F74E22E107D813100D3AB3D /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
 		7F74E232107D818200D3AB3D /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = ThirdParty/RegexKitLite.h; sourceTree = "<group>"; };
 		7F74E233107D818200D3AB3D /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = ThirdParty/RegexKitLite.m; sourceTree = "<group>"; };
@@ -80,6 +97,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7F69A1661088578D00E8DDAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7FD0FFCF106B0A9B00A1927D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -147,6 +171,7 @@
 			children = (
 				8D1107320486CEB800E47090 /* VisualAck.app */,
 				7FD0FFD1106B0A9B00A1927D /* vack */,
+				7F69A1681088578D00E8DDAC /* utvack */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -167,6 +192,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				7F69A1701088582D00E8DDAC /* utvackmain.m */,
 				7FD0FFD6106B0B7000A1927D /* vackmain.m */,
 				256AC3F00F4B6AF500CF3369 /* VisualAck_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -207,6 +233,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7F69A1671088578D00E8DDAC /* utvack */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7F69A16C108857C100E8DDAC /* Build configuration list for PBXNativeTarget "utvack" */;
+			buildPhases = (
+				7F69A1651088578D00E8DDAC /* Sources */,
+				7F69A1661088578D00E8DDAC /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = utvack;
+			productName = utvack;
+			productReference = 7F69A1681088578D00E8DDAC /* utvack */;
+			productType = "com.apple.product-type.tool";
+		};
 		7FD0FFD0106B0A9B00A1927D /* vack */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7FD0FFD5106B0AB900A1927D /* Build configuration list for PBXNativeTarget "vack" */;
@@ -217,6 +259,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7F69A17510885A0200E8DDAC /* PBXTargetDependency */,
 			);
 			name = vack;
 			productName = vack;
@@ -235,6 +278,7 @@
 			);
 			dependencies = (
 				7FD0FFDB106B0B9D00A1927D /* PBXTargetDependency */,
+				7F69A17710885A0F00E8DDAC /* PBXTargetDependency */,
 			);
 			name = VisualAck;
 			productInstallPath = "$(HOME)/Applications";
@@ -259,6 +303,7 @@
 			targets = (
 				8D1107260486CEB800E47090 /* VisualAck */,
 				7FD0FFD0106B0A9B00A1927D /* vack */,
+				7F69A1671088578D00E8DDAC /* utvack */,
 			);
 		};
 /* End PBXProject section */
@@ -278,6 +323,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7F69A1651088578D00E8DDAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F69A1711088582D00E8DDAC /* utvackmain.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7FD0FFCE106B0A9B00A1927D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -312,6 +365,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7F69A17510885A0200E8DDAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F69A1671088578D00E8DDAC /* utvack */;
+			targetProxy = 7F69A17410885A0200E8DDAC /* PBXContainerItemProxy */;
+		};
+		7F69A17710885A0F00E8DDAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7F69A1671088578D00E8DDAC /* utvack */;
+			targetProxy = 7F69A17610885A0F00E8DDAC /* PBXContainerItemProxy */;
+		};
 		7FD0FFDB106B0B9D00A1927D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7FD0FFD0106B0A9B00A1927D /* vack */;
@@ -339,6 +402,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		7F69A16A1088578D00E8DDAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = utvack;
+			};
+			name = Debug;
+		};
+		7F69A16B1088578D00E8DDAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = utvack;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		7FD0FFD3106B0A9B00A1927D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -466,6 +576,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7F69A16C108857C100E8DDAC /* Build configuration list for PBXNativeTarget "utvack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7F69A16A1088578D00E8DDAC /* Debug */,
+				7F69A16B1088578D00E8DDAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7FD0FFD5106B0AB900A1927D /* Build configuration list for PBXNativeTarget "vack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
