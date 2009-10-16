@@ -15,26 +15,32 @@
 	close(fd_);
 }
 
+- (BOOL)openFileIfNeeded {
+    if (fd_ > 0)
+	return YES;
+    const char *filepath = [path_ UTF8String];
+    fd_ = open(filepath, O_RDONLY);
+    if (fd_ < 0)
+	return NO;
+    fileSize_ = lseek(fd_, 0, SEEK_END);
+    // TODO: check for size > 4GB
+    fileStart_ = (char*)mmap(NULL, fileSize_, PROT_READ, MAP_SHARED, fd_, 0);
+    if ((void*)fileStart_ == MAP_FAILED) {
+	close(fd_);
+	return NO;
+    }
+    fileEnd_ = fileStart_ + fileSize_;
+    fileCurrPos_ = fileStart_;
+    return YES;
+}
+
 // Return next line from the file, nil if end of file. <lineNo> is the line number.
 // TODO: handle unicode files
 - (NSString*)getNextLine:(int*)lineNo {
     NSString *s = nil;
-    if (fd_ < 0) {
-	const char *filepath = [path_ UTF8String];
-	fd_ = open(filepath, O_RDONLY);
-	if (fd_ < 0)
-	    return nil;
-	fileSize_ = lseek(fd_, 0, SEEK_END);
-	// TODO: check for size > 4GB
-	fileStart_ = (char*)mmap(NULL, fileSize_, PROT_READ, MAP_SHARED, fd_, 0);
-	if ((void*)fileStart_ == MAP_FAILED) {
-	    close(fd_);
-	    return nil;
-	}
-	fileEnd_ = fileStart_ + fileSize_;
-	fileCurrPos_ = fileStart_;
-    }
-    
+    BOOL ok = [self openFileIfNeeded];
+    if (!ok)
+	return nil;
     char *lineStart = fileCurrPos_;
     char *lineEnd = NULL;
     char *curr = lineStart;
