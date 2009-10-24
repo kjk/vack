@@ -18,6 +18,7 @@
 		7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
 		7F267B921076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
 		7F599C701092893A00933EFC /* utassert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599C6F1092893A00933EFC /* utassert.m */; };
+		7F599CCC109294F900933EFC /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
 		7F69A1711088582D00E8DDAC /* utvackmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F69A1701088582D00E8DDAC /* utvackmain.m */; };
 		7F69A17E108D848500E8DDAC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
 		7F69A228108D858500E8DDAC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
@@ -338,6 +339,7 @@
 			files = (
 				7F69A1711088582D00E8DDAC /* utvackmain.m in Sources */,
 				7F599C701092893A00933EFC /* utassert.m in Sources */,
+				7F599CCC109294F900933EFC /* FileLineIterator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

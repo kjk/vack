@@ -12,6 +12,7 @@
     int		    currLineNo_;
 }
 
++ (FileLineIterator*) fileLineIteratorWithFileName:(NSString*)path;
 - (id)initWithFileName:(NSString*)path;
 - (NSString*)getNextLine:(int*)lineNo;
 

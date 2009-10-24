@@ -4,9 +4,17 @@
 
 @implementation FileLineIterator
 
++ (FileLineIterator*) fileLineIteratorWithFileName:(NSString*)path {
+    return [[[FileLineIterator alloc] initWithFileName:path] autorelease];
+}
+
 - (id)initWithFileName:(NSString*)path {
+    self = [super init];
+    if (!self)
+        return nil;
     path_ = [path copy];
     fd_ = -1;
+    return self;
 }
 
 - (void)dealloc {
@@ -34,7 +42,8 @@
     return YES;
 }
 
-// Return next line from the file, nil if end of file. <lineNo> is the line number.
+// Return next line from the file, nil if end of file. <lineNo> is the line 
+// number (starting with 1)
 // TODO: handle unicode files
 - (NSString*)getNextLine:(int*)lineNo {
     NSString *s = nil;
@@ -59,11 +68,10 @@
     if (NULL == lineEnd)
 	return nil;
     int len = lineEnd - lineStart;
-    assert(len > 0);
     fileCurrPos_ = curr;
     // TODO: figure out the right code page
     s = [NSString stringWithCString:lineStart length:len];
-    *lineNo = currLineNo_++;
+    *lineNo = ++currLineNo_;
     return s;
 }
 
