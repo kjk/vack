@@ -17,6 +17,7 @@
 		7F267A861073DEBE000C2C6C /* FileSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A841073DEBE000C2C6C /* FileSearcher.m */; };
 		7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
 		7F267B921076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
+		7F599C701092893A00933EFC /* utassert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599C6F1092893A00933EFC /* utassert.m */; };
 		7F69A1711088582D00E8DDAC /* utvackmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F69A1701088582D00E8DDAC /* utvackmain.m */; };
 		7F69A17E108D848500E8DDAC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
 		7F69A228108D858500E8DDAC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
@@ -40,14 +41,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7F69A1671088578D00E8DDAC /* utvack */;
+			remoteGlobalIDString = 7F69A1671088578D00E8DDAC;
 			remoteInfo = utvack;
 		};
 		7F69A17610885A0F00E8DDAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7F69A1671088578D00E8DDAC /* utvack */;
+			remoteGlobalIDString = 7F69A1671088578D00E8DDAC;
 			remoteInfo = utvack;
 		};
 		7FD0FFDA106B0B9D00A1927D /* PBXContainerItemProxy */ = {
@@ -79,6 +80,8 @@
 		7F267A841073DEBE000C2C6C /* FileSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSearcher.m; sourceTree = "<group>"; };
 		7F267B761076E709000C2C6C /* SearchOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOptions.h; sourceTree = "<group>"; };
 		7F267B901076E86D000C2C6C /* SearchOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchOptions.m; sourceTree = "<group>"; };
+		7F599C6E1092893A00933EFC /* utassert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utassert.h; sourceTree = "<group>"; };
+		7F599C6F1092893A00933EFC /* utassert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = utassert.m; sourceTree = "<group>"; };
 		7F69A1681088578D00E8DDAC /* utvack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = utvack; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F69A1701088582D00E8DDAC /* utvackmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = utvackmain.m; sourceTree = "<group>"; };
 		7F74E22E107D813100D3AB3D /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = /usr/lib/libicucore.dylib; sourceTree = "<absolute>"; };
@@ -130,6 +133,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				7F599C6E1092893A00933EFC /* utassert.h */,
+				7F599C6F1092893A00933EFC /* utassert.m */,
 				7F267B901076E86D000C2C6C /* SearchOptions.m */,
 				7F267B761076E709000C2C6C /* SearchOptions.h */,
 				256AC3D80F4B6AC300CF3369 /* VisualAckAppDelegate.h */,
@@ -332,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7F69A1711088582D00E8DDAC /* utvackmain.m in Sources */,
+				7F599C701092893A00933EFC /* utassert.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
