@@ -26,7 +26,7 @@ static void dump_backtrace() {
 
 void utassert_func(BOOL cond, const char *condStr)
 {
-    puts(".");
+    printf("%s", ".");
     ++g_utassert_total;
     if (!cond) {
 	++g_utassert_failed;
