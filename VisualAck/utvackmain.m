@@ -29,10 +29,10 @@ void testLineCount(NSString *dir, NSString *fileName, int expectedLineCount) {
 void testFileLineIterator(NSString *testsDir) {
     testLineCount(testsDir, @"empty-file.txt", 0);
     testLineCount(testsDir, @"one-line.txt", 1);
-    testLineCount(testsDir, @"5-empty-lines-unix-newline.txt", 4);
-    testLineCount(testsDir, @"6-lines-unix-newline.txt", 5);
-    testLineCount(testsDir, @"6-lines-mac-newline.txt", 5);
-    testLineCount(testsDir, @"6-lines-windows-newline.txt", 5);
+    testLineCount(testsDir, @"3-lines-unix-newline.txt", 3);
+    testLineCount(testsDir, @"3-lines-mac-newline.txt", 3);
+    testLineCount(testsDir, @"3-lines-windows-newline.txt", 3);
+    testLineCount(testsDir, @"4-empty-lines-unix-newline.txt", 4);
 }
 
 void usage() {
