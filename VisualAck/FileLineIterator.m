@@ -28,6 +28,7 @@
     [path_ release];
     if (fd_ > 0)
 	close(fd_);
+    [super dealloc];
 }
 
 - (BOOL)openFileIfNeeded {

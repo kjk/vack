@@ -1,7 +1,5 @@
 #import <Cocoa/Cocoa.h>
 
-#define FILE_BUF_SIZE 8*1024
-
 @interface FileLineIterator : NSObject {
     NSString *	    path_;
     int		    fd_;
