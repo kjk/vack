@@ -50,10 +50,14 @@
     BOOL ok = [self openFileIfNeeded];
     if (!ok)
 	return nil;
-    char *lineStart = fileCurrPos_;
+    if (fileCurrPos_ == fileEnd_) {
+	return nil;
+    }
+    assert(fileEnd_ > fileCurrPos_);
+    char *curr = fileCurrPos_;
     char *lineEnd = NULL;
-    char *curr = lineStart;
     while (curr < fileEnd_) {
+	lineEnd = curr;
 	char c = *curr++;
 	if (c == '\n' || c == '\r') {
 	    lineEnd = curr - 1;
@@ -65,12 +69,11 @@
 	    break;
 	}
     }
-    if (NULL == lineEnd)
-	return nil;
-    int len = lineEnd - lineStart;
-    fileCurrPos_ = curr;
+    assert(lineEnd != NULL);
+    int len = lineEnd - fileCurrPos_;
     // TODO: figure out the right code page
-    s = [NSString stringWithCString:lineStart length:len];
+    s = [NSString stringWithCString:fileCurrPos_ length:len];
+    fileCurrPos_ = curr;
     *lineNo = ++currLineNo_;
     return s;
 }

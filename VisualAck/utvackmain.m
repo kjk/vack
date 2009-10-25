@@ -27,6 +27,7 @@ void testLineCount(NSString *dir, NSString *fileName, int expectedLineCount) {
 }
     
 void testFileLineIterator(NSString *testsDir) {
+    testLineCount(testsDir, @"empty-file.txt", 0); // empty file has no lines
     testLineCount(testsDir, @"lines04.txt", 1);  // unix newlines
     testLineCount(testsDir, @"lines00.txt", 6);  // unix newlines
     testLineCount(testsDir, @"lines01.txt", 5);  // all empty lines

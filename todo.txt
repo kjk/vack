@@ -14,6 +14,8 @@ Things to do:
   with vack and verifies that the results are the same
 
 Done:
+* (2009-10-24) fixed [FileLineIterator getNextLine]
+* (2009-10-23) work on unit tests for FileLineIterator
 * (2009-10-08) started on loc.py
 * (2009-10-07) FileLineIterator
 * (2009-10-02) list of default dirs to ignore from ack
