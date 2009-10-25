@@ -64,8 +64,8 @@
     char *curr = fileCurrPos_;
     char *lineEnd = NULL;
     while (curr < fileEnd_) {
-	lineEnd = curr;
 	char c = *curr++;
+	lineEnd = curr;
 	if (c == CR || c == LF) {
 	    lineEnd = curr - 1;
 	    if (c == CR && curr < fileEnd_) {
