@@ -2,6 +2,13 @@
 #import <assert.h>
 #import <sys/mman.h>
 
+// http://en.wikipedia.org/wiki/Newline
+// CR   - (old) MAC
+// LF   - UNIX
+// CRLF - WINDOWS
+#define CR 0xd
+#define LF 0xa
+
 @implementation FileLineIterator
 
 + (FileLineIterator*) fileLineIteratorWithFileName:(NSString*)path {
@@ -59,10 +66,10 @@
     while (curr < fileEnd_) {
 	lineEnd = curr;
 	char c = *curr++;
-	if (c == '\n' || c == '\r') {
+	if (c == CR || c == LF) {
 	    lineEnd = curr - 1;
-	    if (c == '\n' && curr < fileEnd_) {
-		if (*curr == '\r') {
+	    if (c == CR && curr < fileEnd_) {
+		if (*curr == LF) {
 		    ++curr;
 		}
 	    }

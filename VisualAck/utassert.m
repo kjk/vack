@@ -1,10 +1,12 @@
 #include "utassert.h"
+#include <assert.h>
 
-int g_utassert_total = 0;
-int g_utassert_failed = 0;
+static int g_utassert_total;
+static int g_utassert_failed;
 
 // this only works on 10.5 or higher
-void dump_backtrace() {
+// TODO: we probably leak addresses memory, but we don't care
+static void dump_backtrace() {
     void* addresses[16]; \
     int frames_count = backtrace(addresses, 16);
     
@@ -20,6 +22,24 @@ void dump_backtrace() {
     }
 
     free(symbols);
-    // TODO: free addresses
 }
 
+void utassert_func(BOOL cond, const char *condStr)
+{
+    puts(".");
+    ++g_utassert_total;
+    if (!cond) {
+	++g_utassert_failed;
+	printf("\n%s\n", condStr);
+	dump_backtrace();
+	assert(cond);
+    }
+}
+
+int utassert_total_count() {
+    return g_utassert_total;
+}
+
+int utassert_failed_count() {
+    return g_utassert_failed;
+}

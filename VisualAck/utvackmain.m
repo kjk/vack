@@ -27,12 +27,12 @@ void testLineCount(NSString *dir, NSString *fileName, int expectedLineCount) {
 }
     
 void testFileLineIterator(NSString *testsDir) {
-    testLineCount(testsDir, @"empty-file.txt", 0); // empty file has no lines
-    testLineCount(testsDir, @"lines04.txt", 1);  // unix newlines
-    testLineCount(testsDir, @"lines00.txt", 6);  // unix newlines
-    testLineCount(testsDir, @"lines01.txt", 5);  // all empty lines
-    testLineCount(testsDir, @"lines02.txt", 5);  // mac newlines
-    testLineCount(testsDir, @"lines03.txt", 5);  // windows newlines
+    testLineCount(testsDir, @"empty-file.txt", 0);
+    testLineCount(testsDir, @"one-line.txt", 1);
+    testLineCount(testsDir, @"5-empty-lines-unix-newline.txt", 4);
+    testLineCount(testsDir, @"6-lines-unix-newline.txt", 5);
+    testLineCount(testsDir, @"6-lines-mac-newline.txt", 5);
+    testLineCount(testsDir, @"6-lines-windows-newline.txt", 5);
 }
 
 void usage() {
@@ -64,11 +64,11 @@ int main(int argc, char *argv[])
     }
     testFileLineIterator(testsDir);
     [pool drain];
-    if (g_utassert_failed > 0) {
-	printf("\nFAILED %d out of %d tests\n", g_utassert_failed, g_utassert_total);
+    if (utassert_failed_count() > 0) {
+	printf("\nFAILED %d out of %d tests\n", utassert_failed_count(), utassert_total_count());
     } else {
-	printf("\nPassed all %d tests\n", g_utassert_total);
+	printf("\nPassed all %d tests\n", utassert_total_count());
     }
-    return g_utassert_failed;
+    return utassert_failed_count();
 }
 

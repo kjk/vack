@@ -3,18 +3,10 @@
 
 #include <execinfo.h>
 
-extern int g_utassert_total;
-extern int g_utassert_failed;
+void utassert_func(BOOL cond, const char *condStr);
+int utassert_failed_count();
+int utassert_total_count();
 
-void dump_backtrace();
-
-#define utassert(cond) \
-    fprintf(stderr, "."); \
-    ++g_utassert_total; \
-    if (!cond) { \
-        ++g_utassert_failed; \
-	printf("\n%s\n", #cond); \
-	dump_backtrace(STDERR_FILENO); \
-    }
+#define utassert(cond) utassert_func(cond, #cond)
 
 #endif
