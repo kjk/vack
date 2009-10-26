@@ -1,6 +1,8 @@
 
 #import "FileSearchIterator.h"
+
 #import <assert.h>
+#import "RegexKitLite.h"
 
 @implementation FileSearchIterator
 
@@ -22,7 +24,17 @@
 }
 
 - (FileSearchResult*)getNextSearchResult {
-    return nil;
+    NSString *currLine;
+    int lineNo;
+    for (;;) {
+	currLine = [self getNextLine:&lineNo];
+	if (!currLine)
+	    return nil;
+	NSRange match = [currLine rangeOfRegex:searchPattern_];
+	if (match.location == NSNotFound)
+	    return nil;
+	// TODO: return search result
+    }
 }
 
 @end
