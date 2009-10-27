@@ -23,17 +23,24 @@
     return self;
 }
 
+- (void) buildSearchResult {
+    currSearchResult_.line = currLine_;
+    currSearchResult_.lineNo = currLineNo_;
+    currSearchResult_.lineOff = 0; // TODO: don't have this info yet
+    currSearchResult_.filePath = path_;
+    currSearchResult_.matchPos = currMatchPos_;
+}
+
 - (FileSearchResult*)getNextSearchResult {
-    NSString *currLine;
-    int lineNo;
     for (;;) {
-	currLine = [self getNextLine:&lineNo];
-	if (!currLine)
+	currLine_ = [self getNextLine:&currLineNo_];
+	if (!currLine_)
 	    return nil;
-	NSRange match = [currLine rangeOfRegex:searchPattern_];
-	if (match.location == NSNotFound)
-	    return nil;
-	// TODO: return search result
+	currMatchPos_ = [currLine_ rangeOfRegex:searchPattern_];
+	if (currMatchPos_.location != NSNotFound) {
+	    [self buildSearchResult];
+	    return &currSearchResult_;
+	}
     }
 }
 

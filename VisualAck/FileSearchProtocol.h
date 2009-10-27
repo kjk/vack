@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-@class FileSearchResult;
+#import "FileSearchResult.h"
 
 @protocol FileSearchProtocol
 

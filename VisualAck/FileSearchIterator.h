@@ -1,10 +1,12 @@
 #import <Cocoa/Cocoa.h>
 #import "FileLineIterator.h"
-
-@class FileSearchResult;
+#import "FileSearchResult.h"
 
 @interface FileSearchIterator : FileLineIterator {
-    NSString *	    searchPattern_;
+    NSString *		searchPattern_;
+    NSString *		currLine_;
+    FileSearchResult	currSearchResult_;
+    NSRange		currMatchPos_;
 }
 
 + (FileSearchIterator*) fileSearchIteratorWithFileName:(NSString*)path searchPattern:(NSString*)searchPattern;
