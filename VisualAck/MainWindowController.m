@@ -15,10 +15,10 @@
 
 - (BOOL)isSearchButtonEnabled {
     if ([[searchTermField_ stringValue] length] == 0)
-	return NO;
+        return NO;
     // TODO: verify that all entries are valid directories
     if ([[dirField_ stringValue] length] == 0)
-	return NO;
+        return NO;
     return YES;
 }
 
@@ -35,7 +35,7 @@
 - (IBAction) search:(id)sender {
     // came from text field but not ready to do search
     if (![self isSearchButtonEnabled])
-	return;
+        return;
     NSLog(@"search");
 }
 
@@ -47,13 +47,13 @@
     [openPanel setAllowedFileTypes:nil];
     NSInteger res = [openPanel runModal];
     if (res != NSOKButton)
-	return;
+        return;
     NSString * dir = [openPanel directory];
     NSArray *files = [openPanel filenames];
     NSMutableString *s = [NSMutableString stringWithString:@""];
     for (NSString *file in files) {
-	[s appendString:file];
-	[s appendString:@";"];
+        [s appendString:file];
+        [s appendString:@";"];
     }
     [s deleteCharactersInRange:NSMakeRange([s length] - 1, 1)];
     [dirField_ setStringValue:s];

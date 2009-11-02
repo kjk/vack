@@ -33,14 +33,14 @@
 
 - (FileSearchResult*)getNextSearchResult {
     for (;;) {
-	currLine_ = [self getNextLine:&currLineNo_];
-	if (!currLine_)
-	    return nil;
-	currMatchPos_ = [currLine_ rangeOfRegex:searchPattern_];
-	if (currMatchPos_.location != NSNotFound) {
-	    [self buildSearchResult];
-	    return &currSearchResult_;
-	}
+        currLine_ = [self getNextLine:&currLineNo_];
+        if (!currLine_)
+            return nil;
+        currMatchPos_ = [currLine_ rangeOfRegex:searchPattern_];
+        if (currMatchPos_.location != NSNotFound) {
+            [self buildSearchResult];
+            return &currSearchResult_;
+        }
     }
 }
 

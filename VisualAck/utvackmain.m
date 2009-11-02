@@ -14,15 +14,15 @@ void testLinesHelper(NSString *filePath, NSString **content) {
     NSString *currLine;
     NSString *expectedLine;
     for (;;) {
-	expectedLine = content[currLineNo];
-	currLine = [li getNextLine:&newLineNo];
-	if (nil == currLine) {
-	    utassert(nil == expectedLine);
-	    return;
-	}
-	utassert(newLineNo == currLineNo + 1);
-	utassert([expectedLine isEqualToString:currLine]);
-	currLineNo = newLineNo;
+        expectedLine = content[currLineNo];
+        currLine = [li getNextLine:&newLineNo];
+        if (nil == currLine) {
+            utassert(nil == expectedLine);
+            return;
+        }
+        utassert(newLineNo == currLineNo + 1);
+        utassert([expectedLine isEqualToString:currLine]);
+        currLineNo = newLineNo;
     }
 }
 
@@ -52,7 +52,7 @@ typedef struct {
 
 static BOOL NSRangeEqual(NSRange r1, NSRange r2) {
     if (r1.location != r2.location)
-	return NO;
+        return NO;
     return r1.length == r2.length;
 }
 
@@ -63,16 +63,16 @@ void testMatchesHelper(NSString *path, NSString *searchPattern, FileSearchResult
     FileSearchResultExpected *expectedResult;
     int currResultNo = 0;
     for (;;) {
-	expectedResult = &(expectedResults[currResultNo++]);
-	currResult = [si getNextSearchResult];
-	if (nil == currResult) {
-	    utassert(nil == expectedResult->line);
-	    return;
-	}
-	utassert([path isEqualToString:currResult->filePath]);
-	utassert([expectedResult->line isEqualToString:currResult->line]);
-	utassert(expectedResult->lineNo == currResult->lineNo);
-	utassert(NSRangeEqual(expectedResult->matchPos, currResult->matchPos));
+        expectedResult = &(expectedResults[currResultNo++]);
+        currResult = [si getNextSearchResult];
+        if (nil == currResult) {
+            utassert(nil == expectedResult->line);
+            return;
+        }
+        utassert([path isEqualToString:currResult->filePath]);
+        utassert([expectedResult->line isEqualToString:currResult->line]);
+        utassert(expectedResult->lineNo == currResult->lineNo);
+        utassert(NSRangeEqual(expectedResult->matchPos, currResult->matchPos));
     }
 }
 
@@ -84,12 +84,12 @@ void testMatches(NSString *dir, NSString *fileName, NSString *searchPattern, Fil
 
 void testFileSearchIterator(NSString *testsDir) {
     FileSearchResultExpected threeLineResults[] = {
-	{ @"line1", 1, { 0, 4 } },
-	{ @"line3", 3, { 0, 4 } },
-	{ nil, 0, { 0, 0 }}
+        { @"line1", 1, { 0, 4 } },
+        { @"line3", 3, { 0, 4 } },
+        { nil, 0, { 0, 0 }}
     };
     FileSearchResultExpected noResults[] = {
-	{ nil, 0, { 0, 0 }}
+        { nil, 0, { 0, 0 }}
     };
 
     testMatches(testsDir, @"3-lines-unix-newline.txt", @"line", threeLineResults);
@@ -112,8 +112,8 @@ BOOL dirExistsAtPath(NSString *path) {
 int main(int argc, char *argv[])
 {
     if (argc != 2) {
-	usage();
-	return -1;
+        usage();
+        return -1;
     }
     char *dirStr = argv[1];
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -122,16 +122,16 @@ int main(int argc, char *argv[])
     testsDir = [testsDir stringByAppendingPathComponent:@"test-files"];
 
     if (!dirExistsAtPath(testsDir)) {
-	printf("Directory %s is not a valid tests directory\n", dirStr);
-	return -1;
+        printf("Directory %s is not a valid tests directory\n", dirStr);
+        return -1;
     }
     testFileLineIteratorContent(testsDir);
     testFileSearchIterator(testsDir);
     [pool drain];
     if (utassert_failed_count() > 0) {
-	printf("\nFAILED %d out of %d tests\n", utassert_failed_count(), utassert_total_count());
+        printf("\nFAILED %d out of %d tests\n", utassert_failed_count(), utassert_total_count());
     } else {
-	printf("\nPassed all %d tests\n", utassert_total_count());
+        printf("\nPassed all %d tests\n", utassert_total_count());
     }
     return utassert_failed_count();
 }

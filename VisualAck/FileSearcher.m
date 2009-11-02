@@ -55,25 +55,25 @@ static NSString *nonNilValue = @"dummyString";
 
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:128];
     for (i=0; dirsToIgnore[i]; i++) {
-	[dict setObject:nonNilValue forKey:dirsToIgnore[i]];
+        [dict setObject:nonNilValue forKey:dirsToIgnore[i]];
     }
     
     if (opts->ignore_dirs) {
-	dirs = opts->ignore_dirs;
-	for (i=0; dirs[i]; i++) {
-	    char *dirCStr = dirs[i];
-	    NSString *dir = [NSString stringWithUTF8String:dirCStr];
-	    [dict setObject:nonNilValue forKey:dir];	    
-	}
+        dirs = opts->ignore_dirs;
+        for (i=0; dirs[i]; i++) {
+            char *dirCStr = dirs[i];
+            NSString *dir = [NSString stringWithUTF8String:dirCStr];
+            [dict setObject:nonNilValue forKey:dir];	    
+        }
     }
     
     if (opts->no_ignore_dirs) {
-	dirs = opts->no_ignore_dirs;
-	for (i=0; dirs[i]; i++) {
-	    char *dirCStr = dirs[i];
-	    NSString *dir = [NSString stringWithUTF8String:dirCStr];
-	    [dict removeObjectForKey:dir];
-	}
+        dirs = opts->no_ignore_dirs;
+        for (i=0; dirs[i]; i++) {
+            char *dirCStr = dirs[i];
+            NSString *dir = [NSString stringWithUTF8String:dirCStr];
+            [dict removeObjectForKey:dir];
+        }
     }
 
     dirsToIgnore_ = [dict retain];
@@ -82,11 +82,11 @@ static NSString *nonNilValue = @"dummyString";
 - (id)initWithDirectory:(NSString*)path searchOptions:(search_options*)opts {
     self = [super init];
     if (!self)
-	return nil;
+        return nil;
 
     startDir_ = [path copy];
     if (opts->ignore_dirs || opts->no_ignore_dirs) {
-	[self buildDirsToIgnoreDict:opts];
+        [self buildDirsToIgnoreDict:opts];
     }
     return self;
 }
@@ -105,10 +105,10 @@ static NSString *nonNilValue = @"dummyString";
 
 - (BOOL)shouldSkipDirectory:(NSString*)directory {
     if (dirsToIgnore_) {
-	id val = [dirsToIgnore_ objectForKey:directory];
-	return val != nil;
+        id val = [dirsToIgnore_ objectForKey:directory];
+        return val != nil;
     } else {
-	return shouldIgnoreDir(directory);
+        return shouldIgnoreDir(directory);
     }
 }
 
@@ -121,10 +121,10 @@ static NSString *nonNilValue = @"dummyString";
         NSDictionary *fileAttrs = [dirEnum fileAttributes];
         NSString* fileType = [fileAttrs valueForKey:NSFileType];
         if ([fileType isEqualToString:NSFileTypeRegular]) {
-	    [delegate_ didNotFind:file];
+            [delegate_ didNotFind:file];
         } else if ([fileType isEqualToString:NSFileTypeDirectory]) {
             if ([self shouldSkipDirectory:file]) {
-		[delegate_ didSkipDirectory:file];
+                [delegate_ didSkipDirectory:file];
                 [dirEnum skipDescendents];
             }
         } else {

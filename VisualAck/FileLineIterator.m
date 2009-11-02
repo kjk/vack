@@ -27,23 +27,23 @@
 - (void)dealloc {
     [path_ release];
     if (fd_ > 0)
-	close(fd_);
+        close(fd_);
     [super dealloc];
 }
 
 - (BOOL)openFileIfNeeded {
     if (fd_ > 0)
-	return YES;
+        return YES;
     const char *filepath = [path_ UTF8String];
     fd_ = open(filepath, O_RDONLY);
     if (fd_ < 0)
-	return NO;
+        return NO;
     fileSize_ = lseek(fd_, 0, SEEK_END);
     // TODO: check for size > 4GB
     fileStart_ = (char*)mmap(NULL, fileSize_, PROT_READ, MAP_SHARED, fd_, 0);
     if ((void*)fileStart_ == MAP_FAILED) {
-	close(fd_);
-	return NO;
+        close(fd_);
+        return NO;
     }
     fileEnd_ = fileStart_ + fileSize_;
     fileCurrPos_ = fileStart_;
@@ -57,25 +57,25 @@
     NSString *s = nil;
     BOOL ok = [self openFileIfNeeded];
     if (!ok)
-	return nil;
+        return nil;
     if (fileCurrPos_ == fileEnd_) {
-	return nil;
+        return nil;
     }
     assert(fileEnd_ > fileCurrPos_);
     char *curr = fileCurrPos_;
     char *lineEnd = NULL;
     while (curr < fileEnd_) {
-	char c = *curr++;
-	lineEnd = curr;
-	if (c == CR || c == LF) {
-	    lineEnd = curr - 1;
-	    if (c == CR && curr < fileEnd_) {
-		if (*curr == LF) {
-		    ++curr;
-		}
-	    }
-	    break;
-	}
+        char c = *curr++;
+        lineEnd = curr;
+        if (c == CR || c == LF) {
+            lineEnd = curr - 1;
+            if (c == CR && curr < fileEnd_) {
+                if (*curr == LF) {
+                    ++curr;
+                }
+            }
+            break;
+        }
     }
     assert(lineEnd != NULL);
     int len = lineEnd - fileCurrPos_;

@@ -4,9 +4,9 @@
 #import "SearchOptions.h"
 
 @interface FileSearcher : NSObject {
-    id <FileSearchProtocol>	delegate_;
-    NSString *			startDir_;
-    NSMutableDictionary *	dirsToIgnore_;
+    id <FileSearchProtocol>     delegate_;
+    NSString *                  startDir_;
+    NSMutableDictionary *       dirsToIgnore_;
 }
 
 - (id)initWithDirectory:(NSString*)path searchOptions:(search_options*)opts;

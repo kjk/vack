@@ -3,10 +3,10 @@
 #import "FileSearchResult.h"
 
 @interface FileSearchIterator : FileLineIterator {
-    NSString *		searchPattern_;
-    NSString *		currLine_;
-    FileSearchResult	currSearchResult_;
-    NSRange		currMatchPos_;
+    NSString *          searchPattern_;
+    NSString *          currLine_;
+    FileSearchResult    currSearchResult_;
+    NSRange             currMatchPos_;
 }
 
 + (FileSearchIterator*) fileSearchIteratorWithFileName:(NSString*)path searchPattern:(NSString*)searchPattern;

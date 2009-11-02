@@ -13,12 +13,12 @@ static void dump_backtrace() {
     char** symbols;
     symbols = backtrace_symbols(addresses, frames_count);
     if (symbols == NULL)
-	return;
+        return;
     int frames = frames_count;
     if (frames_count > 8) frames_count = 8;
     for (int i = 1; i < frames; i++) {
-	char *s = symbols[i];
-	printf("%s\n", s);
+        char *s = symbols[i];
+        printf("%s\n", s);
     }
 
     free(symbols);
@@ -29,10 +29,10 @@ void utassert_func(BOOL cond, const char *condStr)
     printf("%s", ".");
     ++g_utassert_total;
     if (!cond) {
-	++g_utassert_failed;
-	printf("\n%s\n", condStr);
-	dump_backtrace();
-	assert(cond);
+        ++g_utassert_failed;
+        printf("\n%s\n", condStr);
+        dump_backtrace();
+        assert(cond);
     }
 }
 

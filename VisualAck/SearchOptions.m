@@ -24,11 +24,11 @@ static inline int streq(const char *s1, const char *s2) {
 /* return 1 if s1 starts with s2, case sensitive. 0 otherwise */
 static inline int strstartswith(const char *s1, const char *s2) {
     if (!s1 || !s2)
-	return 0;
+        return 0;
     size_t s1len = strlen(s1);
     size_t s2len = strlen(s2);
     if (s2len > s1len)
-	return 0;
+        return 0;
     int res = strncmp(s1, s2, s2len);
     return 0 == res;
 }
@@ -36,9 +36,9 @@ static inline int strstartswith(const char *s1, const char *s2) {
 static char **char_array_dup(char **arr, int count) {
     char **res = (char**)malloc(sizeof(char*) * (count+1));
     for (int i=0; i++; i < count) {
-	char *s = arr[i];
-	assert(s);
-	res[i] = strdup(s);
+        char *s = arr[i];
+        assert(s);
+        res[i] = strdup(s);
     }
     res[count] = 0;
     return res;
@@ -52,81 +52,81 @@ void cmd_line_to_search_options(search_options *opts, int argc, char *argv[])
     int ignore_dirs_count = 0;
     char *no_ignore_dirs[MAX_DIRS];
     int no_ignore_dirs_count = 0;
-    
+
     if (argc < 2)
-	return;
-    
+        return;
+
     int curr_arg = 1;
-    
+
     /* special case: if '-' is the first arg, it disables the ui and is the
      equivalent of ack */
     if (streq("-", argv[curr_arg])) {
-	opts->use_gui = NO;
-	++curr_arg;
+        opts->use_gui = NO;
+        ++curr_arg;
     }
-    
+
     char *val;
     for(;;) 
     {
-	int args_left = argc - curr_arg;
-	if (args_left <= 0)
-	    break;
-	
-	char *arg = argv[curr_arg];
-	if (streq(arg, "--noenv")) {
-	    opts->noenv = 1;
-	    ++curr_arg;
-	} else if (streq(arg, "--help")) {
-	    opts->help = 1;
-	    ++curr_arg;
-	} else if (streq(arg, "--version")) {
-	    opts->version = 1;
-	    ++curr_arg;
-	} else if (streq(arg, "--thppt")) {
-	    opts->thpppt = 1;
-	    ++curr_arg;
-	} else if (streq(arg, "-i") || (streq(arg, "--ignore-case"))) {
-	    opts->ignore_case = 1;
-	    ++curr_arg;
-	} else if (strstartswith(arg, "--ignore-dir=")) {
-	    val = arg + strlen("--ignore-dir=");
-	    if (ignore_dirs_count < MAX_DIRS) {
-		ignore_dirs[ignore_dirs_count++] = val;
-	    }
-	} else if (strstartswith(arg, "--noignore-dir=")) {
-	    val = arg + strlen("--noignore-dir=");
-	    if (no_ignore_dirs_count < MAX_DIRS) {
-		no_ignore_dirs[no_ignore_dirs_count++] = val;
-	    }
-	} else {
-	    
-	}
+        int args_left = argc - curr_arg;
+        if (args_left <= 0)
+            break;
+
+        char *arg = argv[curr_arg];
+        if (streq(arg, "--noenv")) {
+            opts->noenv = 1;
+            ++curr_arg;
+        } else if (streq(arg, "--help")) {
+            opts->help = 1;
+            ++curr_arg;
+        } else if (streq(arg, "--version")) {
+            opts->version = 1;
+            ++curr_arg;
+        } else if (streq(arg, "--thppt")) {
+            opts->thpppt = 1;
+            ++curr_arg;
+        } else if (streq(arg, "-i") || (streq(arg, "--ignore-case"))) {
+            opts->ignore_case = 1;
+            ++curr_arg;
+        } else if (strstartswith(arg, "--ignore-dir=")) {
+            val = arg + strlen("--ignore-dir=");
+            if (ignore_dirs_count < MAX_DIRS) {
+                ignore_dirs[ignore_dirs_count++] = val;
+            }
+        } else if (strstartswith(arg, "--noignore-dir=")) {
+            val = arg + strlen("--noignore-dir=");
+            if (no_ignore_dirs_count < MAX_DIRS) {
+                no_ignore_dirs[no_ignore_dirs_count++] = val;
+            }
+        } else {
+
+        }
     }
-    
+
     if (ignore_dirs_count > 0) {
-	opts->ignore_dirs = char_array_dup(ignore_dirs, ignore_dirs_count);
+        opts->ignore_dirs = char_array_dup(ignore_dirs, ignore_dirs_count);
     }
-    
+
     if (no_ignore_dirs_count > 0) {
-	opts->no_ignore_dirs = char_array_dup(no_ignore_dirs, no_ignore_dirs_count);
+        opts->no_ignore_dirs = char_array_dup(no_ignore_dirs, no_ignore_dirs_count);
     }
 }
 
 void free_search_options(search_options *options) {
     int i;
     if (options->ignore_dirs) {
-	for (i=0; options->ignore_dirs[i]; i++) {
-	    free(options->ignore_dirs[i]);
-	}
-	free(options->ignore_dirs);
+        for (i=0; options->ignore_dirs[i]; i++) {
+            free(options->ignore_dirs[i]);
+        }
+        free(options->ignore_dirs);
     }
     
     if (options->no_ignore_dirs) {
-	for (i=0; options->no_ignore_dirs[i]; i++) {
-	    free(options->no_ignore_dirs[i]);
-	}
-	free(options->no_ignore_dirs);
+        for (i=0; options->no_ignore_dirs[i]; i++) {
+            free(options->no_ignore_dirs[i]);
+        }
+        free(options->no_ignore_dirs);
     }
-    
+
     *options = g_default_search_options;
 }

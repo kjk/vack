@@ -171,17 +171,17 @@ int main(int argc, char *argv[])
     cmd_line_to_search_options(&opts, argc, argv);
     NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
     if (nil == cwd) {
-	printf("Couldn't get current directory\n");
-	return 1;
+        printf("Couldn't get current directory\n");
+        return 1;
     }
     if (opts.version) {
-	print_version();
-	goto Exit;
+        print_version();
+        goto Exit;
     }
 
     if (opts.help) {
-	print_help();
-	goto Exit;
+        print_help();
+        goto Exit;
     }
 
     FileSearcher *fileSearcher = [[FileSearcher alloc] initWithDirectory:cwd searchOptions:&opts];
