@@ -1,4 +1,5 @@
 #import "FileSearcher.h"
+#import "FileSearchIterator.h"
 
 // This list is based on ack
 static NSString *dirsToIgnore[] = {
@@ -85,6 +86,7 @@ static NSString *nonNilValue = @"dummyString";
         return nil;
 
     startDir_ = [path copy];
+    searchPattern_ = [NSString stringWithUTF8String:opts->search_term];
     if (opts->ignore_dirs || opts->no_ignore_dirs) {
         [self buildDirsToIgnoreDict:opts];
     }
@@ -93,6 +95,8 @@ static NSString *nonNilValue = @"dummyString";
 
 - (void)dealloc {
     [dirsToIgnore_ release];
+    [searchPattern_ release];
+    [super dealloc];
 }
 
 - (void)setDelegate:(id <FileSearchProtocol>)delegate {
@@ -112,8 +116,25 @@ static NSString *nonNilValue = @"dummyString";
     }
 }
 
+- (BOOL)shouldSkipFile:(NSString*)fileName {
+    return NO;
+}
+
+- (void)searchInFile:(NSString*)fileName {
+    NSString *filePath = [startDir_ stringByAppendingPathComponent:fileName];
+    FileSearchIterator *fileSearchIter = [FileSearchIterator fileSearchIteratorWithFileName:filePath searchPattern:searchPattern_];    
+    [delegate_ didStartSearchInFile:filePath];
+    FileSearchResult *searchResult;
+    for (;;) {
+        searchResult = [fileSearchIter getNextSearchResult];
+        if (!searchResult)
+            break;
+        [delegate_ didFind:searchResult];
+    }
+    [delegate_ didFinishSearchInFile:filePath];
+}
+
 - (void)startSearch {
-    //NSLog(@"startSearch");
     NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager]
                                       enumeratorAtPath:startDir_];
     NSString *file;
@@ -121,8 +142,10 @@ static NSString *nonNilValue = @"dummyString";
         NSDictionary *fileAttrs = [dirEnum fileAttributes];
         NSString* fileType = [fileAttrs valueForKey:NSFileType];
         if ([fileType isEqualToString:NSFileTypeRegular]) {
-            [delegate_ didStartSearchInFile:file];
-            [delegate_ didFinishSearchInFile:file];
+            if ([self shouldSkipFile:file]) {
+            } else {
+                [self searchInFile:file];
+            }
         } else if ([fileType isEqualToString:NSFileTypeDirectory]) {
             if ([self shouldSkipDirectory:file]) {
                 [delegate_ didSkipDirectory:file];
@@ -132,7 +155,6 @@ static NSString *nonNilValue = @"dummyString";
             NSLog(@"unhandled type %@ for file %@", fileType, file);
         }
     }
-    //NSLog(@"endSearch");
 }
 
 @end

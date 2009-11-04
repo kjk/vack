@@ -6,6 +6,7 @@
 @interface FileSearcher : NSObject {
     id <FileSearchProtocol>     delegate_;
     NSString *                  startDir_;
+    NSString *                  searchPattern_;
     NSMutableDictionary *       dirsToIgnore_;
 }
 

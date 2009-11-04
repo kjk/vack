@@ -128,12 +128,51 @@
  
 */
 
+static char *ansi_color_reset_str() {
+    return "\x1b[0m";
+}
+
+static NSString *ansi_color_reset_nsstring() {
+    return @"\x1b[0m";
+}
+
+static char *ansi_color_match_str() {
+    return "\x1b[135m";
+}
+
+static NSString *ansi_color_match_nsstring() {
+    return @"\x1b[135m";
+}
+
+static char *ansi_color_file_str() {
+    return "\x1b[1;32m";
+}
+
+static NSString *ansi_color_file_nsstring() {
+    return @"\x1b[1;32m";
+}
+
+static void ansi_color_reset() {
+    printf("%s", ansi_color_reset_str());
+}
+
+static void ansi_color_file() {
+    printf("%s", ansi_color_file_str());
+}
+
 @interface SearchResults : NSObject <FileSearchProtocol>
 {
+    NSString *  currFilePath_;
+    int         resultsCount_;
 }
 @end
 
 @implementation SearchResults
+- (void) dealloc {
+    assert(!currFilePath_);
+    [super dealloc];
+}
+
 - (void) didSkipFile:(NSString*)filePath {
     printf("didSkipFile %s\n", [filePath UTF8String]);
 }
@@ -143,15 +182,25 @@
 }
 
 - (void) didFind:(FileSearchResult*)searchResult {
-    printf("didFind\n");
+    if (0 == resultsCount_) {
+        //ansi_color_file();
+        NSString *fileColored = [NSString stringWithFormat:@"%@%@%@", ansi_color_file_nsstring(), currFilePath_, ansi_color_reset_nsstring()];
+        printf("%s\n", [fileColored UTF8String]);
+        //ansi_color_reset();
+    }
+    printf("%s\n", [searchResult->line UTF8String]);
+    ++resultsCount_;
 }
 
 - (void) didStartSearchInFile:(NSString*)filePath {
-    printf("didStartSearchInFile in %s\n", [filePath UTF8String]);
+    assert(!currFilePath_);
+    currFilePath_ = [filePath copy];
+    resultsCount_ = 0;
 }
 
 - (void) didFinishSearchInFile:(NSString*)filePath {
-    printf("didFinishSearchInFile in %s\n", [filePath UTF8String]);
+    [currFilePath_ release];
+    currFilePath_ = nil;
 }
 
 @end
@@ -199,7 +248,6 @@ int main(int argc, char *argv[])
     [fileSearcher setDelegate:sr];
     [fileSearcher startSearch];
 
-    printf("Vack attack!\n");
     [fileSearcher release];
     [sr release];
 Exit:
