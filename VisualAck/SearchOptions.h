@@ -10,6 +10,8 @@ typedef struct {
     int ignore_case;        /* -i, --ignore-case */
     char **ignore_dirs;     /* --ignore-dir=$dir */
     char **no_ignore_dirs;  /* --noignore-dir=$dir */
+    char *search_term;      /* first unrecognized argument */
+    char *search_loc;       /* second unrecognized argument */
 } search_options;
 
 extern search_options g_default_search_options;

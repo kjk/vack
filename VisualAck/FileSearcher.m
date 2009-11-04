@@ -113,7 +113,7 @@ static NSString *nonNilValue = @"dummyString";
 }
 
 - (void)startSearch {
-    NSLog(@"startSearch");
+    //NSLog(@"startSearch");
     NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager]
                                       enumeratorAtPath:startDir_];
     NSString *file;
@@ -121,7 +121,8 @@ static NSString *nonNilValue = @"dummyString";
         NSDictionary *fileAttrs = [dirEnum fileAttributes];
         NSString* fileType = [fileAttrs valueForKey:NSFileType];
         if ([fileType isEqualToString:NSFileTypeRegular]) {
-            [delegate_ didNotFind:file];
+            [delegate_ didStartSearchInFile:file];
+            [delegate_ didFinishSearchInFile:file];
         } else if ([fileType isEqualToString:NSFileTypeDirectory]) {
             if ([self shouldSkipDirectory:file]) {
                 [delegate_ didSkipDirectory:file];
@@ -131,7 +132,7 @@ static NSString *nonNilValue = @"dummyString";
             NSLog(@"unhandled type %@ for file %@", fileType, file);
         }
     }
-    NSLog(@"endSearch");
+    //NSLog(@"endSearch");
 }
 
 @end

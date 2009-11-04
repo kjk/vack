@@ -15,6 +15,8 @@ search_options g_default_search_options = {
     0, /* ignore_case */
     NULL, /* ignore_dirs */
     NULL, /* no_ignore_dirs */
+    NULL, /* search_term */
+    NULL, /* search_loc */
 };
 
 static inline int streq(const char *s1, const char *s2) {
@@ -99,7 +101,14 @@ void cmd_line_to_search_options(search_options *opts, int argc, char *argv[])
                 no_ignore_dirs[no_ignore_dirs_count++] = val;
             }
         } else {
-
+            if (!opts->search_term) {
+                opts->search_term = strdup(arg);
+            } else if (!opts->search_loc) {
+                opts->search_loc = strdup(arg);
+            } else {
+                /* TODO: multiple search locations */
+            }
+            ++curr_arg;
         }
     }
 
@@ -128,5 +137,7 @@ void free_search_options(search_options *options) {
         free(options->no_ignore_dirs);
     }
 
+    free(options->search_term);
+    free(options->search_loc);
     *options = g_default_search_options;
 }

@@ -135,20 +135,25 @@
 
 @implementation SearchResults
 - (void) didSkipFile:(NSString*)filePath {
-    NSLog(@"didSkipFile %@", filePath);
+    printf("didSkipFile %s\n", [filePath UTF8String]);
 }
 
 - (void) didSkipDirectory:(NSString*)dirPath {
-    NSLog(@"didSkipDirectory %@", dirPath);
+    printf("didSkipDirectory %s\n", [dirPath UTF8String]);
 }
 
 - (void) didFind:(FileSearchResult*)searchResult {
-    NSLog(@"didFind");
+    printf("didFind\n");
 }
 
-- (void) didNotFind:(NSString*)filePath {
-    NSLog(@"didNotFind in %@", filePath);
+- (void) didStartSearchInFile:(NSString*)filePath {
+    printf("didStartSearchInFile in %s\n", [filePath UTF8String]);
 }
+
+- (void) didFinishSearchInFile:(NSString*)filePath {
+    printf("didFinishSearchInFile in %s\n", [filePath UTF8String]);
+}
+
 @end
 
 #define VACK_VER "0.01"
@@ -180,6 +185,11 @@ int main(int argc, char *argv[])
     }
 
     if (opts.help) {
+        print_help();
+        goto Exit;
+    }
+
+    if (!opts.search_term) {
         print_help();
         goto Exit;
     }

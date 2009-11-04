@@ -6,7 +6,8 @@
 
 - (void) didSkipFile:(NSString*)filePath;
 - (void) didSkipDirectory:(NSString*)dirPath;
+- (void) didStartSearchInFile:(NSString*)filePath;
+- (void) didFinishSearchInFile:(NSString*)filePath;
 - (void) didFind:(FileSearchResult*)searchResult;
-- (void) didNotFind:(NSString*)filePath;
 
 @end

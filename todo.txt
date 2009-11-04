@@ -1,5 +1,6 @@
 Things to do:
 * do search
+* handle multiple search locations (search_options.search_loc needs to be a list)
 * vack cmd-line executable that invokes VisualAck if needed
 * 'Move to Application folder' http://www.potionfactory.com/node/251
 * remember list of all searches (will results?)

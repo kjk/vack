@@ -14,8 +14,12 @@
     NSLog(@"didFind");
 }
 
-- (void) didNotFind:(NSString*)filePath {
-    NSLog(@"didNotFind %@", filePath);
+- (void) didStartSearchInFile:(NSString*)filePath {
+    NSLog(@"didStartSearchInFile in %@", filePath);
+}
+
+- (void) didFinishSearchInFile:(NSString*)filePath {
+    NSLog(@"didFinishSearchInFile in %@", filePath);
 }
 
 @end
