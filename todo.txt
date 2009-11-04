@@ -1,15 +1,17 @@
-Things to do:
-* highlight search result in console output
+To do before release:
+* 'Move to Application folder' http://www.potionfactory.com/node/251
+* support for multiple matches on one line
 * when printing matched file names, do it relative to the directory being
   searched
-* handle multiple search locations (search_options.search_loc needs to be a list)
-* 'Move to Application folder' http://www.potionfactory.com/node/251
-* remember list of all searches. Remembers search pattern, list
-  of files/directories to search, maybe also search results
-* show list of recent searches in the NSTableView
 * auto-updated with sparkle
 * analyze stats from auto-updates
 * show search results in UI window
+
+Things to do:
+* handle multiple search locations (search_options.search_loc needs to be a list)
+* remember list of all searches. Remembers search pattern, list
+  of files/directories to search, maybe also search results
+* show list of recent searches in the NSTableView
 * build test harness to simulate ack. Will need to change the way tests are
   executed in the harness. Currently invocation looks like:
   perl -T ./capture-stderr stderr.log \.\/ack \-\-noenv Sue \-1 \-h \-\-text t\/text
@@ -23,7 +25,8 @@ Things to do:
 * parse ack config file for compatibility
 
 Done:
-* (2009-11-03) notify delegate about matches; show filename colored
+* (2009-11-03) notify delegate about matches; show filename colored; show matches
+  colored
 * (2009-11-03) improve FileSearchProtocol; parse search term and search location 
     from cmd-line args
 * (2009-10-24) start on FileSearchIterator

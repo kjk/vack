@@ -128,36 +128,42 @@
  
 */
 
-static char *ansi_color_reset_str() {
-    return "\x1b[0m";
+typedef enum {
+    ANSI_COLOR_RESET = 0,
+    ANSI_COLOR_FILE,
+    ANSI_COLOR_MATCH
+} AnsiColor;
+
+// order must match AnsiColor enum
+static NSString *ansiColors[] = {
+    @"\x1b[0m",
+    @"\x1b[1;32m",
+    @"\x1b[30;43m",
+};
+
+static NSString *ansiColor(AnsiColor col) {
+    return ansiColors[col];
 }
 
-static NSString *ansi_color_reset_nsstring() {
-    return @"\x1b[0m";
-}
-
-static char *ansi_color_match_str() {
-    return "\x1b[135m";
-}
-
-static NSString *ansi_color_match_nsstring() {
-    return @"\x1b[135m";
-}
-
-static char *ansi_color_file_str() {
-    return "\x1b[1;32m";
-}
-
-static NSString *ansi_color_file_nsstring() {
-    return @"\x1b[1;32m";
-}
-
-static void ansi_color_reset() {
-    printf("%s", ansi_color_reset_str());
-}
-
-static void ansi_color_file() {
-    printf("%s", ansi_color_file_str());
+/* returns NSString that has part of <s> in a given <range> wrapped in a given
+   ansi <color> */
+static NSString *wrapStringRangeInColor(NSString *s, NSRange range, NSString *color)
+{
+    NSUInteger len = [s length];
+    NSUInteger rangeLastPos = range.location + range.length;
+    assert(rangeLastPos <= len);
+    NSString *before = @"";
+    NSString *after = @"";
+    if (range.location > 0) {
+        before = [s substringToIndex:range.location];
+    }
+    NSString *toWrap = [s substringWithRange:range];
+    if (len > rangeLastPos) {
+        after = [s substringFromIndex:rangeLastPos];
+    }
+    NSString *colorReset = ansiColor(ANSI_COLOR_RESET);
+    return [NSString stringWithFormat:@"%@%@%@%@%@", before, color, toWrap, 
+            colorReset, after];
 }
 
 @interface SearchResults : NSObject <FileSearchProtocol>
@@ -183,12 +189,13 @@ static void ansi_color_file() {
 
 - (void) didFind:(FileSearchResult*)searchResult {
     if (0 == resultsCount_) {
-        //ansi_color_file();
-        NSString *fileColored = [NSString stringWithFormat:@"%@%@%@", ansi_color_file_nsstring(), currFilePath_, ansi_color_reset_nsstring()];
+        // TODO: if not color, don't color
+        NSString *fileColored = [NSString stringWithFormat:@"%@%@%@", ansiColor(ANSI_COLOR_FILE), currFilePath_, ansiColor(ANSI_COLOR_RESET)];
         printf("%s\n", [fileColored UTF8String]);
-        //ansi_color_reset();
     }
-    printf("%s\n", [searchResult->line UTF8String]);
+    // TODO: if not color, don't color
+    NSString *toPrint = wrapStringRangeInColor(searchResult->line, searchResult->matchPos, ansiColor(ANSI_COLOR_MATCH));
+    printf("%s\n", [toPrint UTF8String]);
     ++resultsCount_;
 }
 
