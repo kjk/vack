@@ -1,11 +1,15 @@
 Things to do:
-* do search
+* highlight search result in console output
+* when printing matched file names, do it relative to the directory being
+  searched
 * handle multiple search locations (search_options.search_loc needs to be a list)
-* vack cmd-line executable that invokes VisualAck if needed
 * 'Move to Application folder' http://www.potionfactory.com/node/251
-* remember list of all searches (will results?)
+* remember list of all searches. Remembers search pattern, list
+  of files/directories to search, maybe also search results
 * show list of recent searches in the NSTableView
-* show search results in a nice way
+* auto-updated with sparkle
+* analyze stats from auto-updates
+* show search results in UI window
 * build test harness to simulate ack. Will need to change the way tests are
   executed in the harness. Currently invocation looks like:
   perl -T ./capture-stderr stderr.log \.\/ack \-\-noenv Sue \-1 \-h \-\-text t\/text
@@ -16,6 +20,7 @@ Things to do:
 * detect if outputing to screen or not and based on that set the default flag
   about wheter or not to show colored output; this can be over-written with
   --[no-][color|colour]
+* parse ack config file for compatibility
 
 Done:
 * (2009-11-03) notify delegate about matches; show filename colored
