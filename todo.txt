@@ -1,4 +1,5 @@
 To do before release:
+* build script that pushes build results to s3
 * 'Move to Application folder' http://www.potionfactory.com/node/251
 * support for multiple matches on one line
 * when printing matched file names, do it relative to the directory being
@@ -6,6 +7,7 @@ To do before release:
 * auto-updated with sparkle
 * analyze stats from auto-updates
 * show search results in UI window
+* write a simple web page about the program
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)

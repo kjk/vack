@@ -23,12 +23,16 @@
     return self;
 }
 
-- (void) buildSearchResult {
-    currSearchResult_.line = currLine_;
-    currSearchResult_.lineNo = currLineNo_;
-    currSearchResult_.lineOff = 0; // TODO: don't have this info yet
-    currSearchResult_.filePath = path_;
-    currSearchResult_.matchPos = currMatchPos_;
+- (void) addSearchResult {
+    int count = currSearchResult_.matchesCount;
+    if (0 == count) {
+        currSearchResult_.line = currLine_;
+        currSearchResult_.lineNo = currLineNo_;
+        currSearchResult_.lineOff = 0; // TODO: don't have this info yet
+        currSearchResult_.filePath = path_;
+    }
+    currSearchResult_.matches[count] = currMatchPos_;
+    currSearchResult_.matchesCount++;
 }
 
 - (FileSearchResult*)getNextSearchResult {
@@ -37,8 +41,9 @@
         if (!currLine_)
             return nil;
         currMatchPos_ = [currLine_ rangeOfRegex:searchPattern_];
+        currSearchResult_.matchesCount = 0;
         if (currMatchPos_.location != NSNotFound) {
-            [self buildSearchResult];
+            [self addSearchResult];
             return &currSearchResult_;
         }
     }
