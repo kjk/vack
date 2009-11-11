@@ -1,7 +1,7 @@
 To do before release:
+* limit what is searched if there are files/directories given on cmd-line
 * build script that pushes build results to s3
 * 'Move to Application folder' http://www.potionfactory.com/node/251
-* support for multiple matches on one line
 * when printing matched file names, do it relative to the directory being
   searched
 * auto-updated with sparkle
@@ -27,6 +27,7 @@ Things to do:
 * parse ack config file for compatibility
 
 Done:
+* (2009-11-10) support for multiple matches on one line
 * (2009-11-03) notify delegate about matches; show filename colored; show matches
   colored
 * (2009-11-03) improve FileSearchProtocol; parse search term and search location 

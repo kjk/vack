@@ -147,23 +147,32 @@ static NSString *ansiColor(AnsiColor col) {
 
 /* returns NSString that has part of <s> in a given <range> wrapped in a given
    ansi <color> */
-static NSString *wrapStringRangeInColor(NSString *s, NSRange range, NSString *color)
+static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *ranges, NSString *color)
 {
-    NSUInteger len = [s length];
-    NSUInteger rangeLastPos = range.location + range.length;
-    assert(rangeLastPos <= len);
-    NSString *before = @"";
-    NSString *after = @"";
-    if (range.location > 0) {
-        before = [s substringToIndex:range.location];
-    }
-    NSString *toWrap = [s substringWithRange:range];
-    if (len > rangeLastPos) {
-        after = [s substringFromIndex:rangeLastPos];
-    }
+    int locOffset = 0;
+    NSString *sWrapped = s;
     NSString *colorReset = ansiColor(ANSI_COLOR_RESET);
-    return [NSString stringWithFormat:@"%@%@%@%@%@", before, color, toWrap, 
-            colorReset, after];
+    for (int i=0; i < rangesCount; i++)
+    {
+        NSRange range = ranges[i];
+        range.location += locOffset;
+        NSUInteger len = [sWrapped length];
+        NSUInteger rangeLastPos = range.location + range.length;
+        assert(rangeLastPos <= len);
+        NSString *before = @"";
+        NSString *after = @"";
+        if (range.location > 0) {
+            before = [sWrapped substringToIndex:range.location];
+        }
+        NSString *toWrap = [sWrapped substringWithRange:range];
+        if (len > rangeLastPos) {
+            after = [sWrapped substringFromIndex:rangeLastPos];
+        }
+        sWrapped = [NSString stringWithFormat:@"%@%@%@%@%@", before, color, toWrap, 
+                colorReset, after];
+        locOffset = locOffset + [color length] + [colorReset length];
+    }
+    return sWrapped;
 }
 
 @interface SearchResults : NSObject <FileSearchProtocol>
@@ -194,7 +203,7 @@ static NSString *wrapStringRangeInColor(NSString *s, NSRange range, NSString *co
         printf("%s\n", [fileColored UTF8String]);
     }
     // TODO: if not color, don't color
-    NSString *toPrint = wrapStringRangeInColor(searchResult->line, searchResult->matches[0], ansiColor(ANSI_COLOR_MATCH));
+    NSString *toPrint = wrapStringRangesInColor(searchResult->line, searchResult->matchesCount, searchResult->matches, ansiColor(ANSI_COLOR_MATCH));
     printf("%s\n", [toPrint UTF8String]);
     ++resultsCount_;
 }

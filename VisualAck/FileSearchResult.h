@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-#define MAX_MATCHES_PER_LINE 32
+#define MAX_MATCHES_PER_LINE 16
 
 typedef struct {
     // filePath and line are just references, use immediately, don't release.

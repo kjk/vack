@@ -40,12 +40,21 @@
         currLine_ = [self getNextLine:&currLineNo_];
         if (!currLine_)
             return nil;
-        currMatchPos_ = [currLine_ rangeOfRegex:searchPattern_];
         currSearchResult_.matchesCount = 0;
-        if (currMatchPos_.location != NSNotFound) {
+        int lineLen = [currLine_ length];
+        NSRange toSearchRange;
+        toSearchRange.location = 0;
+        toSearchRange.length = lineLen;
+        for (;;) {
+            currMatchPos_ = [currLine_ rangeOfRegex:searchPattern_ inRange:toSearchRange];
+            if (currMatchPos_.location == NSNotFound)
+                break;
             [self addSearchResult];
-            return &currSearchResult_;
+            toSearchRange.location = currMatchPos_.location + currMatchPos_.length;
+            toSearchRange.length = lineLen - toSearchRange.location;
         }
+        if (currSearchResult_.matchesCount > 0)
+            return &currSearchResult_;
     }
 }
 
