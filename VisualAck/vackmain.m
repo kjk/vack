@@ -196,6 +196,10 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
     printf("didSkipDirectory %s\n", [dirPath UTF8String]);
 }
 
+- (void) didSkipNonExistent:(NSString*)path {
+    printf("didSkipNonExistent %s\n", [path UTF8String]);
+}
+
 - (void) didFind:(FileSearchResult*)searchResult {
     if (0 == resultsCount_) {
         // TODO: if not color, don't color
@@ -237,13 +241,10 @@ int main(int argc, char *argv[])
 {
     int exit_status = 0;
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    search_options opts = g_default_search_options;
+    search_options opts;
+    init_search_options(&opts);
     cmd_line_to_search_options(&opts, argc, argv);
-    NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
-    if (nil == cwd) {
-        printf("Couldn't get current directory\n");
-        return 1;
-    }
+    
     if (opts.version) {
         print_version();
         goto Exit;
@@ -259,7 +260,17 @@ int main(int argc, char *argv[])
         goto Exit;
     }
 
-    FileSearcher *fileSearcher = [[FileSearcher alloc] initWithDirectory:cwd searchOptions:&opts];
+    // if search locations not given on cmd line, search current directory
+    if (opts.search_loc_count == 0) {
+        NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
+        if (nil == cwd) {
+            printf("Couldn't get current directory\n");
+            return 1;
+        }
+        add_search_location(&opts, [cwd UTF8String]);
+    }
+    
+    FileSearcher *fileSearcher = [[FileSearcher alloc] initWithSearchOptions:&opts];
     SearchResults *sr = [[SearchResults alloc] init];
     [fileSearcher setDelegate:sr];
     [fileSearcher startSearch];

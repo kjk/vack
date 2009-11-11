@@ -1,13 +1,14 @@
 To do before release:
-* limit what is searched if there are files/directories given on cmd-line
+* show search results in UI window
+* auto-updated with sparkle
 * build script that pushes build results to s3
 * 'Move to Application folder' http://www.potionfactory.com/node/251
 * when printing matched file names, do it relative to the directory being
   searched
-* auto-updated with sparkle
 * analyze stats from auto-updates
-* show search results in UI window
 * write a simple web page about the program
+* a way to stop search (e.g. when user press a button in the ui). Possibly by
+  returning BOOL from delegate methods, returning NO would mean "stop"
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)
@@ -27,6 +28,7 @@ Things to do:
 * parse ack config file for compatibility
 
 Done:
+* (2009-11-10) limit what is searched if there are files/directories given on cmd-line
 * (2009-11-10) support for multiple matches on one line
 * (2009-11-03) notify delegate about matches; show filename colored; show matches
   colored

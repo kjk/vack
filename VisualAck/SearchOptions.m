@@ -6,7 +6,7 @@
  precompiled headers.
 */
 
-search_options g_default_search_options = {
+static search_options g_default_search_options = {
     1, /* use_gui */
     0, /* noenv */
     0, /* help */
@@ -16,6 +16,7 @@ search_options g_default_search_options = {
     NULL, /* ignore_dirs */
     NULL, /* no_ignore_dirs */
     NULL, /* search_term */
+    0, /* search_loc_count */
     NULL, /* search_loc */
 };
 
@@ -46,7 +47,20 @@ static char **char_array_dup(char **arr, int count) {
     return res;
 }
 
+void init_search_options(search_options *opts)
+{
+    *opts = g_default_search_options;
+}
+
 #define MAX_DIRS 32
+
+void add_search_location(search_options *opts, const char *search_loc)
+{
+    if (opts->search_loc_count >= MAX_SEARCH_LOCS)
+        return;
+    assert(search_loc);
+    opts->search_loc[opts->search_loc_count++] = strdup(search_loc);
+}
 
 void cmd_line_to_search_options(search_options *opts, int argc, char *argv[]) 
 {
@@ -103,10 +117,8 @@ void cmd_line_to_search_options(search_options *opts, int argc, char *argv[])
         } else {
             if (!opts->search_term) {
                 opts->search_term = strdup(arg);
-            } else if (!opts->search_loc) {
-                opts->search_loc = strdup(arg);
             } else {
-                /* TODO: multiple search locations */
+                add_search_location(opts, arg);
             }
             ++curr_arg;
         }
@@ -138,6 +150,8 @@ void free_search_options(search_options *options) {
     }
 
     free(options->search_term);
-    free(options->search_loc);
+    for (i = 0; i < options->search_loc_count; i++) {
+        free(options->search_loc[i]);
+    }
     *options = g_default_search_options;
 }

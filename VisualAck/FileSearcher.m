@@ -80,12 +80,12 @@ static NSString *nonNilValue = @"dummyString";
     dirsToIgnore_ = [dict retain];
 }
 
-- (id)initWithDirectory:(NSString*)path searchOptions:(search_options*)opts {
+- (id)initWithSearchOptions:(search_options*)opts {
     self = [super init];
     if (!self)
         return nil;
 
-    startDir_ = [path copy];
+    opts_ = opts;
     searchPattern_ = [NSString stringWithUTF8String:opts->search_term];
     if (opts->ignore_dirs || opts->no_ignore_dirs) {
         [self buildDirsToIgnoreDict:opts];
@@ -120,8 +120,14 @@ static NSString *nonNilValue = @"dummyString";
     return NO;
 }
 
-- (void)searchInFile:(NSString*)fileName {
-    NSString *filePath = [startDir_ stringByAppendingPathComponent:fileName];
+- (void)searchFile:(NSString*)fileName inDir:(NSString*)dir {
+    
+    NSString *filePath;
+    if (dir) {
+        filePath = [dir stringByAppendingPathComponent:fileName];
+    } else {
+        filePath = fileName;
+    }
     FileSearchIterator *fileSearchIter = [FileSearchIterator fileSearchIteratorWithFileName:filePath searchPattern:searchPattern_];    
     [delegate_ didStartSearchInFile:filePath];
     FileSearchResult *searchResult;
@@ -134,9 +140,9 @@ static NSString *nonNilValue = @"dummyString";
     [delegate_ didFinishSearchInFile:filePath];
 }
 
-- (void)startSearch {
+- (void)searchDir:(NSString*)dir {
     NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager]
-                                      enumeratorAtPath:startDir_];
+                                      enumeratorAtPath:dir];
     NSString *file;
     for (file in dirEnum) {
         NSDictionary *fileAttrs = [dirEnum fileAttributes];
@@ -144,7 +150,7 @@ static NSString *nonNilValue = @"dummyString";
         if ([fileType isEqualToString:NSFileTypeRegular]) {
             if ([self shouldSkipFile:file]) {
             } else {
-                [self searchInFile:file];
+                [self searchFile:file inDir:dir];
             }
         } else if ([fileType isEqualToString:NSFileTypeDirectory]) {
             if ([self shouldSkipDirectory:file]) {
@@ -153,6 +159,25 @@ static NSString *nonNilValue = @"dummyString";
             }
         } else {
             NSLog(@"unhandled type %@ for file %@", fileType, file);
+        }
+    }   
+}
+
+- (void)startSearch {
+    int i;
+    NSFileManager *fm = [NSFileManager defaultManager];
+    for (i = 0; i < opts_->search_loc_count; i++) {
+        char *s = opts_->search_loc[i];
+        NSString *dirOrFile = [NSString stringWithUTF8String:s];
+        BOOL isDir = NO;
+        if (![fm fileExistsAtPath:dirOrFile isDirectory:&isDir]) {
+            [delegate_ didSkipNonExistent:dirOrFile];
+            continue;
+        }
+        if (isDir) {
+            [self searchDir:dirOrFile];
+        } else {
+            [self searchFile:dirOrFile inDir:nil];
         }
     }
 }

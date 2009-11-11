@@ -5,12 +5,12 @@
 
 @interface FileSearcher : NSObject {
     id <FileSearchProtocol>     delegate_;
-    NSString *                  startDir_;
+    search_options *            opts_;
     NSString *                  searchPattern_;
     NSMutableDictionary *       dirsToIgnore_;
 }
 
-- (id)initWithDirectory:(NSString*)path searchOptions:(search_options*)opts;
+- (id)initWithSearchOptions:(search_options*)opts;
 
 - (void)setDelegate:(id <FileSearchProtocol>)delegate;
 - (id <FileSearchProtocol>)delegate;
