@@ -10,8 +10,8 @@
     NSLog(@"didSkipDirectory %@", dirPath);
 }
 
-- (void) didFind:(FileSearchResult*)searchResult {
-    NSLog(@"didFind");
+- (void) didSkipNonExistent:(NSString*)path {
+    NSLog(@"didSkipNonExistent %@", path);    
 }
 
 - (void) didStartSearchInFile:(NSString*)filePath {
@@ -20,6 +20,10 @@
 
 - (void) didFinishSearchInFile:(NSString*)filePath {
     NSLog(@"didFinishSearchInFile in %@", filePath);
+}
+
+- (void) didFind:(FileSearchResult*)searchResult {
+    NSLog(@"didFind");
 }
 
 @end
