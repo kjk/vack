@@ -1,7 +1,7 @@
 To do before release:
-* show search results in UI window
-* auto-updated with sparkle
 * build script that pushes build results to s3
+* auto-updated with sparkle
+* show search results in UI window
 * 'Move to Application folder' http://www.potionfactory.com/node/251
 * when printing matched file names, do it relative to the directory being
   searched
