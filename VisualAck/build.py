@@ -56,21 +56,25 @@ def s3connection():
 def s3PubBucket(): return s3connection().get_bucket(S3_BUCKET)
 
 def ul_cb(sofar, total):
-  print("So far: %d, total: %d" % (sofar , total))
+    if 0 ! = sofar:
+        print("So far: %d, total: %d" % (sofar , total))
 
 def s3UploadFilePublic(local_file_name, remote_file_name):
-  bucket = s3PubBucket()
-  k = Key(bucket)
-  k.key = remote_file_name
-  k.set_contents_from_filename(local_file_name, cb=ul_cb)
-  k.make_public()
+    print("Uploading public '%s' as '%s'" % (local_file_name, remote_file_name))
+    bucket = s3PubBucket()
+    k = Key(bucket)
+    k.key = remote_file_name
+    k.set_contents_from_filename(local_file_name, cb=ul_cb)
+    k.make_public()
 
 def s3UploadDataPublic(data, remote_file_name):
-  bucket = s3PubBucket()
-  k = Key(bucket)
-  k.key = remote_file_name
-  k.set_contents_from_string(data)
-  k.make_public()
+    print("Uploading public data as '%s'" % remote_file_name)
+    bucket = s3PubBucket()
+    k = Key(bucket)
+    k.key = remote_file_name
+    k.content_type = mimetypes.guess_type(remote_file_name)[0]
+    k.set_contents_from_string(data, cb=ul_cb)
+    k.make_public()
 
 def s3Exists(key_name):
     bucket = s3PubBucket()

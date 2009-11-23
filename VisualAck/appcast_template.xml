@@ -8,12 +8,12 @@
     <item>
       <title>VisualAck</title>
       <sparkle:releaseNotesLink>https://kjkpub.s3.amazonaws.com/vack/relnotes.html</sparkle:releaseNotesLink>
-      <pubDate>Mon, 23 Nov 09 03:56:40 -0800</pubDate>
+      <pubDate>Mon, 23 Nov 09 04:23:27 -0800</pubDate>
       <enclosure
         url="https://kjkpub.s3.amazonaws.com/vack/BTerm-0.1.6.zip"
         sparkle:version="0.1"
         sparkle:shortVersionString="0.1"
-        length="1976406"
+        length="1976430"
         sparkle:minimumSystemVersion="10.4"
         type="application/octet-stream" />
     </item>
