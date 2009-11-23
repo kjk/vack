@@ -9,7 +9,17 @@
 #       vack/sumatralatest.js
 #       vack/sumpdf-prerelease-latest.txt
 
-import sys, os, os.path, subprocess, time
+import sys
+import os
+import os.path
+import re
+import time
+import subprocess
+import stat 
+import shutil
+import mimetypes
+import relnotes
+
 try:
     import boto.s3
     from boto.s3.key import Key
@@ -29,10 +39,10 @@ SRC_DIR = os.path.dirname(os.path.realpath(__file__))
 RELEASE_BUILD_DIR = os.path.join(SRC_DIR, "build", "Release")
 INFO_PLIST_PATH = os.path.realpath(os.path.join(SRC_DIR, "VisualAck-Info.plist"))
 APP_CAST_PATH = os.path.join(SRC_DIR, "appcast_template.xml")
-S3_APPCAST_NAME = "bterm/appcast.xml"
-S3_LATEST_VER_NAME = "bterm/latestver.js"
-S3_RELNOTES_PATH = "bterm/relnotes.html"
-S3_ATOM_PATH = "bterm/relnotes.xml"
+S3_APPCAST_NAME = "vack/appcast.xml"
+S3_LATEST_VER_NAME = "vack/latestver.js"
+S3_RELNOTES_PATH = "vack/relnotes.html"
+S3_ATOM_PATH = "vack/relnotes.xml"
 
 S3_BUCKET = "kjkpub"
 g_s3conn = None
@@ -62,6 +72,52 @@ def s3UploadDataPublic(data, remote_file_name):
   k.set_contents_from_string(data)
   k.make_public()
 
+def s3Exists(key_name):
+    bucket = s3PubBucket()
+    key = bucket.get_key(key_name)
+    return key != None
+
+def s3relnotes_name(version):
+    return "vack/relnotes-%s.html" % version
+
+def s3zip_name(version):
+    return "vack/BTerm-%s.zip" % version
+
+def exit_with_error(s):
+    print(s)
+    sys.exit(1)
+
+def ensure_dir_exists(path):
+    if not os.path.exists(path) or not os.path.isdir(path):
+        exit_with_error("Directory '%s' desn't exist" % path)
+
+def ensure_file_exists(path):
+    if not os.path.exists(path) or not os.path.isfile(path):
+        exit_with_error("File '%s' desn't exist" % path)
+
+def ensure_file_doesnt_exist(path):
+    if os.path.exists(path):
+        exit_with_error("File '%s' already exists and shouldn't. Forgot to update version in Info.plist?" % path)
+
+def ensure_s3_doesnt_exist(key_path):
+    if s3Exists(key_path):
+        exit_with_error("Url '%s' already exists" % key_path)
+
+def readfile(path):
+    fo = open(path)
+    data = fo.read()
+    fo.close()
+    return data
+
+def writefile(path, data):
+    fo = open(path, "w")
+    fo.write(data)
+    fo.close()
+
+def get_file_size(filename):
+    st = os.stat(filename)
+    return st[stat.ST_SIZE]
+
 # like cmdrun() but throws an exception on failure
 def run_cmd_throw(*args):
   cmd = " ".join(args)
@@ -77,14 +133,6 @@ def run_cmd_throw(*args):
     print(res[1])
     raise Exception("'%s' failed with error code %d" % (cmd, errcode))
   return (res[0], res[1])
-
-def exit_with_error(s):
-    print(s)
-    sys.exit(1)
-
-def ensure_file_exists(path):
-    if not os.path.exists(path) or not os.path.isfile(path):
-        exit_with_error("File '%s' desn't exist" % path)
 
 # build version is either x.y or x.y.z
 def ensure_valid_version(version):

@@ -32,7 +32,7 @@
 		7F7AAF661097B596009D785D /* VisualAck.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7F7AAF651097B596009D785D /* VisualAck.icns */; };
 		7F884915106476810041161E /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F884914106476810041161E /* MainWindowController.m */; };
 		7F8EF96F10B92E44001AF18B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8EF96E10B92E44001AF18B /* Sparkle.framework */; };
-		7F8EF98A10B92EF0001AF18B /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7F8EF96E10B92E44001AF18B /* Sparkle.framework */; };
+		7F9F2D3C10BA330D00287C32 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7F8EF96E10B92E44001AF18B /* Sparkle.framework */; };
 		7FC0F8F410647CA40000B779 /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7FC0F8F310647CA40000B779 /* todo.txt */; };
 		7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA0106708A500A1927D /* SearchResults.xib */; };
 		7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */; };
@@ -76,13 +76,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7F8EF98910B92EDA001AF18B /* CopyFiles */ = {
+		7F9F2D4010BA333200287C32 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 10;
 			files = (
-				7F8EF98A10B92EF0001AF18B /* Sparkle.framework in CopyFiles */,
+				7F9F2D3C10BA330D00287C32 /* Sparkle.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,7 +326,7 @@
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				7F8EF98910B92EDA001AF18B /* CopyFiles */,
+				7F9F2D4010BA333200287C32 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -601,7 +601,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
-				GCC_ENABLE_OBJC_GC = supported;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -626,7 +626,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
-				GCC_ENABLE_OBJC_GC = supported;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
