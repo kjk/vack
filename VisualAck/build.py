@@ -81,7 +81,7 @@ def s3relnotes_name(version):
     return "vack/relnotes-%s.html" % version
 
 def s3zip_name(version):
-    return "vack/BTerm-%s.zip" % version
+    return "vack/VisualAck-%s.zip" % version
 
 def exit_with_error(s):
     print(s)

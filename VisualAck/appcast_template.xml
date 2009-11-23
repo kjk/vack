@@ -6,14 +6,14 @@
     <description>Most recent version available.</description>
     <language>en</language>
     <item>
-      <title>BTerm</title>
+      <title>VisualAck</title>
       <sparkle:releaseNotesLink>https://kjkpub.s3.amazonaws.com/vack/relnotes.html</sparkle:releaseNotesLink>
-      <pubDate>Mon, 23 Nov 09 03:30:58 -0800</pubDate>
+      <pubDate>Mon, 23 Nov 09 03:56:40 -0800</pubDate>
       <enclosure
         url="https://kjkpub.s3.amazonaws.com/vack/BTerm-0.1.6.zip"
         sparkle:version="0.1"
         sparkle:shortVersionString="0.1"
-        length="1976361"
+        length="1976406"
         sparkle:minimumSystemVersion="10.4"
         type="application/octet-stream" />
     </item>
