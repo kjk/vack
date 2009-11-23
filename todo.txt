@@ -1,12 +1,14 @@
 To do before release:
-* build script that pushes build results to s3
-* auto-updated with sparkle
+* write a simple web page about the program
+* launch UI from vack
+* if doesn't exist, create link /usr/local/bin/vack to wherever vack lives
+* sumbit crash reports to a website
+* UserVoice page for VisualAck
 * show search results in UI window
-* 'Move to Application folder' http://www.potionfactory.com/node/251
 * when printing matched file names, do it relative to the directory being
   searched
+* 'Move to Application folder' http://www.potionfactory.com/node/251
 * analyze stats from auto-updates
-* write a simple web page about the program
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
 
@@ -28,24 +30,52 @@ Things to do:
 * parse ack config file for compatibility
 
 Done:
-* (2009-11-10) limit what is searched if there are files/directories given on cmd-line
-* (2009-11-10) support for multiple matches on one line
-* (2009-11-03) notify delegate about matches; show filename colored; show matches
+
+2009-11-22:
+ * build script
+ * auto-updates with Sparkle
+
+2009-11-10
+ * limit what is searched if there are files/directories given on cmd-line
+ * support for multiple matches on one line
+
+2009-11-03
+ * notify delegate about matches; show filename colored; show matches
   colored
-* (2009-11-03) improve FileSearchProtocol; parse search term and search location 
+ * improve FileSearchProtocol; parse search term and search location 
     from cmd-line args
-* (2009-10-24) start on FileSearchIterator
-* (2009-10-24) better tests for [FileLineIterator getNextLine] that also check content
-* (2009-10-24) fixed [FileLineIterator getNextLine]
-* (2009-10-23) work on unit tests for FileLineIterator
-* (2009-10-08) started on loc.py
-* (2009-10-07) FileLineIterator
-* (2009-10-02) list of default dirs to ignore from ack
-* (2009-10-02) interpret and observe --ignore-dir=$dir and --no-ignore-dir=$dir cmd line arguments
-* (2009-10-01) started on scaning files
-* (2009-09-23) started on vack cmd-line program
-* (2009-09-23) understanding ack test suite
-* (2009-09-22) imported ack test suite
-* (2009-09-21) disable search button if search term or dir is not yet selected
-* (2009-09-21) initial state of search directory (~)
-* (2009-09-18) started the project
+
+2009-10-24
+ * start on FileSearchIterator
+ * better tests for [FileLineIterator getNextLine] that also check content
+ * fixed [FileLineIterator getNextLine]
+
+2009-10-23
+ * work on unit tests for FileLineIterator
+
+2009-10-08
+ * started on loc.py
+
+2009-10-07
+ * FileLineIterator
+
+2009-10-02
+ * list of default dirs to ignore from ack
+ * interpret and observe --ignore-dir=$dir and --no-ignore-dir=$dir cmd line arguments
+
+2009-10-01
+ * started on scaning files
+
+2009-09-23
+ * started on vack cmd-line program
+ * understanding ack test suite
+
+2009-09-22
+ * imported ack test suite
+
+2009-09-21
+ * disable search button if search term or dir is not yet selected
+ * initial state of search directory (~)
+
+2009-09-18
+ * started the project

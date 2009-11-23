@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>0.1</string>
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>LSMinimumSystemVersion</key>
@@ -30,5 +30,13 @@
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
 	<string>https://kjkpub.s3.amazonaws.com/vack/appcast.xml</string>
+	<key>SUEnableAutomaticChecks</key>
+	<string>YES</string>
+	<key>SUScheduledCheckInterval</key>
+	<string>86400</string>
+	<key>SUEnableSystemProfiling</key>
+	<string>YES</string>
+	<key>SUAlwaysSendProfileInfo</key>
+	<string>YES</string>
 </dict>
 </plist>

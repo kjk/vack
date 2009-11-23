@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>VisualAck Changelog</title>
+    <link>https://kjkpub.s3.amazonaws.com/vack/appcast.xml</link>
+    <description>Most recent version available.</description>
+    <language>en</language>
+    <item>
+      <title>BTerm</title>
+      <sparkle:releaseNotesLink>https://kjkpub.s3.amazonaws.com/vack/relnotes.html</sparkle:releaseNotesLink>
+      <pubDate>Mon, 23 Nov 09 03:30:58 -0800</pubDate>
+      <enclosure
+        url="https://kjkpub.s3.amazonaws.com/vack/BTerm-0.1.6.zip"
+        sparkle:version="0.1"
+        sparkle:shortVersionString="0.1"
+        length="1976361"
+        sparkle:minimumSystemVersion="10.4"
+        type="application/octet-stream" />
+    </item>
+  </channel>
+</rss>

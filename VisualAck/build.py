@@ -134,15 +134,6 @@ def run_cmd_throw(*args):
     raise Exception("'%s' failed with error code %d" % (cmd, errcode))
   return (res[0], res[1])
 
-# build version is either x.y or x.y.z
-def ensure_valid_version(version):
-    m = re.match("\d+\.\d+", version)
-    if m: return
-    m = re.match("\d+\.\d+\.\d+", version)
-    if m: return
-    print("version ('%s') should be in format: x.y or x.y.z" % version)
-    sys.exit(1)
-
 # a really ugly way to extract version from Info.plist
 def extract_version_from_plist(plist_path):
     plist = readfile(plist_path)
@@ -158,11 +149,94 @@ def extract_version_from_plist(plist_path):
     #print("version: '%s'" % version)
     return version
 
+# build version is either x.y or x.y.z
+def ensure_valid_version(version):
+    m = re.match("\d+\.\d+", version)
+    if m: return
+    m = re.match("\d+\.\d+\.\d+", version)
+    if m: return
+    print("version ('%s') should be in format: x.y or x.y.z" % version)
+    sys.exit(1)
+
+def zip_name(version):
+    return "VisualAck-%s.zip" % version
+
+def zip_path(version):
+    return os.path.join(RELEASE_BUILD_DIR, zip_name(version))
+
+def zip_url(version):
+    return "https://kjkpub.s3.amazonaws.com/vack/" + zip_name(version)
+
+def build_and_zip(version):
+    #os.chdir(SRC_DIR)
+    print("Cleaning release target...")
+    xcodeproj = "VisualAck.xcodeproj"
+    run_cmd_throw("xcodebuild", "-project", xcodeproj, "-configuration", "Release", "clean");
+    print("Building release target...")
+    (out, err) = run_cmd_throw("xcodebuild", "-project", xcodeproj, "-configuration", "Release", "-target", "VisualAck")
+    ensure_dir_exists(RELEASE_BUILD_DIR)
+    os.chdir(RELEASE_BUILD_DIR)
+    (out, err) = run_cmd_throw("zip", "-9", "-r", zip_name(version), "VisualAck.app")
+
+def latest_js(version):
+    return """
+var vackLatestUrl = "%s";
+var vackLatestName = "%s";
+var vackBuiltOn = "%s";
+""" % (zip_url(version), zip_name(version), time.strftime("%Y-%m-%d"))
+
+def get_appcast(path, version, length):
+    appcast = readfile(path)
+
+    newver = 'sparkle:version="%s"' % version
+    appcast = re.sub("sparkle:version=\"[^\"]*\"", newver, appcast)
+
+    newshortver = 'sparkle:shortVersionString="%s"' % version
+    appcast = re.sub("sparkle:shortVersionString=\"[^\"]*\"", newshortver, appcast)
+
+    newpubdate = "<pubDate>%s</pubDate>" % time.strftime("%a, %d %b %y %H:%M:%S %z", time.gmtime())
+    prevappcast = appcast
+    #appcast = re.sub('<pubDate>.?</pubDate>', newpubdate, appcast)
+    appcast = re.sub('<pubDate>.*</pubDate>', newpubdate, appcast)
+    if appcast == prevappcast:
+        exit_with_error("pubDate didn't got updated")
+
+    newlen = 'length="%d"' % length
+    appcast = re.sub("length=\"[^\"]*\"", newlen, appcast)
+    writefile(path, appcast)
+
+    newurl = 'url="%s"' % zip_url(version)
+    appcast = re.sub('url="[^\"]*"', newurl, appcast)
+    return appcast
+
 def main():
+    upload = "-upload" in sys.argv or "--upload" in sys.argv
+    if upload:
+        print("Building and uploading VisualAck")
+    else:
+        print("Building but not uploading VisualAck")
     ensure_file_exists(INFO_PLIST_PATH)
     ensure_file_exists(APP_CAST_PATH)
     version = extract_version_from_plist(INFO_PLIST_PATH)
-    print(version)
+    ensure_valid_version(version)
+    relnotes.validate_relnotes(version)
+    relnotes_html = relnotes.relnotes_html()
+    relnotes_atom = relnotes.relnotes_atom()
+
+    ensure_s3_doesnt_exist(s3relnotes_name(version))
+    ensure_s3_doesnt_exist(s3zip_name(version))
+
+    build_and_zip(version)
+    ensure_file_exists(zip_path(version))
+    length = get_file_size(zip_path(version))
+    appcast = get_appcast(APP_CAST_PATH, version, length)
+
+    if upload:
+        s3UploadDataPublic(appcast, S3_APPCAST_NAME)
+        s3UploadDataPublic(latest_js(version), S3_LATEST_VER_NAME)
+        s3UploadFilePublic(zip_path(version), s3zip_name(version))
+        s3UploadDataPublic(relnotes_html, S3_RELNOTES_PATH)
+        s3UploadDataPublic(relnotes_atom, S3_ATOM_PATH)
 
 if __name__ == "__main__":
     main()
