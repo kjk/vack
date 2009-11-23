@@ -9,6 +9,10 @@
 #       vack/sumatralatest.js
 #       vack/sumpdf-prerelease-latest.txt
 
+# TODO:
+#  - should also save every version of appcast and relnotes, so that it's
+#    possible to rollback a bad update
+
 import sys
 import os
 import os.path
