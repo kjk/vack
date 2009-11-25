@@ -2,3 +2,7 @@
 *.pbxuser
 VisualAck/build/
 *.pyc
+awscreds.py
+ack-tests/cmdlog.txt
+ack-tests/foofoo.txt
+ack-tests/out.txt

@@ -1,4 +1,5 @@
 #import "MainWindowController.h"
+#import "CrashReporter.h"
 
 @interface MainWindowController(Private)
 - (BOOL)isSearchButtonEnabled;
@@ -11,6 +12,10 @@
     [dirField_ setStringValue:@"~"];
     [self updateSearchButtonStatus];
     [[self window] makeFirstResponder:searchTermField_];
+    NSArray *crashReports = [CrashReporter findCrashReports];
+    if (crashReports) {
+        [CrashReporter submitAndDeleteCrashReports:crashReports];
+    }
 }
 
 - (BOOL)isSearchButtonEnabled {

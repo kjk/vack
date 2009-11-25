@@ -1,10 +1,9 @@
 To do before release:
-* write a simple web page about the program
-* launch UI from vack
-* if doesn't exist, create link /usr/local/bin/vack to wherever vack lives
 * sumbit crash reports to a website
-* UserVoice page for VisualAck
+* launch UI from vack
 * show search results in UI window
+* send more data with update checks
+* if doesn't exist, create link /usr/local/bin/vack to wherever vack lives
 * when printing matched file names, do it relative to the directory being
   searched
 * 'Move to Application folder' http://www.potionfactory.com/node/251
@@ -28,10 +27,17 @@ Things to do:
   about wheter or not to show colored output; this can be over-written with
   --[no-][color|colour]
 * parse ack config file for compatibility
+* search large files (bigger than, say, 1MB) at the end (to improve user experience)
+* multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 
 Done:
 
+2009-11-24:
+ * work on submitting crash reports to a website
+
 2009-11-22:
+ * UserVoice page for VisualAck
+ * write a simple web page about the program
  * build script
  * auto-updates with Sparkle
 
