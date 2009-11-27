@@ -17,6 +17,7 @@
 		7F267B921076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
 		7F52F49110BE742500D9395A /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52F49010BE742500D9395A /* Http.m */; };
 		7F52F49210BE742500D9395A /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52F49010BE742500D9395A /* Http.m */; };
+		7F52F56B10BFA3E700D9395A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F52F56A10BFA3E700D9395A /* Security.framework */; };
 		7F599C701092893A00933EFC /* utassert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599C6F1092893A00933EFC /* utassert.m */; };
 		7F599CCC109294F900933EFC /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
 		7F599DF31093E4DE00933EFC /* FileSearchIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599DF21093E4DE00933EFC /* FileSearchIterator.m */; };
@@ -38,7 +39,6 @@
 		7F8EF9BB10BD259F001AF18B /* CrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EF9B910BD259F001AF18B /* CrashReporter.m */; };
 		7F9F2D3C10BA330D00287C32 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8EF96E10B92E44001AF18B /* Sparkle.framework */; };
 		7FA475C610BA37300050E022 /* vack in Copy Executables */ = {isa = PBXBuildFile; fileRef = 7FD0FFD1106B0A9B00A1927D /* vack */; };
-		7FC0F8F410647CA40000B779 /* todo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7FC0F8F310647CA40000B779 /* todo.txt */; };
 		7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA0106708A500A1927D /* SearchResults.xib */; };
 		7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */; };
 		7FD0FFD7106B0B7000A1927D /* vackmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFD6106B0B7000A1927D /* vackmain.m */; };
@@ -96,7 +96,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 6;
+			dstSubfolderSpec = 7;
 			files = (
 				7FA475C610BA37300050E022 /* vack in Copy Executables */,
 			);
@@ -126,6 +126,7 @@
 		7F267B901076E86D000C2C6C /* SearchOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchOptions.m; sourceTree = "<group>"; };
 		7F52F48F10BE742500D9395A /* Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Http.h; sourceTree = "<group>"; };
 		7F52F49010BE742500D9395A /* Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Http.m; sourceTree = "<group>"; };
+		7F52F56A10BFA3E700D9395A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7F599C6E1092893A00933EFC /* utassert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utassert.h; sourceTree = "<group>"; };
 		7F599C6F1092893A00933EFC /* utassert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = utassert.m; sourceTree = "<group>"; };
 		7F599DF11093E4DE00933EFC /* FileSearchIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSearchIterator.h; sourceTree = "<group>"; };
@@ -177,6 +178,7 @@
 				7F69A228108D858500E8DDAC /* libicucore.dylib in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				7F8EF96F10B92E44001AF18B /* Sparkle.framework in Frameworks */,
+				7F52F56B10BFA3E700D9395A /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +224,7 @@
 				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
 				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
 				7F74E22E107D813100D3AB3D /* libicucore.dylib */,
+				7F52F56A10BFA3E700D9395A /* Security.framework */,
 			);
 			name = "Other Frameworks";
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 		29B97315FDCFA39411CA2CEA /* Vack */ = {
 			isa = PBXGroup;
 			children = (
+				7FC0F8F310647CA40000B779 /* todo.txt */,
 				7FD0FFD6106B0B7000A1927D /* vackmain.m */,
 				7F69A1701088582D00E8DDAC /* utvackmain.m */,
 				256AC3F00F4B6AF500CF3369 /* VisualAck_Prefix.pch */,
@@ -264,7 +268,6 @@
 			isa = PBXGroup;
 			children = (
 				7F7AAF651097B596009D785D /* VisualAck.icns */,
-				7FC0F8F310647CA40000B779 /* todo.txt */,
 				8D1107310486CEB800E47090 /* VisualAck-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -395,7 +398,6 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				7FC0F8F410647CA40000B779 /* todo.txt in Resources */,
 				7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */,
 				7F7AAF661097B596009D785D /* VisualAck.icns in Resources */,
 			);
