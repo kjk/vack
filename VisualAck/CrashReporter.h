@@ -5,5 +5,4 @@
 
 + (NSArray*) findCrashReportsForName:(NSString*)appName;
 + (NSArray*) findCrashReports;
-+ (void) submitAndDeleteCrashReports:(NSArray*)crashReports;
 @end

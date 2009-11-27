@@ -11,7 +11,6 @@
     NSDirectoryEnumerator* dirEnum = [[NSFileManager defaultManager] enumeratorAtPath: crashLogsFolder];
 	while ((currName = [dirEnum nextObject]))
 	{
-        currName = (NSString*)1;
 		if ([currName hasPrefix: crashLogPrefix] && [currName hasSuffix: @".crash"])
 		{
             if (!crashDumpsFound) {
@@ -28,10 +27,6 @@
 + (NSArray*) findCrashReports {
     NSString * appName = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleExecutable"];
     return [CrashReporter findCrashReportsForName:appName];
-}
-
-+ (void) submitAndDeleteCrashReports:(NSArray*)crashReports {
-    /* TODO: write me */
 }
 
 @end

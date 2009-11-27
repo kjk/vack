@@ -15,6 +15,8 @@
 		7F267A861073DEBE000C2C6C /* FileSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A841073DEBE000C2C6C /* FileSearcher.m */; };
 		7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
 		7F267B921076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
+		7F52F49110BE742500D9395A /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52F49010BE742500D9395A /* Http.m */; };
+		7F52F49210BE742500D9395A /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52F49010BE742500D9395A /* Http.m */; };
 		7F599C701092893A00933EFC /* utassert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599C6F1092893A00933EFC /* utassert.m */; };
 		7F599CCC109294F900933EFC /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
 		7F599DF31093E4DE00933EFC /* FileSearchIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599DF21093E4DE00933EFC /* FileSearchIterator.m */; };
@@ -122,6 +124,8 @@
 		7F267A841073DEBE000C2C6C /* FileSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSearcher.m; sourceTree = "<group>"; };
 		7F267B761076E709000C2C6C /* SearchOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOptions.h; sourceTree = "<group>"; };
 		7F267B901076E86D000C2C6C /* SearchOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchOptions.m; sourceTree = "<group>"; };
+		7F52F48F10BE742500D9395A /* Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Http.h; sourceTree = "<group>"; };
+		7F52F49010BE742500D9395A /* Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Http.m; sourceTree = "<group>"; };
 		7F599C6E1092893A00933EFC /* utassert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utassert.h; sourceTree = "<group>"; };
 		7F599C6F1092893A00933EFC /* utassert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = utassert.m; sourceTree = "<group>"; };
 		7F599DF11093E4DE00933EFC /* FileSearchIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSearchIterator.h; sourceTree = "<group>"; };
@@ -182,6 +186,8 @@
 		080E96DDFE201D6D7F000001 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				7F52F48F10BE742500D9395A /* Http.h */,
+				7F52F49010BE742500D9395A /* Http.m */,
 				7F599C6E1092893A00933EFC /* utassert.h */,
 				7F599C6F1092893A00933EFC /* utassert.m */,
 				7F74E243107DA1ED00D3AB3D /* FileLineIterator.h */,
@@ -422,6 +428,7 @@
 				7F74E245107DA1ED00D3AB3D /* FileLineIterator.m in Sources */,
 				7F599DF41093E4DE00933EFC /* FileSearchIterator.m in Sources */,
 				7F8EF9BB10BD259F001AF18B /* CrashReporter.m in Sources */,
+				7F52F49210BE742500D9395A /* Http.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +447,7 @@
 				7F74E246107DA1ED00D3AB3D /* FileLineIterator.m in Sources */,
 				7F599DF51093E4DE00933EFC /* FileSearchIterator.m in Sources */,
 				7F8EF9BA10BD259F001AF18B /* CrashReporter.m in Sources */,
+				7F52F49110BE742500D9395A /* Http.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
