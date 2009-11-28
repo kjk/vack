@@ -1,9 +1,12 @@
 #import <Cocoa/Cocoa.h>
 
-#import "FileSearchProtocol.h"
-
-@interface SearchWindowController : NSWindowController <FileSearchProtocol> {
-
+@interface SearchWindowController : NSWindowController {
+    IBOutlet NSTextField *      searchTermField_;
+    IBOutlet NSTextField *      dirField_;
+    IBOutlet NSButton *         buttonSearch_;
 }
+
+- (IBAction) search:(id)sender;
+- (IBAction) chooseDir:(id)sender;
 
 @end

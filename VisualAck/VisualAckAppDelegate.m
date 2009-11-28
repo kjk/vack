@@ -1,11 +1,12 @@
 #import "VisualAckAppDelegate.h"
+#import "SearchWindowController.h"
 
 #define VACK_BIN_LINK "/usr/local/bin/vack"
 #define VACK_BIN_LINK_STR @"/usr/local/bin/vack"
 
 @implementation VisualAckAppDelegate
 
-@synthesize mainWindowController;
+@synthesize searchWindowController;
 
 - (NSString*) vackPath {
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
@@ -63,7 +64,6 @@
         //NSLog(@"Error: %d", status);
         return;
     }
-    
 
     // The only way to guarantee that a credential acquired when you
     // request a right is not shared with other authorization instances is
@@ -86,6 +86,9 @@
     if (![self isVackLinkPresentAndCurrent]) {
         [self createLinkToVack];
     }
+    // TODO: only show the window if not invoked via vack
+    searchWindowController = [[SearchWindowController alloc] initWithWindowNibName:@"SearchWindow"];
+    [searchWindowController showWindow:nil];
 }
 
 @end

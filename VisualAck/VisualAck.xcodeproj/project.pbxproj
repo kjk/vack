@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* VisualAckAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* VisualAckAppDelegate.m */; };
-		7F267A811073DE7B000C2C6C /* SearchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A801073DE7B000C2C6C /* SearchWindowController.m */; };
-		7F267A821073DE7B000C2C6C /* SearchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A801073DE7B000C2C6C /* SearchWindowController.m */; };
+		7F267A811073DE7B000C2C6C /* SearchResultsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A801073DE7B000C2C6C /* SearchResultsWindowController.m */; };
+		7F267A821073DE7B000C2C6C /* SearchResultsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A801073DE7B000C2C6C /* SearchResultsWindowController.m */; };
 		7F267A851073DEBE000C2C6C /* FileSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A841073DEBE000C2C6C /* FileSearcher.m */; };
 		7F267A861073DEBE000C2C6C /* FileSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267A841073DEBE000C2C6C /* FileSearcher.m */; };
 		7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F267B901076E86D000C2C6C /* SearchOptions.m */; };
@@ -18,6 +18,7 @@
 		7F52F49110BE742500D9395A /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52F49010BE742500D9395A /* Http.m */; };
 		7F52F49210BE742500D9395A /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52F49010BE742500D9395A /* Http.m */; };
 		7F52F56B10BFA3E700D9395A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F52F56A10BFA3E700D9395A /* Security.framework */; };
+		7F52F5B810C10CA200D9395A /* SearchWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F52F5B710C10CA200D9395A /* SearchWindow.xib */; };
 		7F599C701092893A00933EFC /* utassert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599C6F1092893A00933EFC /* utassert.m */; };
 		7F599CCC109294F900933EFC /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
 		7F599DF31093E4DE00933EFC /* FileSearchIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599DF21093E4DE00933EFC /* FileSearchIterator.m */; };
@@ -33,7 +34,7 @@
 		7F74E246107DA1ED00D3AB3D /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
 		7F7AAF5610967E1E009D785D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
 		7F7AAF661097B596009D785D /* VisualAck.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7F7AAF651097B596009D785D /* VisualAck.icns */; };
-		7F884915106476810041161E /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F884914106476810041161E /* MainWindowController.m */; };
+		7F884915106476810041161E /* SearchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F884914106476810041161E /* SearchWindowController.m */; };
 		7F8EF96F10B92E44001AF18B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8EF96E10B92E44001AF18B /* Sparkle.framework */; };
 		7F8EF9BA10BD259F001AF18B /* CrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EF9B910BD259F001AF18B /* CrashReporter.m */; };
 		7F8EF9BB10BD259F001AF18B /* CrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EF9B910BD259F001AF18B /* CrashReporter.m */; };
@@ -118,8 +119,8 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		7F267A5E1073DAE2000C2C6C /* FileSearchProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSearchProtocol.h; sourceTree = "<group>"; };
 		7F267A621073DCB4000C2C6C /* FileSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSearchResult.h; sourceTree = "<group>"; };
-		7F267A7F1073DE7B000C2C6C /* SearchWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWindowController.h; sourceTree = "<group>"; };
-		7F267A801073DE7B000C2C6C /* SearchWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWindowController.m; sourceTree = "<group>"; };
+		7F267A7F1073DE7B000C2C6C /* SearchResultsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsWindowController.h; sourceTree = "<group>"; };
+		7F267A801073DE7B000C2C6C /* SearchResultsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsWindowController.m; sourceTree = "<group>"; };
 		7F267A831073DEBE000C2C6C /* FileSearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSearcher.h; sourceTree = "<group>"; };
 		7F267A841073DEBE000C2C6C /* FileSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSearcher.m; sourceTree = "<group>"; };
 		7F267B761076E709000C2C6C /* SearchOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchOptions.h; sourceTree = "<group>"; };
@@ -127,6 +128,7 @@
 		7F52F48F10BE742500D9395A /* Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Http.h; sourceTree = "<group>"; };
 		7F52F49010BE742500D9395A /* Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Http.m; sourceTree = "<group>"; };
 		7F52F56A10BFA3E700D9395A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7F52F5B710C10CA200D9395A /* SearchWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchWindow.xib; sourceTree = "<group>"; };
 		7F599C6E1092893A00933EFC /* utassert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utassert.h; sourceTree = "<group>"; };
 		7F599C6F1092893A00933EFC /* utassert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = utassert.m; sourceTree = "<group>"; };
 		7F599DF11093E4DE00933EFC /* FileSearchIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSearchIterator.h; sourceTree = "<group>"; };
@@ -139,8 +141,8 @@
 		7F74E243107DA1ED00D3AB3D /* FileLineIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLineIterator.h; sourceTree = "<group>"; };
 		7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLineIterator.m; sourceTree = "<group>"; };
 		7F7AAF651097B596009D785D /* VisualAck.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = VisualAck.icns; sourceTree = "<group>"; };
-		7F884913106476810041161E /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
-		7F884914106476810041161E /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
+		7F884913106476810041161E /* SearchWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWindowController.h; sourceTree = "<group>"; };
+		7F884914106476810041161E /* SearchWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWindowController.m; sourceTree = "<group>"; };
 		7F8EF96E10B92E44001AF18B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		7F8EF9B810BD259F001AF18B /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
 		7F8EF9B910BD259F001AF18B /* CrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashReporter.m; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				7FD0FFA0106708A500A1927D /* SearchResults.xib */,
+				7F52F5B710C10CA200D9395A /* SearchWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -289,12 +292,12 @@
 			isa = PBXGroup;
 			children = (
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				7F884913106476810041161E /* MainWindowController.h */,
-				7F884914106476810041161E /* MainWindowController.m */,
+				7F884913106476810041161E /* SearchWindowController.h */,
+				7F884914106476810041161E /* SearchWindowController.m */,
 				7FD0FFA31067090A00A1927D /* SearchResultsStatusBarView.h */,
 				7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */,
-				7F267A7F1073DE7B000C2C6C /* SearchWindowController.h */,
-				7F267A801073DE7B000C2C6C /* SearchWindowController.m */,
+				7F267A7F1073DE7B000C2C6C /* SearchResultsWindowController.h */,
+				7F267A801073DE7B000C2C6C /* SearchResultsWindowController.m */,
 				256AC3D80F4B6AC300CF3369 /* VisualAckAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* VisualAckAppDelegate.m */,
 			);
@@ -400,6 +403,7 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */,
 				7F7AAF661097B596009D785D /* VisualAck.icns in Resources */,
+				7F52F5B810C10CA200D9395A /* SearchWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,7 +427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7FD0FFD7106B0B7000A1927D /* vackmain.m in Sources */,
-				7F267A821073DE7B000C2C6C /* SearchWindowController.m in Sources */,
+				7F267A821073DE7B000C2C6C /* SearchResultsWindowController.m in Sources */,
 				7F267A861073DEBE000C2C6C /* FileSearcher.m in Sources */,
 				7F267B921076E86D000C2C6C /* SearchOptions.m in Sources */,
 				7F74E235107D818200D3AB3D /* RegexKitLite.m in Sources */,
@@ -440,9 +444,9 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* VisualAckAppDelegate.m in Sources */,
-				7F884915106476810041161E /* MainWindowController.m in Sources */,
+				7F884915106476810041161E /* SearchWindowController.m in Sources */,
 				7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */,
-				7F267A811073DE7B000C2C6C /* SearchWindowController.m in Sources */,
+				7F267A811073DE7B000C2C6C /* SearchResultsWindowController.m in Sources */,
 				7F267A851073DEBE000C2C6C /* FileSearcher.m in Sources */,
 				7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */,
 				7F74E234107D818200D3AB3D /* RegexKitLite.m in Sources */,

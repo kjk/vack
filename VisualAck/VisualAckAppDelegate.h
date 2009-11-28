@@ -1,12 +1,12 @@
 #import <Cocoa/Cocoa.h>
 #import <AppKit/NSApplication.h>
 
-@class MainWindowController;
+@class SearchWindowController;
 
 @interface VisualAckAppDelegate : NSObject {
-    MainWindowController *mainWindowController;
+    SearchWindowController *searchWindowController;
 }
 
-@property (assign) IBOutlet MainWindowController *mainWindowController;
+@property (assign) SearchWindowController *searchWindowController;
 
 @end
