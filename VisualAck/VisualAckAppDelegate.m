@@ -1,12 +1,43 @@
 #import "VisualAckAppDelegate.h"
 #import "SearchWindowController.h"
+#import <Sparkle/Sparkle.h>
 
 #define VACK_BIN_LINK "/usr/local/bin/vack"
 #define VACK_BIN_LINK_STR @"/usr/local/bin/vack"
 
+NSString * PREF_UNIQUE_ID = @"uniqueId";
+
 @implementation VisualAckAppDelegate
 
 @synthesize searchWindowController;
+
+- (NSString*)uniqueId {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSString *uuid = [prefs objectForKey:PREF_UNIQUE_ID];
+    if (!uuid) {
+        CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
+        CFStringRef sref = CFUUIDCreateString(kCFAllocatorDefault, uuidRef);
+        CFRelease(uuidRef);
+        uuid = (NSString*)sref;
+        [uuid autorelease];
+        [prefs setObject:uuid forKey:PREF_UNIQUE_ID];
+    }
+    return uuid;
+}
+
+// delegate for Sparkle's SUUpdater
+- (NSArray *)feedParametersForUpdater:(SUUpdater *)updater
+                 sendingSystemProfile:(BOOL)sendingProfile {
+    NSString *uniqueId = [self uniqueId];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: 
+                          @"uniqueId", @"key",
+						  uniqueId, @"value",
+                          @"uniqueId", @"displayKey",
+						  uniqueId, @"displayValue",
+                          nil];
+    NSArray *arr = [NSArray arrayWithObject:dict];
+    return arr;
+}
 
 - (NSString*) vackPath {
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
@@ -82,7 +113,14 @@
     return [realPath isEqualToString:[self vackPath]];
 }
 
+- (void)applicationWillFinishLaunching:(NSNotification *)notification {
+	SUUpdater *updater = [SUUpdater sharedUpdater];
+	// this must be enabled via code, there is no .plist entry key for this
+	[updater setSendsSystemProfile:YES];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+	// TODO: should this be in willFinishLaunching?
     if (![self isVackLinkPresentAndCurrent]) {
         [self createLinkToVack];
     }
