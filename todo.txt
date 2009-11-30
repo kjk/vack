@@ -1,5 +1,5 @@
 To do before release:
-* send more data with update checks
+* send number of searches with Sparkle updates
 * show search results in UI window
 * launch UI from vack
 * when printing matched file names, do it relative to the directory being
@@ -31,6 +31,9 @@ Things to do:
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 
 Done:
+
+2009-11-29
+ * fighting with Sparkle to enable sending profile and uniqueId
 
 2009-11-26:
  * sumbit crash reports to a website
