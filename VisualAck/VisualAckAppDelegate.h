@@ -4,8 +4,10 @@
 @class SearchWindowController;
 
 @interface VisualAckAppDelegate : NSObject {
-    SearchWindowController *searchWindowController;
+    SearchWindowController *searchWindowController;    
 }
+
+- (void)incSearchCount;
 
 @property (assign) SearchWindowController *searchWindowController;
 

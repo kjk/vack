@@ -1,6 +1,8 @@
-#import "SearchWindowController.h"
-#import "CrashReporter.h"
+
 #import "Http.h"
+#import "CrashReporter.h"
+#import "SearchWindowController.h"
+#import "VisualAckAppDelegate.h"
 
 @interface SearchWindowController(Private)
 - (BOOL)isSearchButtonEnabled;
@@ -71,6 +73,9 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     // came from text field but not ready to do search
     if (![self isSearchButtonEnabled])
         return;
+
+    VisualAckAppDelegate *appDelegate = [NSApp delegate];
+    [appDelegate incSearchCount];
     NSLog(@"search");
 }
 

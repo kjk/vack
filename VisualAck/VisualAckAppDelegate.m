@@ -6,10 +6,23 @@
 #define VACK_BIN_LINK_STR @"/usr/local/bin/vack"
 
 NSString * PREF_UNIQUE_ID = @"uniqueId";
+NSString * PREF_SEARCH_COUNT = @"searchCount";
 
 @implementation VisualAckAppDelegate
 
 @synthesize searchWindowController;
+
+- (void)incSearchCount {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSInteger count = [prefs integerForKey:PREF_SEARCH_COUNT];
+    ++count;
+    [prefs setInteger:count forKey:PREF_SEARCH_COUNT];    
+}
+
+- (NSInteger)searchCount {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs integerForKey:PREF_SEARCH_COUNT];
+}
 
 - (NSString*)uniqueId {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -29,13 +42,21 @@ NSString * PREF_UNIQUE_ID = @"uniqueId";
 - (NSArray *)feedParametersForUpdater:(SUUpdater *)updater
                  sendingSystemProfile:(BOOL)sendingProfile {
     NSString *uniqueId = [self uniqueId];
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: 
+    NSInteger count = [self searchCount];
+    NSNumber *countNum = [NSNumber numberWithInteger:count];
+    NSDictionary *uniqueIdDict = [NSDictionary dictionaryWithObjectsAndKeys: 
                           @"uniqueId", @"key",
 						  uniqueId, @"value",
                           @"uniqueId", @"displayKey",
 						  uniqueId, @"displayValue",
                           nil];
-    NSArray *arr = [NSArray arrayWithObject:dict];
+    NSDictionary *countDict = [NSDictionary dictionaryWithObjectsAndKeys: 
+                                  @"searchCount", @"key",
+                                  countNum, @"value",
+                                  @"searchCount", @"displayKey",
+                                  countNum, @"displayValue",
+                                  nil];
+    NSArray *arr = [NSArray arrayWithObjects:uniqueIdDict, countDict];
     return arr;
 }
 
