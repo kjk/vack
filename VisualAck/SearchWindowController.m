@@ -1,6 +1,3 @@
-
-#import "Http.h"
-#import "CrashReporter.h"
 #import "SearchWindowController.h"
 #import "VisualAckAppDelegate.h"
 
@@ -11,43 +8,16 @@
 
 @implementation SearchWindowController
 
-- (void)onHttpDoneOrError:(Http*)aHttp {
-    NSString *filePath = [aHttp filePath];
-    [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
-    [aHttp release];
-}
-
-static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmit?appname=VisualAck";
-//static NSString *REPORT_SUBMIT_URL = @"http://127.0.0.1:9340/app/crashsubmit?appname=VisualAck";
-
-- (void) submitAndDeleteCrashReport:(NSString *)crashReportPath {
-    NSError *error = nil;
-    NSStringEncoding encoding;
-    NSString *s = [NSString stringWithContentsOfFile:crashReportPath usedEncoding:&encoding error:&error];
-    if (error)
-        return;
-    const char *utf8 = [s UTF8String];
-    unsigned len = strlen(utf8);
-    NSData *data = [NSData dataWithBytes:(const void*)utf8 length:len];
-    NSURL *url = [NSURL URLWithString:REPORT_SUBMIT_URL];
-    [[Http alloc] initAndUploadWithURL:url
-                         data:data
-                     filePath:crashReportPath
-                     delegate:self
-                 doneSelector:@selector(onHttpDoneOrError:)
-                   errorSelector:@selector(onHttpDoneOrError:)];
-}
 
 - (void)awakeFromNib {
-    [dirField_ setStringValue:@"~"];
+    [self showWindow:self];
+}
+
+- (IBAction)showWindow:(id)sender {
+    [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
     [self updateSearchButtonStatus];
     [[self window] makeFirstResponder:searchTermField_];
-    NSArray *crashReports = [CrashReporter findCrashReports];
-    if (crashReports) {
-        for (NSUInteger i = 0; i < [crashReports count]; i++) {
-            [self submitAndDeleteCrashReport:[crashReports objectAtIndex:i]];
-        }
-    }
+    [[self window] orderFront:sender];
 }
 
 - (BOOL)isSearchButtonEnabled {
@@ -69,14 +39,15 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 // Sent by either a "Search" button or pressing Enter in the text fields
-- (IBAction) search:(id)sender {
+- (IBAction)search:(id)sender {
     // came from text field but not ready to do search
     if (![self isSearchButtonEnabled])
         return;
 
     VisualAckAppDelegate *appDelegate = [NSApp delegate];
     [appDelegate incSearchCount];
-    NSLog(@"search");
+    [[self window] orderOut:nil];
+    // TODO: show search results window
 }
 
 - (IBAction) chooseDir:(id)sender {
@@ -85,6 +56,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     [openPanel setCanChooseDirectories:YES];
     [openPanel setAllowsMultipleSelection:YES];
     [openPanel setAllowedFileTypes:nil];
+    [openPanel setDirectory:[dirField_ stringValue]];
     NSInteger res = [openPanel runModal];
     if (res != NSOKButton)
         return;

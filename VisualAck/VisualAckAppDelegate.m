@@ -1,7 +1,9 @@
-#import "VisualAckAppDelegate.h"
+#import "CrashReporter.h"
+#import "Http.h"
+#import "PrefKeys.h"
 #import "SearchWindowController.h"
 #import <Sparkle/Sparkle.h>
-#import "PrefKeys.h"
+#import "VisualAckAppDelegate.h"
 
 #define VACK_BIN_LINK "/usr/local/bin/vack"
 #define VACK_BIN_LINK_STR @"/usr/local/bin/vack"
@@ -9,6 +11,33 @@
 @implementation VisualAckAppDelegate
 
 @synthesize searchWindowController;
+
+- (void)onHttpDoneOrError:(Http*)aHttp {
+    NSString *filePath = [aHttp filePath];
+    [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
+    [aHttp release];
+}
+
+static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmit?appname=VisualAck";
+//static NSString *REPORT_SUBMIT_URL = @"http://127.0.0.1:9340/app/crashsubmit?appname=VisualAck";
+
+- (void) submitAndDeleteCrashReport:(NSString *)crashReportPath {
+    NSError *error = nil;
+    NSStringEncoding encoding;
+    NSString *s = [NSString stringWithContentsOfFile:crashReportPath usedEncoding:&encoding error:&error];
+    if (error)
+        return;
+    const char *utf8 = [s UTF8String];
+    unsigned len = strlen(utf8);
+    NSData *data = [NSData dataWithBytes:(const void*)utf8 length:len];
+    NSURL *url = [NSURL URLWithString:REPORT_SUBMIT_URL];
+    [[Http alloc] initAndUploadWithURL:url
+                                  data:data
+                              filePath:crashReportPath
+                              delegate:self
+                          doneSelector:@selector(onHttpDoneOrError:)
+                         errorSelector:@selector(onHttpDoneOrError:)];
+}
 
 - (void)incSearchCount {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -133,6 +162,14 @@
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
+    // find crash reports generated for our app and upload them to a website
+    NSArray *crashReports = [CrashReporter findCrashReports];
+    if (crashReports) {
+        for (NSUInteger i = 0; i < [crashReports count]; i++) {
+            [self submitAndDeleteCrashReport:[crashReports objectAtIndex:i]];
+        }
+    }
+    
 	SUUpdater *updater = [SUUpdater sharedUpdater];
 	// this must be enabled via code, there is no .plist entry key for this
 	[updater setSendsSystemProfile:YES];
@@ -147,6 +184,10 @@
     // TODO: only show the window if not invoked via vack
     searchWindowController = [[SearchWindowController alloc] initWithWindowNibName:@"SearchWindow"];
     [searchWindowController showWindow:nil];
+}
+
+-(IBAction)showSearchWindow:(id)sender {
+    [searchWindowController showWindow:sender];
 }
 
 @end

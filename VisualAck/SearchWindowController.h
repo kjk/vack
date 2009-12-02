@@ -6,7 +6,8 @@
     IBOutlet NSButton *         buttonSearch_;
 }
 
-- (IBAction) search:(id)sender;
-- (IBAction) chooseDir:(id)sender;
+- (IBAction)showWindow:(id)sender;
+- (IBAction)search:(id)sender;
+- (IBAction)chooseDir:(id)sender;
 
 @end

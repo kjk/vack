@@ -7,8 +7,9 @@
     SearchWindowController *searchWindowController;    
 }
 
-- (void)incSearchCount;
-
 @property (assign) SearchWindowController *searchWindowController;
+
+-(IBAction)showSearchWindow:(id)sender;
+-(void)incSearchCount;
 
 @end
