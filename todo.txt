@@ -37,7 +37,8 @@ Done:
 
 2009-12-01
  * send number of searches with Sparkle updates
-* increase number of searches from within vack
+ * increase number of searches from within vack
+ * started on showing search results
 
 2009-11-29
  * fighting with Sparkle to enable sending profile and uniqueId

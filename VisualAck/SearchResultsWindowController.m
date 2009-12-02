@@ -2,28 +2,33 @@
 
 @implementation SearchResultsWindowController
 
-- (void) didSkipFile:(NSString*)filePath {
+- (void)didSkipFile:(NSString*)filePath {
     NSLog(@"didSkipFile %@", filePath);
 }
 
-- (void) didSkipDirectory:(NSString*)dirPath {
+- (void)didSkipDirectory:(NSString*)dirPath {
     NSLog(@"didSkipDirectory %@", dirPath);
 }
 
-- (void) didSkipNonExistent:(NSString*)path {
+- (void)didSkipNonExistent:(NSString*)path {
     NSLog(@"didSkipNonExistent %@", path);    
 }
 
-- (void) didStartSearchInFile:(NSString*)filePath {
+- (void)didStartSearchInFile:(NSString*)filePath {
     NSLog(@"didStartSearchInFile in %@", filePath);
 }
 
-- (void) didFinishSearchInFile:(NSString*)filePath {
+- (void)didFinishSearchInFile:(NSString*)filePath {
     NSLog(@"didFinishSearchInFile in %@", filePath);
 }
 
-- (void) didFind:(FileSearchResult*)searchResult {
+- (void)didFind:(FileSearchResult*)searchResult {
     NSLog(@"didFind");
+}
+
+- (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    NSWindow *window = [self window];
+    [window makeKeyAndOrderFront:self];
 }
 
 @end

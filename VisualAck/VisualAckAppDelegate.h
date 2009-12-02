@@ -2,14 +2,15 @@
 #import <AppKit/NSApplication.h>
 
 @class SearchWindowController;
+@class SearchResultsWindowController;
 
 @interface VisualAckAppDelegate : NSObject {
-    SearchWindowController *searchWindowController;    
+    SearchWindowController *searchWindowController_;
+    SearchResultsWindowController *searchResultsWindowController_;
 }
 
-@property (assign) SearchWindowController *searchWindowController;
-
--(IBAction)showSearchWindow:(id)sender;
--(void)incSearchCount;
+- (IBAction)showSearchWindow:(id)sender;
+- (void)incSearchCount;
+- (void)startSearch:(NSString *)searchTerm inDirectory:(NSString*)dir;
 
 @end

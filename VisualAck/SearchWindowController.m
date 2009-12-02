@@ -1,4 +1,5 @@
 #import "SearchWindowController.h"
+
 #import "VisualAckAppDelegate.h"
 
 @interface SearchWindowController(Private)
@@ -8,16 +9,12 @@
 
 @implementation SearchWindowController
 
-
-- (void)awakeFromNib {
-    [self showWindow:self];
-}
-
 - (IBAction)showWindow:(id)sender {
+    NSWindow *window = [self window];
     [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
     [self updateSearchButtonStatus];
-    [[self window] makeFirstResponder:searchTermField_];
-    [[self window] orderFront:sender];
+    [window makeKeyAndOrderFront:sender];
+    //[window makeFirstResponder:searchTermField_];
 }
 
 - (BOOL)isSearchButtonEnabled {
@@ -47,7 +44,9 @@
     VisualAckAppDelegate *appDelegate = [NSApp delegate];
     [appDelegate incSearchCount];
     [[self window] orderOut:nil];
-    // TODO: show search results window
+    NSString *searchTerm = [searchTermField_ stringValue];
+    NSString *dir = [dirField_ stringValue];
+    [appDelegate startSearch:searchTerm inDirectory:dir];
 }
 
 - (IBAction) chooseDir:(id)sender {

@@ -1,16 +1,16 @@
+#import "VisualAckAppDelegate.h"
+
 #import "CrashReporter.h"
 #import "Http.h"
 #import "PrefKeys.h"
 #import "SearchWindowController.h"
+#import "SearchResultsWindowController.h"
 #import <Sparkle/Sparkle.h>
-#import "VisualAckAppDelegate.h"
 
 #define VACK_BIN_LINK "/usr/local/bin/vack"
 #define VACK_BIN_LINK_STR @"/usr/local/bin/vack"
 
 @implementation VisualAckAppDelegate
-
-@synthesize searchWindowController;
 
 - (void)onHttpDoneOrError:(Http*)aHttp {
     NSString *filePath = [aHttp filePath];
@@ -181,13 +181,19 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     if (![self isVackLinkPresentAndCurrent]) {
         [self createLinkToVack];
     }
-    // TODO: only show the window if not invoked via vack
-    searchWindowController = [[SearchWindowController alloc] initWithWindowNibName:@"SearchWindow"];
-    [searchWindowController showWindow:nil];
+
+    // TODO: if invoked via vack, go straight to search results
+    searchResultsWindowController_ = [[SearchResultsWindowController alloc] initWithWindowNibName:@"SearchResults"];
+    searchWindowController_ = [[SearchWindowController alloc] initWithWindowNibName:@"SearchWindow"];
+    [searchWindowController_ showWindow:self];
 }
 
--(IBAction)showSearchWindow:(id)sender {
-    [searchWindowController showWindow:sender];
+- (IBAction)showSearchWindow:(id)sender {
+    [searchWindowController_ showWindow:sender];
+}
+
+- (void)startSearch:(NSString *)searchTerm inDirectory:(NSString*)dir {
+    [searchResultsWindowController_ startSearch:searchTerm inDirectory:dir];
 }
 
 @end
