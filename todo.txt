@@ -10,7 +10,6 @@ To do before release:
 * try to avoid security dialog by first creating /usr/local/bin/vack link with
   regular security and retrying if it failed
 * 'Move to Application folder' http://www.potionfactory.com/node/251
-* increase number of searches from within vack
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)
@@ -35,6 +34,7 @@ Done:
 
 2009-12-01
  * send number of searches with Sparkle updates
+* increase number of searches from within vack
 
 2009-11-29
  * fighting with Sparkle to enable sending profile and uniqueId

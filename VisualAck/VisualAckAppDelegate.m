@@ -1,12 +1,10 @@
 #import "VisualAckAppDelegate.h"
 #import "SearchWindowController.h"
 #import <Sparkle/Sparkle.h>
+#import "PrefKeys.h"
 
 #define VACK_BIN_LINK "/usr/local/bin/vack"
 #define VACK_BIN_LINK_STR @"/usr/local/bin/vack"
-
-NSString * PREF_UNIQUE_ID = @"uniqueId";
-NSString * PREF_SEARCH_COUNT = @"searchCount";
 
 @implementation VisualAckAppDelegate
 
@@ -56,7 +54,7 @@ NSString * PREF_SEARCH_COUNT = @"searchCount";
                                   @"searchCount", @"displayKey",
                                   countNum, @"displayValue",
                                   nil];
-    NSArray *arr = [NSArray arrayWithObjects:uniqueIdDict, countDict];
+    NSArray *arr = [NSArray arrayWithObjects:uniqueIdDict, countDict, nil];
     return arr;
 }
 
@@ -141,6 +139,7 @@ NSString * PREF_SEARCH_COUNT = @"searchCount";
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [self incSearchCount];
 	// TODO: should this be in willFinishLaunching?
     if (![self isVackLinkPresentAndCurrent]) {
         [self createLinkToVack];

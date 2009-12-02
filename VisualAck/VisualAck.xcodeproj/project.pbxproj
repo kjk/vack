@@ -35,6 +35,9 @@
 		7F7AAF5610967E1E009D785D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
 		7F7AAF661097B596009D785D /* VisualAck.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7F7AAF651097B596009D785D /* VisualAck.icns */; };
 		7F884915106476810041161E /* SearchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F884914106476810041161E /* SearchWindowController.m */; };
+		7F8ED79B10C6100A00EEDE30 /* PrefKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8ED79A10C6100A00EEDE30 /* PrefKeys.m */; };
+		7F8ED79C10C6100A00EEDE30 /* PrefKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8ED79A10C6100A00EEDE30 /* PrefKeys.m */; };
+		7F8ED79D10C6100A00EEDE30 /* PrefKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8ED79A10C6100A00EEDE30 /* PrefKeys.m */; };
 		7F8EF96F10B92E44001AF18B /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8EF96E10B92E44001AF18B /* Sparkle.framework */; };
 		7F8EF9BA10BD259F001AF18B /* CrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EF9B910BD259F001AF18B /* CrashReporter.m */; };
 		7F8EF9BB10BD259F001AF18B /* CrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EF9B910BD259F001AF18B /* CrashReporter.m */; };
@@ -143,6 +146,8 @@
 		7F7AAF651097B596009D785D /* VisualAck.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = VisualAck.icns; sourceTree = "<group>"; };
 		7F884913106476810041161E /* SearchWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWindowController.h; sourceTree = "<group>"; };
 		7F884914106476810041161E /* SearchWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWindowController.m; sourceTree = "<group>"; };
+		7F8ED79910C60FDC00EEDE30 /* PrefKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefKeys.h; sourceTree = "<group>"; };
+		7F8ED79A10C6100A00EEDE30 /* PrefKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefKeys.m; sourceTree = "<group>"; };
 		7F8EF96E10B92E44001AF18B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
 		7F8EF9B810BD259F001AF18B /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
 		7F8EF9B910BD259F001AF18B /* CrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashReporter.m; sourceTree = "<group>"; };
@@ -206,6 +211,8 @@
 				7F267B761076E709000C2C6C /* SearchOptions.h */,
 				7F8EF9B810BD259F001AF18B /* CrashReporter.h */,
 				7F8EF9B910BD259F001AF18B /* CrashReporter.m */,
+				7F8ED79910C60FDC00EEDE30 /* PrefKeys.h */,
+				7F8ED79A10C6100A00EEDE30 /* PrefKeys.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -419,6 +426,7 @@
 				7F599CCC109294F900933EFC /* FileLineIterator.m in Sources */,
 				7F599DF31093E4DE00933EFC /* FileSearchIterator.m in Sources */,
 				7F7AAF5610967E1E009D785D /* RegexKitLite.m in Sources */,
+				7F8ED79D10C6100A00EEDE30 /* PrefKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +443,7 @@
 				7F599DF41093E4DE00933EFC /* FileSearchIterator.m in Sources */,
 				7F8EF9BB10BD259F001AF18B /* CrashReporter.m in Sources */,
 				7F52F49210BE742500D9395A /* Http.m in Sources */,
+				7F8ED79C10C6100A00EEDE30 /* PrefKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +463,7 @@
 				7F599DF51093E4DE00933EFC /* FileSearchIterator.m in Sources */,
 				7F8EF9BA10BD259F001AF18B /* CrashReporter.m in Sources */,
 				7F52F49110BE742500D9395A /* Http.m in Sources */,
+				7F8ED79B10C6100A00EEDE30 /* PrefKeys.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

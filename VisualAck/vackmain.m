@@ -2,6 +2,7 @@
 
 #import "FileSearchProtocol.h"
 #import "FileSearcher.h"
+#import "PrefKeys.h"
 
 /*
  Usage: ack [OPTION]... PATTERN [FILE]
@@ -236,6 +237,36 @@ static void print_help() {
     printf("\nThis is help. Write me.\n");
 }
 
+static NSString *prefsPath(void)
+{
+    NSString *path = @"~/Library/Preferences/info.kowalczyk.visualack.plist";
+    return [path stringByExpandingTildeInPath];    
+}
+
+static void incSearchCount(void)
+{
+    CFStringRef appId = CFSTR("info.kowalczyk.visualack");
+    CFStringRef keyStr = (CFStringRef)PREF_SEARCH_COUNT;
+    CFPropertyListRef val = CFPreferencesCopyAppValue(keyStr, appId);
+    NSNumber *newVal;
+    if (val == NULL) {
+        newVal = [NSNumber numberWithInteger:1];
+    } else {
+        NSInteger n = 0;
+        Boolean ok = CFNumberGetValue(val, kCFNumberNSIntegerType, &n);
+        if (!ok || 0 == n) {
+            // if we failed or have number has suspicious value (0), don't touch
+            // property
+            CFRelease(val);
+            return;
+        }
+        newVal = [NSNumber numberWithInteger:n+1];
+    }
+    CFPreferencesSetAppValue(keyStr, (CFPropertyListRef)newVal, appId);
+    if (val) CFRelease(val);
+    CFPreferencesAppSynchronize(appId);
+}
+
 /* Exit status is 0 if match, 1 if no match. */
 int main(int argc, char *argv[])
 {
@@ -270,6 +301,7 @@ int main(int argc, char *argv[])
         add_search_location(&opts, [cwd UTF8String]);
     }
     
+    incSearchCount();
     FileSearcher *fileSearcher = [[FileSearcher alloc] initWithSearchOptions:&opts];
     SearchResults *sr = [[SearchResults alloc] init];
     [fileSearcher setDelegate:sr];
