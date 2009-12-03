@@ -14,6 +14,7 @@
 }
 
 - (IBAction)showWindow:(id)sender {
+	// asking for window loads it for nib file and initializes bindings
     NSWindow *window = [self window];
     [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
     [self updateSearchButtonStatus];
