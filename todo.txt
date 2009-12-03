@@ -35,6 +35,9 @@ Things to do:
 
 Done:
 
+2009-12-02
+ * start on showing search results
+
 2009-12-01
  * send number of searches with Sparkle updates
  * increase number of searches from within vack

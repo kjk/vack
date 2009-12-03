@@ -280,8 +280,8 @@
 				8D1107310486CEB800E47090 /* VisualAck-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				7FD0FFA0106708A500A1927D /* SearchResults.xib */,
 				7F52F5B710C10CA200D9395A /* SearchWindow.xib */,
+				7FD0FFA0106708A500A1927D /* SearchResults.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";

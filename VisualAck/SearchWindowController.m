@@ -9,6 +9,10 @@
 
 @implementation SearchWindowController
 
+- (void)awakeFromNib {
+	NSLog(@"SearchWindowController awakeFromNib for %p", (void*)self);
+}
+
 - (IBAction)showWindow:(id)sender {
     NSWindow *window = [self window];
     [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
