@@ -1,6 +1,9 @@
 To do before release:
 * figure out why tabbing in search window starts search
 * show search stats at the bottom view (searched, skiped files, skipped directories)
+* when closing search results window, show search window
+* at the top of search results window, show "searching for 'xxx' in 'xxx' text
+* show search progress indicator
 * show search results in UI window
 * launch UI from vack
 * when printing matched file names, do it relative to the directory being
