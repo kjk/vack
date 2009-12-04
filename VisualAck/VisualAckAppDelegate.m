@@ -12,6 +12,36 @@
 
 @implementation VisualAckAppDelegate
 
+static VisualAckAppDelegate *shared;
+
+- (id)init {
+    if (shared) {
+        [self autorelease];
+        return shared;
+    }
+    if (![super init]) return nil; 
+    operationQueue_ = [[NSOperationQueue alloc] init];
+    shared = self;
+    return self;
+}
+
+- (void)dealloc {
+    [operationQueue_ release];
+    operationQueue_ = nil;
+    [super dealloc];
+}
+
++ (id)shared; {
+    if (!shared) {
+        [[VisualAckAppDelegate alloc] init];
+    }
+    return shared;
+}
+
+- (void)addOperation:(NSOperation*)operation {
+    [operationQueue_ addOperation:operation];
+}
+
 - (void)onHttpDoneOrError:(Http*)aHttp {
     NSString *filePath = [aHttp filePath];
     [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];

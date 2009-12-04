@@ -208,7 +208,7 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
         printf("%s\n", [fileColored UTF8String]);
     }
     // TODO: if not color, don't color
-    NSString *toPrint = wrapStringRangesInColor(searchResult->line, searchResult->matchesCount, searchResult->matches, ansiColor(ANSI_COLOR_MATCH));
+    NSString *toPrint = wrapStringRangesInColor(searchResult.line, searchResult.matchesCount, searchResult.matches, ansiColor(ANSI_COLOR_MATCH));
     printf("%s\n", [toPrint UTF8String]);
     ++resultsCount_;
 }

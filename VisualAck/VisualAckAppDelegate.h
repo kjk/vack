@@ -7,7 +7,12 @@
 @interface VisualAckAppDelegate : NSObject {
     SearchWindowController *searchWindowController_;
     SearchResultsWindowController *searchResultsWindowController_;
+    
+    NSOperationQueue *operationQueue_;
 }
+
++ (id)shared;
+- (void)addOperation:(NSOperation*)operation;
 
 - (IBAction)showSearchWindow:(id)sender;
 - (void)incSearchCount;

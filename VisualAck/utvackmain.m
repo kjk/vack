@@ -69,10 +69,11 @@ void testMatchesHelper(NSString *path, NSString *searchPattern, FileSearchResult
             utassert(nil == expectedResult->line);
             return;
         }
-        utassert([path isEqualToString:currResult->filePath]);
-        utassert([expectedResult->line isEqualToString:currResult->line]);
-        utassert(expectedResult->lineNo == currResult->lineNo);
-        utassert(NSRangeEqual(expectedResult->matchPos, currResult->matches[0]));
+        utassert([path isEqualToString:currResult.filePath]);
+        utassert([expectedResult->line isEqualToString:currResult.line]);
+        utassert(expectedResult->lineNo == currResult.lineNo);
+        NSRange m = [currResult matchAtIndex:0];
+        utassert(NSRangeEqual(expectedResult->matchPos, m));
     }
 }
 

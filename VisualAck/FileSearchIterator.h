@@ -5,7 +5,7 @@
 @interface FileSearchIterator : FileLineIterator {
     NSString *          searchPattern_;
     NSString *          currLine_;
-    FileSearchResult    currSearchResult_;
+    FileSearchResult *  currSearchResult_;
     NSRange             currMatchPos_;
 }
 
