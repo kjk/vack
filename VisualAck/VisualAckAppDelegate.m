@@ -87,6 +87,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     }
     [recentSearches_ addObject:searchTerm];
     [recentSearches_ addObject:dir];
+    [[NSUserDefaults standardUserDefaults] setObject:recentSearches_ forKey:PREF_RECENT_SEARCHES];
     [self incSearchCount];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

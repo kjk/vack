@@ -77,4 +77,25 @@
     [dirField_ setStringValue:s];
 }
 
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+{
+    NSArray *recentSearches = [[VisualAckAppDelegate shared] recentSearches];
+	return [recentSearches count] / 2;
+}
+
+- (id)tableView:(NSTableView *)aTableView 
+objectValueForTableColumn:(NSTableColumn *)aTableColumn
+			row:(int)rowIndex {
+    NSArray *recentSearches = [[VisualAckAppDelegate shared] recentSearches];
+    NSUInteger count = [recentSearches count];
+    // they are in reverse order
+    assert(count >= rowIndex * 2);
+    NSUInteger idx = count - ((rowIndex+1) * 2);
+    // TODO: need to be displayed in a nicer way
+    NSString *searchTerm = [recentSearches objectAtIndex:idx];
+    NSString *dir = [recentSearches objectAtIndex:idx+1];
+    NSString *s = [NSString stringWithFormat:@"%@ in %@", searchTerm, dir];
+    return s;
+}
+
 @end

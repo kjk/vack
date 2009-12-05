@@ -1,5 +1,6 @@
 To do before release:
-* show recent searches in SearchWindow
+* when recent search selected - copy data to text fields
+* when recent search double-clicked - start the search
 * show search stats at the bottom view (searched, skiped files, skipped directories)
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * show search progress indicator
@@ -44,6 +45,7 @@ Done:
  * allow tabbing between fields in search window
  * when closing search results window, show search window
  * open search results window in the same place where search window was
+ * show recent searches in SearchWindow
 
 2009-12-03
  * search should be done in a background threaded

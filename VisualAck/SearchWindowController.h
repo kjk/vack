@@ -11,4 +11,11 @@
 - (IBAction)search:(id)sender;
 - (IBAction)chooseDir:(id)sender;
 
+// We're also a data source for tableView_
+- (int)numberOfRowsInTableView:(NSTableView *)aTableView;
+
+- (id)tableView:(NSTableView *)aTableView 
+objectValueForTableColumn:(NSTableColumn *)aTableColumn
+			row:(int)rowIndex;
+
 @end
