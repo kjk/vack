@@ -7,6 +7,8 @@
 #import "SearchResultsWindowController.h"
 #import <Sparkle/Sparkle.h>
 
+#define MAX_RECENT_SEARCHES 8
+
 #define VACK_BIN_LINK "/usr/local/bin/vack"
 #define VACK_BIN_LINK_STR @"/usr/local/bin/vack"
 
@@ -28,6 +30,8 @@ static VisualAckAppDelegate *shared;
 - (void)dealloc {
     [operationQueue_ release];
     operationQueue_ = nil;
+    [recentSearches_ release];
+    recentSearches_ = nil;
     [super dealloc];
 }
 
@@ -76,9 +80,34 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     [prefs setInteger:count forKey:PREF_SEARCH_COUNT];    
 }
 
+- (void)rememberSearchFor:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    if (([recentSearches_ count] / 2) >= MAX_RECENT_SEARCHES) {
+        [recentSearches_ removeObjectAtIndex:0];
+        [recentSearches_ removeObjectAtIndex:0];
+    }
+    [recentSearches_ addObject:searchTerm];
+    [recentSearches_ addObject:dir];
+    [self incSearchCount];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSMutableArray*)recentSearches {
+    return recentSearches_;
+}
+
 - (NSInteger)searchCount {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     return [prefs integerForKey:PREF_SEARCH_COUNT];
+}
+
+- (void)loadRecentSearches {
+    assert(nil == recentSearches_);
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if ( [prefs arrayForKey:PREF_RECENT_SEARCHES] != nil ) {
+        recentSearches_ = [[NSMutableArray alloc] initWithArray:[prefs arrayForKey:PREF_RECENT_SEARCHES]];
+        return;
+    }
+    recentSearches_ = [[NSMutableArray alloc] initWithCapacity:MAX_RECENT_SEARCHES * 2];
 }
 
 - (NSString*)uniqueId {
@@ -206,7 +235,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [self incSearchCount];
+    [self loadRecentSearches];
 	// TODO: should this be in willFinishLaunching?
     if (![self isVackLinkPresentAndCurrent]) {
         [self createLinkToVack];
@@ -223,6 +252,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 - (void)startSearch:(NSString *)searchTerm inDirectory:(NSString*)dir {
+    [self rememberSearchFor:searchTerm inDirectory:dir];
     [searchResultsWindowController_ startSearch:searchTerm inDirectory:dir];
 }
 

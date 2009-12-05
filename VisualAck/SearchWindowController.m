@@ -47,7 +47,6 @@
         return;
 
     VisualAckAppDelegate *appDelegate = [NSApp delegate];
-    [appDelegate incSearchCount];
     [[self window] orderOut:nil];
     NSString *searchTerm = [searchTermField_ stringValue];
     NSString *dir = [dirField_ stringValue];
