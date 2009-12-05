@@ -4,6 +4,7 @@
     IBOutlet NSTextField *      searchTermField_;
     IBOutlet NSTextField *      dirField_;
     IBOutlet NSButton *         buttonSearch_;
+    IBOutlet NSButton *         buttonChooseDir_;
 }
 
 - (IBAction)showWindow:(id)sender;

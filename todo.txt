@@ -1,10 +1,10 @@
 To do before release:
-* figure out why tabbing in search window starts search
-* show search stats at the bottom view (searched, skiped files, skipped directories)
 * when closing search results window, show search window
+* show recent searches in SearchWindow
+* show search stats at the bottom view (searched, skiped files, skipped directories)
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * show search progress indicator
-* show search results in UI window
+* better way to show search results in UI window
 * launch UI from vack
 * when printing matched file names, do it relative to the directory being
   searched
@@ -15,9 +15,10 @@ To do before release:
 * try to avoid security dialog by first creating /usr/local/bin/vack link with
   regular security and retrying if it failed
 * 'Move to Application folder' http://www.potionfactory.com/node/251
-* remember recent searches
-* show recent searches in SearchWindow
 * cleanup menu items
+* open search results window in the same place where search window was
+* figure out why can't set focus to "Choose" button via tabbing. Its
+  refuseFirstResponder is NO, so I don't get it.
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)
@@ -39,6 +40,10 @@ Things to do:
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 
 Done:
+
+2009-12-04
+ * remembering recent searches
+ * allow tabbing between fields in search window
 
 2009-12-03
  * search should be done in a background threaded

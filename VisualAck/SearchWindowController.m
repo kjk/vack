@@ -10,7 +10,10 @@
 @implementation SearchWindowController
 
 - (void)awakeFromNib {
-	NSLog(@"SearchWindowController awakeFromNib for %p", (void*)self);
+#if 0
+    BOOL refuses = [buttonChooseDir_ refusesFirstResponder];
+    NSLog(@"buttonChooseDir_ refusesFirstResponder=%d", refuses);
+#endif
 }
 
 - (IBAction)showWindow:(id)sender {
@@ -40,7 +43,7 @@
     [self updateSearchButtonStatus];
 }
 
-// Sent by either a "Search" button or pressing Enter in the text fields
+// Sent by "Search" button
 - (IBAction)search:(id)sender {
     // came from text field but not ready to do search
     if (![self isSearchButtonEnabled])

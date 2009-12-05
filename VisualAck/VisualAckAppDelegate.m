@@ -146,7 +146,8 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     return arr;
 }
 
-- (NSString*) vackPath {
+// return a full path to vack executable
+- (NSString*)vackPath {
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
     return [resourcePath stringByAppendingPathComponent:@"vack"];
 }
@@ -211,7 +212,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     status = AuthorizationFree(authorizationRef, kAuthorizationFlagDestroyRights);
 }
 
-- (BOOL) isVackLinkPresentAndCurrent {
+- (BOOL)isVackLinkPresentAndCurrent {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
     NSString *realPath = [fileManager destinationOfSymbolicLinkAtPath:VACK_BIN_LINK_STR error:&error];
