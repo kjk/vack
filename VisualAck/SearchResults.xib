@@ -372,9 +372,9 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{422, 64}, {480, 420}}</string>
+					<string>{{447, 299}, {480, 420}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{422, 64}, {480, 420}}</string>
+					<string>{{447, 299}, {480, 420}}</string>
 					<integer value="1"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>

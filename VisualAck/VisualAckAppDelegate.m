@@ -235,6 +235,11 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 	[updater setSendsSystemProfile:YES];
 }
 
+- (void)positionWindow:(NSWindow*)dst atSamePositionAs:(NSWindow*)src {
+    NSRect frame = [src frame];
+    [dst setFrame:frame display:NO];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self loadRecentSearches];
 	// TODO: should this be in willFinishLaunching?
@@ -249,11 +254,17 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 - (IBAction)showSearchWindow:(id)sender {
+    NSWindow *dst = [searchWindowController_ window];
+    NSWindow *src = [searchResultsWindowController_ window];
+    [self positionWindow:dst atSamePositionAs:src];
     [searchWindowController_ showWindow:sender];
 }
 
 - (void)startSearch:(NSString *)searchTerm inDirectory:(NSString*)dir {
     [self rememberSearchFor:searchTerm inDirectory:dir];
+    NSWindow *dst = [searchResultsWindowController_ window];
+    NSWindow *src = [searchWindowController_ window];
+    [self positionWindow:dst atSamePositionAs:src];
     [searchResultsWindowController_ startSearch:searchTerm inDirectory:dir];
 }
 

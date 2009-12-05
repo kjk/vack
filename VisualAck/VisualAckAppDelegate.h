@@ -20,5 +20,5 @@
 - (NSMutableArray*)recentSearches;
 - (IBAction)showSearchWindow:(id)sender;
 - (void)startSearch:(NSString *)searchTerm inDirectory:(NSString*)dir;
-
+- (void)positionWindow:(NSWindow*)dst atSamePositionAs:(NSWindow*)src;
 @end

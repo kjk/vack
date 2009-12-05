@@ -10,12 +10,11 @@ To do before release:
 * analyze stats from auto-updates
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
-* detect utf encodings that have bom
+* detect utf encodings that have bom (see e.g. http://svn.cocoasourcecode.com/FolderSweep/AppController.m)
 * try to avoid security dialog by first creating /usr/local/bin/vack link with
   regular security and retrying if it failed
 * 'Move to Application folder' http://www.potionfactory.com/node/251
 * cleanup menu items
-* open search results window in the same place where search window was
 * figure out why can't set focus to "Choose" button via tabbing. Its
   refuseFirstResponder is NO, so I don't get it.
 
@@ -44,6 +43,7 @@ Done:
  * remembering recent searches
  * allow tabbing between fields in search window
  * when closing search results window, show search window
+ * open search results window in the same place where search window was
 
 2009-12-03
  * search should be done in a background threaded
