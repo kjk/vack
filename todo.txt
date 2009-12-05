@@ -1,5 +1,4 @@
 To do before release:
-* when closing search results window, show search window
 * show recent searches in SearchWindow
 * show search stats at the bottom view (searched, skiped files, skipped directories)
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
@@ -44,6 +43,7 @@ Done:
 2009-12-04
  * remembering recent searches
  * allow tabbing between fields in search window
+ * when closing search results window, show search window
 
 2009-12-03
  * search should be done in a background threaded

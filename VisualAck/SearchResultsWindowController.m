@@ -74,6 +74,11 @@
     // TODO: check if the user cancelled search and abort if he did by returning YES
 }
 
+- (void)windowWillClose:(NSNotification *)notification {
+    assert([self window] == [notification object]);
+    [[VisualAckAppDelegate shared] showSearchWindow:self];
+}
+
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
     NSWindow *window = [self window];
     [window makeKeyAndOrderFront:self];
