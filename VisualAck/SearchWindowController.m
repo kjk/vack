@@ -10,6 +10,7 @@
 @implementation SearchWindowController
 
 - (void)awakeFromNib {
+	[tableViewRecentSearches_ setDoubleAction:@selector(tableViewDoubleClick:)];
 #if 0
     BOOL refuses = [buttonChooseDir_ refusesFirstResponder];
     NSLog(@"buttonChooseDir_ refusesFirstResponder=%d", refuses);
@@ -54,6 +55,13 @@
     NSString *searchTerm = [searchTermField_ stringValue];
     NSString *dir = [dirField_ stringValue];
     [appDelegate startSearch:searchTerm inDirectory:dir];
+	// startSearch might have updated recent searches list, so
+	// reload it to make the search visible
+	[tableViewRecentSearches_ reloadData];
+}
+
+- (IBAction)tableViewDoubleClick:(id)sender {
+	NSLog(@"tableViewDoubleClick");
 }
 
 - (IBAction) chooseDir:(id)sender {
@@ -96,6 +104,16 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     NSString *dir = [recentSearches objectAtIndex:idx+1];
     NSString *s = [NSString stringWithFormat:@"%@ in %@", searchTerm, dir];
     return s;
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
+	NSInteger row = [tableViewRecentSearches_ selectedRow];
+    NSArray *recentSearches = [[VisualAckAppDelegate shared] recentSearches];
+    NSInteger searchesCount = [recentSearches count] / 2;
+	if (row < 0 || row >= searchesCount) {
+		return;
+	}
+	
 }
 
 @end

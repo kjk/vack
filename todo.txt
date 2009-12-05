@@ -18,6 +18,8 @@ To do before release:
 * cleanup menu items
 * figure out why can't set focus to "Choose" button via tabbing. Its
   refuseFirstResponder is NO, so I don't get it.
+* move recentSearches logic to SearchWindowController? Seems like a more logical place
+* don't add duplicate items to recent searches
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)
