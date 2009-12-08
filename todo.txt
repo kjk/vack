@@ -17,7 +17,6 @@ To do before release:
 * move recentSearches logic to SearchWindowController? Seems like a more logical place
 * don't add duplicate items to recent searches
 * before trying to create vack link, show a dialog explaining that (like google app engine runtime)
-* change the search text field to NSSearchField
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)
@@ -43,6 +42,7 @@ Done:
 2009-12-07
  * when recent search selected - copy data to text fields
  * when recent search double-clicked - start the search
+ * change the search text field to NSSearchField
 
 2009-12-04
  * remembering recent searches
