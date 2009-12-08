@@ -1,7 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface SearchWindowController : NSWindowController {
-    IBOutlet NSTextField *      searchTermField_;
+    IBOutlet NSSearchField *    searchTermField_;
     IBOutlet NSTextField *      dirField_;
     IBOutlet NSButton *         buttonSearch_;
     IBOutlet NSButton *         buttonChooseDir_;
