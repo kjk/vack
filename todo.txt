@@ -1,6 +1,4 @@
 To do before release:
-* when recent search selected - copy data to text fields
-* when recent search double-clicked - start the search
 * show search stats at the bottom view (searched, skiped files, skipped directories)
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * show search progress indicator
@@ -16,10 +14,10 @@ To do before release:
   regular security and retrying if it failed
 * 'Move to Application folder' http://www.potionfactory.com/node/251
 * cleanup menu items
-* figure out why can't set focus to "Choose" button via tabbing. Its
-  refuseFirstResponder is NO, so I don't get it.
 * move recentSearches logic to SearchWindowController? Seems like a more logical place
 * don't add duplicate items to recent searches
+* before trying to create vack link, show a dialog explaining that (like google app engine runtime)
+* change the search text field to NSSearchField
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)
@@ -41,6 +39,10 @@ Things to do:
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 
 Done:
+
+2009-12-07
+ * when recent search selected - copy data to text fields
+ * when recent search double-clicked - start the search
 
 2009-12-04
  * remembering recent searches

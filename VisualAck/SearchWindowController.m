@@ -11,10 +11,6 @@
 
 - (void)awakeFromNib {
 	[tableViewRecentSearches_ setDoubleAction:@selector(tableViewDoubleClick:)];
-#if 0
-    BOOL refuses = [buttonChooseDir_ refusesFirstResponder];
-    NSLog(@"buttonChooseDir_ refusesFirstResponder=%d", refuses);
-#endif
 }
 
 - (IBAction)showWindow:(id)sender {
@@ -60,9 +56,6 @@
 	[tableViewRecentSearches_ reloadData];
 }
 
-- (IBAction)tableViewDoubleClick:(id)sender {
-	NSLog(@"tableViewDoubleClick");
-}
 
 - (IBAction) chooseDir:(id)sender {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
@@ -106,6 +99,20 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     return s;
 }
 
+- (IBAction)tableViewDoubleClick:(id)sender {
+	NSInteger row = [tableViewRecentSearches_ selectedRow];
+    NSArray *recentSearches = [[VisualAckAppDelegate shared] recentSearches];
+    NSInteger searchesCount = [recentSearches count] / 2;
+	if (row < 0 || row >= searchesCount) {
+		return;
+	}
+	NSInteger idx = (searchesCount - 1 - row) * 2;
+	NSString *searchTerm = [recentSearches objectAtIndex:idx];
+	NSString *searchDir = [recentSearches objectAtIndex:idx+1];
+	VisualAckAppDelegate *appDelegate = [NSApp delegate];
+	[appDelegate startSearch:searchTerm inDirectory:searchDir];
+}
+
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
 	NSInteger row = [tableViewRecentSearches_ selectedRow];
     NSArray *recentSearches = [[VisualAckAppDelegate shared] recentSearches];
@@ -113,7 +120,11 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 	if (row < 0 || row >= searchesCount) {
 		return;
 	}
-	
+	NSInteger idx = (searchesCount - 1 - row) * 2;
+	NSString *searchTerm = [recentSearches objectAtIndex:idx];
+	NSString *searchDir = [recentSearches objectAtIndex:idx+1];
+	[searchTermField_ setStringValue:searchTerm];
+	[dirField_ setStringValue:searchDir];
 }
 
 @end
