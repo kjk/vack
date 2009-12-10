@@ -3,10 +3,14 @@
 #import "FileSearchProtocol.h"
 
 @interface SearchResultsWindowController : NSWindowController <FileSearchProtocol> {
-    IBOutlet NSTableView *tableView_;
-    IBOutlet NSView *customView_;
+    IBOutlet NSTableView *  tableView_;
+    IBOutlet NSView *       customView_;
 	
-	NSMutableArray *searchResults_;
+	NSMutableArray *        searchResults_;
+    int                     resultsCount_;
+
+    NSDictionary *          filePathStringAttrs_;
+    NSDictionary *          matchStringAttrs_;
 }
 
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir;

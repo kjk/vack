@@ -35,11 +35,21 @@
 
 - (void)awakeFromNib {
 	searchResults_ = [[NSMutableArray arrayWithCapacity:100] retain];
+    NSColor *filePathColor = [NSColor redColor];
+    filePathStringAttrs_ = [NSDictionary dictionaryWithObject:filePathColor
+                                                       forKey:NSForegroundColorAttributeName];
+    [filePathStringAttrs_ retain];
+    NSColor *matchColor = [NSColor blueColor];
+    matchStringAttrs_ = [NSDictionary dictionaryWithObject:matchColor 
+                                                          forKey:NSBackgroundColorAttributeName];
+    [matchStringAttrs_ retain];
 	NSLog(@"SearchResultsWindowController awakeFromNib from %p", (void*)self);
 }
 
 - (void)dealloc {
 	[searchResults_ release];
+    [filePathStringAttrs_ release];
+    [matchStringAttrs_ release];
 	[super dealloc];
 }
 
@@ -56,6 +66,7 @@
 }
 
 - (void)didStartSearchInFile:(NSString*)filePath {
+    resultsCount_ = 0;
     NSLog(@"didStartSearchInFile in %@", filePath);
 }
 
@@ -63,10 +74,32 @@
     NSLog(@"didFinishSearchInFile in %@", filePath);
 }
 
+static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCount, NSRange *ranges, NSDictionary *attrs)
+{
+    for (int i=0; i < rangesCount; i++)
+    {
+        NSRange range = ranges[i];
+        [s setAttributes:attrs range:range];
+    }
+}
+
 - (void)didFindThreadSafe:(FileSearchResult*)searchResult {
-	NSString *s = [NSString stringWithFormat:@"%d: %@", (int)searchResult.lineNo, searchResult.line];
-	[searchResults_ addObject:s];
+    NSString *s;
+    NSAttributedString *as;
+    if (0 == resultsCount_) {
+        s = searchResult.filePath;
+        as = [[NSAttributedString alloc] initWithString:s
+                                             attributes:filePathStringAttrs_];
+        [searchResults_ addObject:as];
+    }
+    NSMutableAttributedString *mas = [[NSMutableAttributedString alloc] initWithString:searchResult.line];
+    setAttributedStringRanges(mas, searchResult.matchesCount, searchResult.matches, matchStringAttrs_);
+	s = [NSString stringWithFormat:@"%d: ", (int)searchResult.lineNo];
+    as = [[NSAttributedString alloc] initWithString:s];
+    [mas insertAttributedString:as atIndex:0];
+	[searchResults_ addObject:mas];
 	[tableView_ reloadData];
+    ++resultsCount_;
 }
 
 - (void)didFind:(FileSearchResult*)searchResult {

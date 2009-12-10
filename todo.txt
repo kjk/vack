@@ -18,6 +18,7 @@ To do before release:
 * move recentSearches logic to SearchWindowController? Seems like a more logical place
 * before trying to create vack link, show a dialog explaining that (like google app engine runtime)
 * analyze stats from auto-updates
+* consider swapping views in one window instead of using 2 windows
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)
@@ -39,6 +40,9 @@ Things to do:
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 
 Done:
+
+2009-12-09:
+ * basic highlighting of search results in UI
 
 2009-12-07
  * when recent search selected - copy data to text fields
