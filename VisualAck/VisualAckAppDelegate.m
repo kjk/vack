@@ -4,7 +4,6 @@
 #import "Http.h"
 #import "PrefKeys.h"
 #import "SearchWindowController.h"
-#import "SearchResultsWindowController.h"
 #import <Sparkle/Sparkle.h>
 
 #define MAX_RECENT_SEARCHES 8
@@ -261,10 +260,12 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 	[updater setSendsSystemProfile:YES];
 }
 
+#if 0
 - (void)positionWindow:(NSWindow*)dst atSamePositionAs:(NSWindow*)src {
     NSRect frame = [src frame];
     [dst setFrame:frame display:NO];
 }
+#endif
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     [self loadRecentSearches];
@@ -274,24 +275,8 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     }
 
     // TODO: if invoked via vack, go straight to search results
-    searchResultsWindowController_ = [[SearchResultsWindowController alloc] initWithWindowNibName:@"SearchResults"];
     searchWindowController_ = [[SearchWindowController alloc] initWithWindowNibName:@"SearchWindow"];
     [searchWindowController_ showWindow:self];
-}
-
-- (IBAction)showSearchWindow:(id)sender {
-    NSWindow *dst = [searchWindowController_ window];
-    NSWindow *src = [searchResultsWindowController_ window];
-    [self positionWindow:dst atSamePositionAs:src];
-    [searchWindowController_ showWindow:sender];
-}
-
-- (void)startSearch:(NSString *)searchTerm inDirectory:(NSString*)dir {
-    [self rememberSearchFor:searchTerm inDirectory:dir];
-    NSWindow *dst = [searchResultsWindowController_ window];
-    NSWindow *src = [searchWindowController_ window];
-    [self positionWindow:dst atSamePositionAs:src];
-    [searchResultsWindowController_ startSearch:searchTerm inDirectory:dir];
 }
 
 @end

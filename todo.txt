@@ -17,6 +17,9 @@ To do before release:
 * before trying to create vack link, show a dialog explaining that (like google app engine runtime)
 * analyze stats from auto-updates
 * consider swapping views in one window instead of using 2 windows
+* nicer way to list recent searches (e.g. the way xcode shows recent projects)
+* need another delegate method to indicate end of searche
+* indicate that entered directory doesn't exist + live validation while the user types
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)

@@ -45,7 +45,6 @@
 		7F8EF9BB10BD259F001AF18B /* CrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EF9B910BD259F001AF18B /* CrashReporter.m */; };
 		7F9F2D3C10BA330D00287C32 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8EF96E10B92E44001AF18B /* Sparkle.framework */; };
 		7FA475C610BA37300050E022 /* vack in Copy Executables */ = {isa = PBXBuildFile; fileRef = 7FD0FFD1106B0A9B00A1927D /* vack */; };
-		7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA0106708A500A1927D /* SearchResults.xib */; };
 		7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */; };
 		7FD0FFD7106B0B7000A1927D /* vackmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFD6106B0B7000A1927D /* vackmain.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -155,7 +154,6 @@
 		7F8EF9B810BD259F001AF18B /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
 		7F8EF9B910BD259F001AF18B /* CrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashReporter.m; sourceTree = "<group>"; };
 		7FC0F8F310647CA40000B779 /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = todo.txt; path = ../todo.txt; sourceTree = SOURCE_ROOT; };
-		7FD0FFA0106708A500A1927D /* SearchResults.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchResults.xib; sourceTree = "<group>"; };
 		7FD0FFA31067090A00A1927D /* SearchResultsStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsStatusBarView.h; sourceTree = "<group>"; };
 		7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsStatusBarView.m; sourceTree = "<group>"; };
 		7FD0FFD1106B0A9B00A1927D /* vack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vack; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -285,7 +283,6 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				7F52F5B710C10CA200D9395A /* SearchWindow.xib */,
-				7FD0FFA0106708A500A1927D /* SearchResults.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -412,7 +409,6 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				7FD0FFA1106708A500A1927D /* SearchResults.xib in Resources */,
 				7F7AAF661097B596009D785D /* VisualAck.icns in Resources */,
 				7F52F5B810C10CA200D9395A /* SearchWindow.xib in Resources */,
 			);
