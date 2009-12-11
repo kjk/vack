@@ -4,7 +4,7 @@
 @class MainWindowController;
 
 @interface VisualAckAppDelegate : NSObject {
-    MainWindowController *searchWindowController_;
+    MainWindowController *mainWindowController_;
     
     NSOperationQueue *  operationQueue_;
 }

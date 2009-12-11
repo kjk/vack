@@ -85,7 +85,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 - (NSArray *)feedParametersForUpdater:(SUUpdater *)updater
                  sendingSystemProfile:(BOOL)sendingProfile {
     NSString *uniqueId = [self uniqueId];
-    NSInteger count = [searchWindowController_ searchCount];
+    NSInteger count = [mainWindowController_ searchCount];
     NSNumber *countNum = [NSNumber numberWithInteger:count];
     NSDictionary *uniqueIdDict = [NSDictionary dictionaryWithObjectsAndKeys: 
                           @"uniqueId", @"key",
@@ -199,8 +199,8 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     }
 
     // TODO: if invoked via vack, go straight to search results
-    searchWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
-    [searchWindowController_ showWindow:self];
+    mainWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
+    [mainWindowController_ showWindow:self];
 }
 
 @end
