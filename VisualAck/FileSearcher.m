@@ -86,7 +86,7 @@ static NSString *nonNilValue = @"dummyString";
         return nil;
 
     opts_ = opts;
-    searchPattern_ = [NSString stringWithUTF8String:opts->search_term];
+    searchPattern_ = [[NSString stringWithUTF8String:opts->search_term] retain];
     if (opts->ignore_dirs || opts->no_ignore_dirs) {
         [self buildDirsToIgnoreDict:opts];
     }
