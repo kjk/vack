@@ -15,6 +15,6 @@
 - (void)setDelegate:(id <FileSearchProtocol>)delegate;
 - (id <FileSearchProtocol>)delegate;
 
-- (void)startSearch;
+- (void)doSearch;
 
 @end

@@ -17,6 +17,7 @@
     IBOutlet NSTableView *      tableView_;
     IBOutlet NSView *           customView_;
     IBOutlet NSTextField *      textFieldStatus_;
+    IBOutlet NSProgressIndicator* searchProgressIndicator_;
 	
 	NSMutableArray *            searchResults_;
     int                         resultsCount_;

@@ -184,24 +184,24 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 @end
 
 @implementation SearchResults
-- (void) dealloc {
+- (void)dealloc {
     assert(!currFilePath_);
     [super dealloc];
 }
 
-- (void) didSkipFile:(NSString*)filePath {
+- (void)didSkipFile:(NSString*)filePath {
     printf("didSkipFile %s\n", [filePath UTF8String]);
 }
 
-- (void) didSkipDirectory:(NSString*)dirPath {
+- (void)didSkipDirectory:(NSString*)dirPath {
     printf("didSkipDirectory %s\n", [dirPath UTF8String]);
 }
 
-- (void) didSkipNonExistent:(NSString*)path {
+- (void)didSkipNonExistent:(NSString*)path {
     printf("didSkipNonExistent %s\n", [path UTF8String]);
 }
 
-- (void) didFind:(FileSearchResult*)searchResult {
+- (void)didFind:(FileSearchResult*)searchResult {
     if (0 == resultsCount_) {
         // TODO: if not color, don't color
         NSString *fileColored = [NSString stringWithFormat:@"%@%@%@", ansiColor(ANSI_COLOR_FILE), currFilePath_, ansiColor(ANSI_COLOR_RESET)];
@@ -213,15 +213,18 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
     ++resultsCount_;
 }
 
-- (void) didStartSearchInFile:(NSString*)filePath {
+- (void)didStartSearchInFile:(NSString*)filePath {
     assert(!currFilePath_);
     currFilePath_ = [filePath copy];
     resultsCount_ = 0;
 }
 
-- (void) didFinishSearchInFile:(NSString*)filePath {
+- (void)didFinishSearchInFile:(NSString*)filePath {
     [currFilePath_ release];
     currFilePath_ = nil;
+}
+
+- (void)didFinishSearch {
 }
 
 @end
@@ -305,7 +308,7 @@ int main(int argc, char *argv[])
     FileSearcher *fileSearcher = [[FileSearcher alloc] initWithSearchOptions:&opts];
     SearchResults *sr = [[SearchResults alloc] init];
     [fileSearcher setDelegate:sr];
-    [fileSearcher startSearch];
+    [fileSearcher doSearch];
 
     [fileSearcher release];
     [sr release];

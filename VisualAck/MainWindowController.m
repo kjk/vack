@@ -27,7 +27,7 @@
 - (void)main {
     FileSearcher *fileSearcher = [[FileSearcher alloc] initWithSearchOptions:&searchOptions_];
     [fileSearcher setDelegate:dlg];
-    [fileSearcher startSearch];
+    [fileSearcher doSearch];
     [fileSearcher release];
     // took ownership of searchOptions, so must free them
 	free_search_options(&searchOptions_);
@@ -198,7 +198,8 @@
 
 - (void)didSkipFile:(NSString*)filePath {
     NSLog(@"didSkipFile %@", filePath);
-    [self performSelectorOnMainThread:@selector(didSkipFileThreadSafe:) withObject:filePath waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(didSkipFileThreadSafe:)
+                           withObject:filePath waitUntilDone:YES];
 }
 
 - (void)didSkipDirectoryThreadSafe:(NSString*)dirPath {
@@ -209,7 +210,8 @@
 
 - (void)didSkipDirectory:(NSString*)dirPath {
     NSLog(@"didSkipDirectory %@", dirPath);
-    [self performSelectorOnMainThread:@selector(didSkipDirectoryThreadSafe:) withObject:dirPath waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(didSkipDirectoryThreadSafe:)
+                           withObject:dirPath waitUntilDone:YES];
 }
 
 - (void)didSkipNonExistent:(NSString*)path {
@@ -224,11 +226,22 @@
 }
 
 - (void)didStartSearchInFile:(NSString*)filePath {
-    [self performSelectorOnMainThread:@selector(didStartSearchInFileThreadSafe:) withObject:filePath waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(didStartSearchInFileThreadSafe:)
+                           withObject:filePath waitUntilDone:YES];
 }
 
 - (void)didFinishSearchInFile:(NSString*)filePath {
     NSLog(@"didFinishSearchInFile in %@", filePath);
+}
+
+- (void)didFinishSearchThreadSafe:(id)ignore {
+    [searchProgressIndicator_ stopAnimation:self];
+}
+
+
+- (void)didFinishSearch {
+    [self performSelectorOnMainThread:@selector(didFinishSearchThreadSafe:)
+                           withObject:nil waitUntilDone:YES];    
 }
 
 static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCount, NSRange *ranges, NSDictionary *attrs)
@@ -290,6 +303,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     SearchOperation *op = [[SearchOperation alloc] initWithSearchOptions:opts delegate:self];
     [[VisualAckAppDelegate shared] addOperation:op];
     [op release];
+    [searchProgressIndicator_ startAnimation:self];
 }
 
 - (BOOL)windowShouldClose:(id)sender {

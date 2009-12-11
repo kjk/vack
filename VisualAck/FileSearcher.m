@@ -163,7 +163,7 @@ static NSString *nonNilValue = @"dummyString";
     }   
 }
 
-- (void)startSearch {
+- (void)doSearch {
     int i;
     NSFileManager *fm = [NSFileManager defaultManager];
     for (i = 0; i < opts_->search_loc_count; i++) {
@@ -180,6 +180,7 @@ static NSString *nonNilValue = @"dummyString";
             [self searchFile:dirOrFile inDir:nil];
         }
     }
+    [delegate_ didFinishSearch];
 }
 
 @end
