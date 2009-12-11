@@ -35,7 +35,7 @@
 		7F881CD110C8E29F0082F3FE /* FileSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F881CD010C8E29F0082F3FE /* FileSearchResult.m */; };
 		7F881CD210C8E29F0082F3FE /* FileSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F881CD010C8E29F0082F3FE /* FileSearchResult.m */; };
 		7F881CD310C8E29F0082F3FE /* FileSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F881CD010C8E29F0082F3FE /* FileSearchResult.m */; };
-		7F884915106476810041161E /* SearchWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F884914106476810041161E /* SearchWindowController.m */; };
+		7F884915106476810041161E /* MainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F884914106476810041161E /* MainWindowController.m */; };
 		7F8ED79B10C6100A00EEDE30 /* PrefKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8ED79A10C6100A00EEDE30 /* PrefKeys.m */; };
 		7F8ED79C10C6100A00EEDE30 /* PrefKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8ED79A10C6100A00EEDE30 /* PrefKeys.m */; };
 		7F8ED79D10C6100A00EEDE30 /* PrefKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8ED79A10C6100A00EEDE30 /* PrefKeys.m */; };
@@ -143,8 +143,8 @@
 		7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLineIterator.m; sourceTree = "<group>"; };
 		7F7AAF651097B596009D785D /* VisualAck.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = VisualAck.icns; sourceTree = "<group>"; };
 		7F881CD010C8E29F0082F3FE /* FileSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSearchResult.m; sourceTree = "<group>"; };
-		7F884913106476810041161E /* SearchWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchWindowController.h; sourceTree = "<group>"; };
-		7F884914106476810041161E /* SearchWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchWindowController.m; sourceTree = "<group>"; };
+		7F884913106476810041161E /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
+		7F884914106476810041161E /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
 		7F8ED79910C60FDC00EEDE30 /* PrefKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefKeys.h; sourceTree = "<group>"; };
 		7F8ED79A10C6100A00EEDE30 /* PrefKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefKeys.m; sourceTree = "<group>"; };
 		7F8EF96E10B92E44001AF18B /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
@@ -299,8 +299,8 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				7FD0FFA31067090A00A1927D /* SearchResultsStatusBarView.h */,
 				7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */,
-				7F884913106476810041161E /* SearchWindowController.h */,
-				7F884914106476810041161E /* SearchWindowController.m */,
+				7F884913106476810041161E /* MainWindowController.h */,
+				7F884914106476810041161E /* MainWindowController.m */,
 				256AC3D80F4B6AC300CF3369 /* VisualAckAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* VisualAckAppDelegate.m */,
 			);
@@ -449,7 +449,7 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* VisualAckAppDelegate.m in Sources */,
-				7F884915106476810041161E /* SearchWindowController.m in Sources */,
+				7F884915106476810041161E /* MainWindowController.m in Sources */,
 				7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */,
 				7F267A851073DEBE000C2C6C /* FileSearcher.m in Sources */,
 				7F267B911076E86D000C2C6C /* SearchOptions.m in Sources */,

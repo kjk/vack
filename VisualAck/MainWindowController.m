@@ -1,4 +1,4 @@
-#import "SearchWindowController.h"
+#import "MainWindowController.h"
 
 #import "FileSearcher.h"
 #import "FileSearchResult.h"
@@ -34,14 +34,14 @@
 }
 @end
 
-@interface SearchWindowController(Private)
+@interface MainWindowController(Private)
 - (BOOL)isSearchButtonEnabled;
 - (void)updateSearchButtonStatus;
 - (void)loadRecentSearches;
 - (void)rememberSearchFor:(NSString*)searchTerm inDirectory:(NSString*)dir;
 @end
 
-@implementation SearchWindowController
+@implementation MainWindowController
 
 - (void)awakeFromNib {
     NSWindow *window = [self window];

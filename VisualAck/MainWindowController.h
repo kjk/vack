@@ -1,7 +1,7 @@
 #import <Cocoa/Cocoa.h>
 #import "FileSearchProtocol.h"
 
-@interface SearchWindowController : NSWindowController <FileSearchProtocol> {
+@interface MainWindowController : NSWindowController <FileSearchProtocol> {
 
     IBOutlet NSView *           viewSearch_;
     IBOutlet NSView *           viewSearchResults_;

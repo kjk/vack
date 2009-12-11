@@ -3,7 +3,7 @@
 #import "CrashReporter.h"
 #import "Http.h"
 #import "PrefKeys.h"
-#import "SearchWindowController.h"
+#import "MainWindowController.h"
 #import <Sparkle/Sparkle.h>
 
 #define VACK_BIN_LINK "/usr/local/bin/vack"
@@ -206,7 +206,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     }
 
     // TODO: if invoked via vack, go straight to search results
-    searchWindowController_ = [[SearchWindowController alloc] initWithWindowNibName:@"SearchWindow"];
+    searchWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"SearchWindow"];
     [searchWindowController_ showWindow:self];
 }
 

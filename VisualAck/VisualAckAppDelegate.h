@@ -1,10 +1,10 @@
 #import <Cocoa/Cocoa.h>
 #import <AppKit/NSApplication.h>
 
-@class SearchWindowController;
+@class MainWindowController;
 
 @interface VisualAckAppDelegate : NSObject {
-    SearchWindowController *searchWindowController_;
+    MainWindowController *searchWindowController_;
     
     NSOperationQueue *  operationQueue_;
 }
