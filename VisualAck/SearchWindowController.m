@@ -2,7 +2,10 @@
 
 #import "FileSearcher.h"
 #import "FileSearchResult.h"
+#import "PrefKeys.h"
 #import "VisualAckAppDelegate.h"
+
+#define MAX_RECENT_SEARCHES 8
 
 @interface SearchOperation : NSOperation {
     search_options searchOptions_;
@@ -34,6 +37,8 @@
 @interface SearchWindowController(Private)
 - (BOOL)isSearchButtonEnabled;
 - (void)updateSearchButtonStatus;
+- (void)loadRecentSearches;
+- (void)rememberSearchFor:(NSString*)searchTerm inDirectory:(NSString*)dir;
 @end
 
 @implementation SearchWindowController
@@ -51,13 +56,15 @@
     NSColor *matchColor = [NSColor blueColor];
     matchStringAttrs_ = [NSDictionary dictionaryWithObject:matchColor 
                                                     forKey:NSBackgroundColorAttributeName];
-    [matchStringAttrs_ retain];    
+    [matchStringAttrs_ retain];
+    [self loadRecentSearches];
 }
 
 - (void)dealloc {
     [searchResults_ release];
     [filePathStringAttrs_ release];
     [matchStringAttrs_ release];
+    [recentSearches_ release];
     [super dealloc];
 }
 
@@ -241,7 +248,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 }
 
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
-    [[VisualAckAppDelegate shared] rememberSearchFor:searchTerm inDirectory:dir];
+    [self rememberSearchFor:searchTerm inDirectory:dir];
 	[tableViewRecentSearches_ reloadData];
 
     [[self window] setContentView:viewSearchResults_];
@@ -264,6 +271,65 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
         return NO;
     }
     return YES;
+}
+
+- (void)incSearchCount {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    NSInteger count = [prefs integerForKey:PREF_SEARCH_COUNT];
+    ++count;
+    [prefs setInteger:count forKey:PREF_SEARCH_COUNT];    
+}
+
+
+- (NSInteger)recentSearchIndex:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    NSInteger n = [recentSearches_ count] / 2;
+    NSString *searchTermTable;
+    NSString *dirTable;
+    for (NSInteger i = 0; i < n; i++) {
+        searchTermTable = [recentSearches_ objectAtIndex:i*2];
+        // TODO: consider case insensitive compare
+        if (![searchTerm isEqualToString:searchTermTable]) {
+            continue;
+        }
+        dirTable = [recentSearches_ objectAtIndex:i*2 + 1];
+        if (![dir isEqualToString:dirTable]) {
+            continue;
+        }
+        return i;
+    }
+    return NSNotFound;
+}
+
+- (void)rememberSearchFor:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    NSInteger searchPos = [self recentSearchIndex:searchTerm inDirectory:dir];
+    if (NSNotFound != searchPos) {
+        [recentSearches_ removeObjectAtIndex:searchPos*2];
+        [recentSearches_ removeObjectAtIndex:searchPos*2];
+    }
+    if (([recentSearches_ count] / 2) >= MAX_RECENT_SEARCHES) {
+        [recentSearches_ removeObjectAtIndex:0];
+        [recentSearches_ removeObjectAtIndex:0];
+    }
+    [recentSearches_ addObject:searchTerm];
+    [recentSearches_ addObject:dir];
+    [[NSUserDefaults standardUserDefaults] setObject:recentSearches_ forKey:PREF_RECENT_SEARCHES];
+    [self incSearchCount];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSInteger)searchCount {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    return [prefs integerForKey:PREF_SEARCH_COUNT];
+}
+
+- (void)loadRecentSearches {
+    assert(nil == recentSearches_);
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    if ( [prefs arrayForKey:PREF_RECENT_SEARCHES] != nil ) {
+        recentSearches_ = [[NSMutableArray alloc] initWithArray:[prefs arrayForKey:PREF_RECENT_SEARCHES]];
+        return;
+    }
+    recentSearches_ = [[NSMutableArray alloc] initWithCapacity:MAX_RECENT_SEARCHES * 2];
 }
 
 @end

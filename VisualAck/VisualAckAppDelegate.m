@@ -6,8 +6,6 @@
 #import "SearchWindowController.h"
 #import <Sparkle/Sparkle.h>
 
-#define MAX_RECENT_SEARCHES 8
-
 #define VACK_BIN_LINK "/usr/local/bin/vack"
 #define VACK_BIN_LINK_STR @"/usr/local/bin/vack"
 
@@ -28,9 +26,6 @@ static VisualAckAppDelegate *shared;
 
 - (void)dealloc {
     [operationQueue_ release];
-    operationQueue_ = nil;
-    [recentSearches_ release];
-    recentSearches_ = nil;
     [super dealloc];
 }
 
@@ -72,69 +67,6 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
                          errorSelector:@selector(onHttpDoneOrError:)];
 }
 
-- (void)incSearchCount {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    NSInteger count = [prefs integerForKey:PREF_SEARCH_COUNT];
-    ++count;
-    [prefs setInteger:count forKey:PREF_SEARCH_COUNT];    
-}
-
-
-- (NSInteger)recentSearchIndex:(NSString*)searchTerm inDirectory:(NSString*)dir {
-    NSInteger n = [recentSearches_ count] / 2;
-    NSString *searchTermTable;
-    NSString *dirTable;
-    for (NSInteger i = 0; i < n; i++) {
-        searchTermTable = [recentSearches_ objectAtIndex:i*2];
-        // TODO: consider case insensitive compare
-        if (![searchTerm isEqualToString:searchTermTable]) {
-            continue;
-        }
-        dirTable = [recentSearches_ objectAtIndex:i*2 + 1];
-        if (![dir isEqualToString:dirTable]) {
-            continue;
-        }
-        return i;
-    }
-    return NSNotFound;
-}
-
-- (void)rememberSearchFor:(NSString*)searchTerm inDirectory:(NSString*)dir {
-    NSInteger searchPos = [self recentSearchIndex:searchTerm inDirectory:dir];
-    if (NSNotFound != searchPos) {
-        [recentSearches_ removeObjectAtIndex:searchPos*2];
-        [recentSearches_ removeObjectAtIndex:searchPos*2];
-    }
-    if (([recentSearches_ count] / 2) >= MAX_RECENT_SEARCHES) {
-        [recentSearches_ removeObjectAtIndex:0];
-        [recentSearches_ removeObjectAtIndex:0];
-    }
-    [recentSearches_ addObject:searchTerm];
-    [recentSearches_ addObject:dir];
-    [[NSUserDefaults standardUserDefaults] setObject:recentSearches_ forKey:PREF_RECENT_SEARCHES];
-    [self incSearchCount];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSMutableArray*)recentSearches {
-    return recentSearches_;
-}
-
-- (NSInteger)searchCount {
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    return [prefs integerForKey:PREF_SEARCH_COUNT];
-}
-
-- (void)loadRecentSearches {
-    assert(nil == recentSearches_);
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    if ( [prefs arrayForKey:PREF_RECENT_SEARCHES] != nil ) {
-        recentSearches_ = [[NSMutableArray alloc] initWithArray:[prefs arrayForKey:PREF_RECENT_SEARCHES]];
-        return;
-    }
-    recentSearches_ = [[NSMutableArray alloc] initWithCapacity:MAX_RECENT_SEARCHES * 2];
-}
-
 - (NSString*)uniqueId {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     NSString *uuid = [prefs objectForKey:PREF_UNIQUE_ID];
@@ -153,7 +85,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 - (NSArray *)feedParametersForUpdater:(SUUpdater *)updater
                  sendingSystemProfile:(BOOL)sendingProfile {
     NSString *uniqueId = [self uniqueId];
-    NSInteger count = [self searchCount];
+    NSInteger count = [searchWindowController_ searchCount];
     NSNumber *countNum = [NSNumber numberWithInteger:count];
     NSDictionary *uniqueIdDict = [NSDictionary dictionaryWithObjectsAndKeys: 
                           @"uniqueId", @"key",
@@ -268,7 +200,6 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 #endif
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [self loadRecentSearches];
 	// TODO: should this be in willFinishLaunching?
     if (![self isVackLinkPresentAndCurrent]) {
         [self createLinkToVack];

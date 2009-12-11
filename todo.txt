@@ -1,5 +1,4 @@
 To do before release:
-* move recentSearches logic to SearchWindowController? Seems like a more logical place
 * better way to show search results in UI window (color it like the cmd-line output)
 * show search stats at the bottom view (searched, skiped files, skipped directories)
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
@@ -19,6 +18,7 @@ To do before release:
 * cleanup menu items
 * 'Move to Application folder' http://www.potionfactory.com/node/251
 * analyze stats from auto-updates
+* search results should be NSOutlineView with collapsible per-file entries
 
 Things to do:
 * handle multiple search locations (search_options.search_loc needs to be a list)
@@ -44,6 +44,7 @@ Done:
 2009-12-10
  * don't add duplicate items to recent searches
  * swap views in one window instead of using two windows
+ * move recentSearches logic to SearchWindowController
 
 2009-12-09:
  * basic highlighting of search results in UI
