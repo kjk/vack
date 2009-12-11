@@ -44,6 +44,7 @@
 @implementation MainWindowController
 
 - (void)awakeFromNib {
+    [self loadRecentSearches];
     NSWindow *window = [self window];
     [window setContentView:viewSearch_];
 	[tableViewRecentSearches_ setDoubleAction:@selector(tableViewDoubleClick:)];
@@ -57,7 +58,6 @@
     matchStringAttrs_ = [NSDictionary dictionaryWithObject:matchColor 
                                                     forKey:NSBackgroundColorAttributeName];
     [matchStringAttrs_ retain];
-    [self loadRecentSearches];
 }
 
 - (void)dealloc {
@@ -132,8 +132,7 @@
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     if (aTableView == tableViewRecentSearches_) {
-        NSArray *recentSearches = [[VisualAckAppDelegate shared] recentSearches];
-        return [recentSearches count] / 2;
+        return [recentSearches_ count] / 2;
     } else {
         assert(aTableView == tableView_);
         int count = [searchResults_ count];
@@ -145,14 +144,13 @@
     objectValueForTableColumn:(NSTableColumn *)aTableColumn
                           row:(int)rowIndex {
     if (aTableView == tableViewRecentSearches_) {
-        NSArray *recentSearches = [[VisualAckAppDelegate shared] recentSearches];
-        NSUInteger count = [recentSearches count];
+        NSUInteger count = [recentSearches_ count];
         // they are in reverse order
         assert(count >= rowIndex * 2);
         NSUInteger idx = count - ((rowIndex+1) * 2);
         // TODO: need to be displayed in a nicer way
-        NSString *searchTerm = [recentSearches objectAtIndex:idx];
-        NSString *dir = [recentSearches objectAtIndex:idx+1];
+        NSString *searchTerm = [recentSearches_ objectAtIndex:idx];
+        NSString *dir = [recentSearches_ objectAtIndex:idx+1];
         NSString *s = [NSString stringWithFormat:@"%@ in %@", searchTerm, dir];
         return s;
     } else {
@@ -163,15 +161,13 @@
 
 - (IBAction)tableViewDoubleClick:(id)sender {
 	NSInteger row = [tableViewRecentSearches_ selectedRow];
-    NSArray *recentSearches = [[VisualAckAppDelegate shared] recentSearches];
-    NSInteger searchesCount = [recentSearches count] / 2;
+    NSInteger searchesCount = [recentSearches_ count] / 2;
 	if (row < 0 || row >= searchesCount) {
 		return;
 	}
 	NSInteger idx = (searchesCount - 1 - row) * 2;
-	NSString *searchTerm = [recentSearches objectAtIndex:idx];
-	NSString *searchDir = [recentSearches objectAtIndex:idx+1];
-	VisualAckAppDelegate *appDelegate = [NSApp delegate];
+	NSString *searchTerm = [recentSearches_ objectAtIndex:idx];
+	NSString *searchDir = [recentSearches_ objectAtIndex:idx+1];
 	[self startSearch:searchTerm inDirectory:searchDir];
 }
 
@@ -181,14 +177,13 @@
         return;
     }
 	NSInteger row = [tableViewRecentSearches_ selectedRow];
-    NSArray *recentSearches = [[VisualAckAppDelegate shared] recentSearches];
-    NSInteger searchesCount = [recentSearches count] / 2;
+    NSInteger searchesCount = [recentSearches_ count] / 2;
 	if (row < 0 || row >= searchesCount) {
 		return;
 	}
 	NSInteger idx = (searchesCount - 1 - row) * 2;
-	NSString *searchTerm = [recentSearches objectAtIndex:idx];
-	NSString *searchDir = [recentSearches objectAtIndex:idx+1];
+	NSString *searchTerm = [recentSearches_ objectAtIndex:idx];
+	NSString *searchDir = [recentSearches_ objectAtIndex:idx+1];
 	[searchTermField_ setStringValue:searchTerm];
 	[dirField_ setStringValue:searchDir];
 }

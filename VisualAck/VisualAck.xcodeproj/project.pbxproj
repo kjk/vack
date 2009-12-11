@@ -16,7 +16,7 @@
 		7F52F49110BE742500D9395A /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52F49010BE742500D9395A /* Http.m */; };
 		7F52F49210BE742500D9395A /* Http.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F52F49010BE742500D9395A /* Http.m */; };
 		7F52F56B10BFA3E700D9395A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F52F56A10BFA3E700D9395A /* Security.framework */; };
-		7F52F5B810C10CA200D9395A /* SearchWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F52F5B710C10CA200D9395A /* SearchWindow.xib */; };
+		7F52F5B810C10CA200D9395A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F52F5B710C10CA200D9395A /* MainWindow.xib */; };
 		7F599C701092893A00933EFC /* utassert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599C6F1092893A00933EFC /* utassert.m */; };
 		7F599CCC109294F900933EFC /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
 		7F599DF31093E4DE00933EFC /* FileSearchIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F599DF21093E4DE00933EFC /* FileSearchIterator.m */; };
@@ -129,7 +129,7 @@
 		7F52F48F10BE742500D9395A /* Http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Http.h; sourceTree = "<group>"; };
 		7F52F49010BE742500D9395A /* Http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Http.m; sourceTree = "<group>"; };
 		7F52F56A10BFA3E700D9395A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		7F52F5B710C10CA200D9395A /* SearchWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchWindow.xib; sourceTree = "<group>"; };
+		7F52F5B710C10CA200D9395A /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		7F599C6E1092893A00933EFC /* utassert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utassert.h; sourceTree = "<group>"; };
 		7F599C6F1092893A00933EFC /* utassert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = utassert.m; sourceTree = "<group>"; };
 		7F599DF11093E4DE00933EFC /* FileSearchIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSearchIterator.h; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 				8D1107310486CEB800E47090 /* VisualAck-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				7F52F5B710C10CA200D9395A /* SearchWindow.xib */,
+				7F52F5B710C10CA200D9395A /* MainWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -405,7 +405,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				7F7AAF661097B596009D785D /* VisualAck.icns in Resources */,
-				7F52F5B810C10CA200D9395A /* SearchWindow.xib in Resources */,
+				7F52F5B810C10CA200D9395A /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

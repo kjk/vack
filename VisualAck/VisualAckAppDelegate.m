@@ -192,13 +192,6 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 	[updater setSendsSystemProfile:YES];
 }
 
-#if 0
-- (void)positionWindow:(NSWindow*)dst atSamePositionAs:(NSWindow*)src {
-    NSRect frame = [src frame];
-    [dst setFrame:frame display:NO];
-}
-#endif
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	// TODO: should this be in willFinishLaunching?
     if (![self isVackLinkPresentAndCurrent]) {
@@ -206,7 +199,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     }
 
     // TODO: if invoked via vack, go straight to search results
-    searchWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"SearchWindow"];
+    searchWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
     [searchWindowController_ showWindow:self];
 }
 

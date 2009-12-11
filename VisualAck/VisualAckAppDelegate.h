@@ -12,5 +12,4 @@
 + (id)shared;
 - (void)addOperation:(NSOperation*)operation;
 
-//- (void)positionWindow:(NSWindow*)dst atSamePositionAs:(NSWindow*)src;
 @end
