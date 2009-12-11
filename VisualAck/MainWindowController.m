@@ -231,7 +231,8 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     NSMutableAttributedString *mas = [[NSMutableAttributedString alloc] initWithString:searchResult.line];
     setAttributedStringRanges(mas, searchResult.matchesCount, searchResult.matches, matchStringAttrs_);
 	s = [NSString stringWithFormat:@"%d: ", (int)searchResult.lineNo];
-    as = [[NSAttributedString alloc] initWithString:s];
+    as = [[NSAttributedString alloc] initWithString:s attributes:lineNumberStringAttrs_];
+    
     [mas insertAttributedString:as atIndex:0];
 	[searchResults_ addObject:mas];
 	[tableView_ reloadData];
