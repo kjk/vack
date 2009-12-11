@@ -39,6 +39,7 @@
 - (void)updateSearchButtonStatus;
 - (void)loadRecentSearches;
 - (void)rememberSearchFor:(NSString*)searchTerm inDirectory:(NSString*)dir;
+- (void)updateSearchStatus;
 @end
 
 @implementation MainWindowController
@@ -189,21 +190,41 @@
 	[dirField_ setStringValue:searchDir];
 }
 
+- (void)didSkipFileThreadSafe:(NSString*)filePath {
+    NSLog(@"didSkipFile %@", filePath);
+    ++skippedFiles_;
+    [self updateSearchStatus];
+}
+
 - (void)didSkipFile:(NSString*)filePath {
     NSLog(@"didSkipFile %@", filePath);
+    [self performSelectorOnMainThread:@selector(didSkipFileThreadSafe:) withObject:filePath waitUntilDone:YES];
+}
+
+- (void)didSkipDirectoryThreadSafe:(NSString*)dirPath {
+    ++skippedDirs_;
+    [self updateSearchStatus];
+    NSLog(@"didSkipDirectory %@", dirPath);
 }
 
 - (void)didSkipDirectory:(NSString*)dirPath {
     NSLog(@"didSkipDirectory %@", dirPath);
+    [self performSelectorOnMainThread:@selector(didSkipDirectoryThreadSafe:) withObject:dirPath waitUntilDone:YES];
 }
 
 - (void)didSkipNonExistent:(NSString*)path {
     NSLog(@"didSkipNonExistent %@", path);    
 }
 
-- (void)didStartSearchInFile:(NSString*)filePath {
-    resultsCount_ = 0;
+- (void)didStartSearchInFileThreadSafe:(NSString*)filePath {
     NSLog(@"didStartSearchInFile in %@", filePath);
+    resultsCount_ = 0;
+    ++searchedFiles_;
+    [self updateSearchStatus];
+}
+
+- (void)didStartSearchInFile:(NSString*)filePath {
+    [self performSelectorOnMainThread:@selector(didStartSearchInFileThreadSafe:) withObject:filePath waitUntilDone:YES];
 }
 
 - (void)didFinishSearchInFile:(NSString*)filePath {
@@ -244,8 +265,18 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     // TODO: check if the user cancelled search and abort if he did by returning YES
 }
 
+- (void)updateSearchStatus {
+    NSString *s = [NSString stringWithFormat:@"Searched %d files. Skipped %d dirs, %d files.", 
+                   searchedFiles_, skippedDirs_, skippedFiles_];
+    [textFieldStatus_ setStringValue:s];
+}
+
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
     [searchResults_ removeAllObjects];
+    searchedFiles_ = 0;
+    skippedDirs_ = 0;
+    skippedFiles_ = 0;
+
     [self rememberSearchFor:searchTerm inDirectory:dir];
 	[tableViewRecentSearches_ reloadData];
 

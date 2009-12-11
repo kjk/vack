@@ -16,6 +16,7 @@
     // Outlets for results window
     IBOutlet NSTableView *      tableView_;
     IBOutlet NSView *           customView_;
+    IBOutlet NSTextField *      textFieldStatus_;
 	
 	NSMutableArray *            searchResults_;
     int                         resultsCount_;
@@ -28,6 +29,10 @@
     // search: search term and search location(s) (separated by ';' if
     // more than one). Recent searches are at the end.
     NSMutableArray *            recentSearches_;
+
+    NSInteger                   searchedFiles_;
+    NSInteger                   skippedDirs_;
+    NSInteger                   skippedFiles_;
 }
 
 - (IBAction)showWindow:(id)sender;

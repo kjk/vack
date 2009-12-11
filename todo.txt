@@ -1,6 +1,4 @@
 To do before release:
-* better way to show search results in UI window (color it like the cmd-line output)
-* show search stats at the bottom view (searched, skiped files, skipped directories)
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * show (indifinite) search progress indicator
 * launch UI from vack if '-' argument was given
@@ -12,7 +10,7 @@ To do before release:
 * try to avoid security dialog by first creating /usr/local/bin/vack link with
   regular security and retrying if it failed
 * before trying to create vack link, show a dialog explaining that (like google app engine runtime)
-* nicer way to list recent searches (e.g. th800e way xcode shows recent projects)
+* nicer way to list recent searches (e.g. the way xcode shows recent projects)
 * need another delegate method to indicate end of searche
 * indicate that entered directory doesn't exist + live validation while the user types
 * cleanup menu items
@@ -46,6 +44,8 @@ Done:
  * don't add duplicate items to recent searches
  * swap views in one window instead of using two windows
  * move recentSearches logic to SearchWindowController
+ * better colors for highlighting lines, line numbers
+ * show search stats at the bottom view (searched, skiped files, skipped directories)
 
 2009-12-09:
  * basic highlighting of search results in UI
