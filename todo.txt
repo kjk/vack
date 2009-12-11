@@ -1,7 +1,5 @@
 To do before release:
-* show file matched file name in UI 
 * better way to show search results in UI window (color it like the cmd-line output)
-* don't add duplicate items to recent searches
 * show search stats at the bottom view (searched, skiped files, skipped directories)
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * show search progress indicator
@@ -40,6 +38,9 @@ Things to do:
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 
 Done:
+
+2009-12-10
+ * don't add duplicate items to recent searches
 
 2009-12-09:
  * basic highlighting of search results in UI

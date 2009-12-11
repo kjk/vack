@@ -127,6 +127,10 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     [op release];
 }
 
+- (BOOL)tableView:(NSTableView*)aTableView isGroupRow:(NSInteger)row {
+    return YES;
+}
+
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
 {
 	int count = [searchResults_ count];

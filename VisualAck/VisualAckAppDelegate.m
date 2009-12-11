@@ -80,7 +80,32 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     [prefs setInteger:count forKey:PREF_SEARCH_COUNT];    
 }
 
+
+- (NSInteger)recentSearchIndex:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    NSInteger n = [recentSearches_ count] / 2;
+    NSString *searchTermTable;
+    NSString *dirTable;
+    for (NSInteger i = 0; i < n; i++) {
+        searchTermTable = [recentSearches_ objectAtIndex:i*2];
+        // TODO: consider case insensitive compare
+        if (![searchTerm isEqualToString:searchTermTable]) {
+            continue;
+        }
+        dirTable = [recentSearches_ objectAtIndex:i*2 + 1];
+        if (![dir isEqualToString:dirTable]) {
+            continue;
+        }
+        return i;
+    }
+    return NSNotFound;
+}
+
 - (void)rememberSearchFor:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    NSInteger searchPos = [self recentSearchIndex:searchTerm inDirectory:dir];
+    if (NSNotFound != searchPos) {
+        [recentSearches_ removeObjectAtIndex:searchPos*2];
+        [recentSearches_ removeObjectAtIndex:searchPos*2];
+    }
     if (([recentSearches_ count] / 2) >= MAX_RECENT_SEARCHES) {
         [recentSearches_ removeObjectAtIndex:0];
         [recentSearches_ removeObjectAtIndex:0];
