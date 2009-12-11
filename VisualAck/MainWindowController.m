@@ -50,14 +50,19 @@
 	[tableViewRecentSearches_ setDoubleAction:@selector(tableViewDoubleClick:)];
 
     searchResults_ = [[NSMutableArray arrayWithCapacity:100] retain];
-    NSColor *filePathColor = [NSColor redColor];
-    filePathStringAttrs_ = [NSDictionary dictionaryWithObject:filePathColor
-                                                       forKey:NSForegroundColorAttributeName];
-    [filePathStringAttrs_ retain];
-    NSColor *matchColor = [NSColor blueColor];
-    matchStringAttrs_ = [NSDictionary dictionaryWithObject:matchColor 
-                                                    forKey:NSBackgroundColorAttributeName];
-    [matchStringAttrs_ retain];
+    // 0x47A72F - green
+    NSColor *filePathColor = [NSColor colorWithCalibratedRed:0.2784 green:0.6549 blue:0.1843 alpha:1.0];
+    filePathStringAttrs_ = [[NSDictionary dictionaryWithObject:filePathColor
+                                                        forKey:NSForegroundColorAttributeName] retain];
+    // 898420 - yellowish
+    NSColor *matchColor = [NSColor colorWithCalibratedRed:0.5372 green:0.5176 blue:0.1254 alpha:1.0];
+    matchStringAttrs_ = [[NSDictionary dictionaryWithObject:matchColor
+                                                     forKey:NSBackgroundColorAttributeName] retain];
+    NSColor *lineNumberColor = [NSColor grayColor];
+    lineNumberStringAttrs_ = [[NSDictionary dictionaryWithObject:lineNumberColor
+                                                         forKey:NSForegroundColorAttributeName] retain];
+    [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
+    [self updateSearchButtonStatus];
 }
 
 - (void)dealloc {
@@ -65,16 +70,12 @@
     [filePathStringAttrs_ release];
     [matchStringAttrs_ release];
     [recentSearches_ release];
+    [lineNumberStringAttrs_ release];
     [super dealloc];
 }
 
 - (IBAction)showWindow:(id)sender {
-	// asking for window loads it for nib file and initializes bindings
-    NSWindow *window = [self window];
-    [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
-    [self updateSearchButtonStatus];
-    [window makeKeyAndOrderFront:sender];
-    //[window makeFirstResponder:searchTermField_];
+    [[self window] makeKeyAndOrderFront:sender];
 }
 
 - (BOOL)isSearchButtonEnabled {
@@ -243,6 +244,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 }
 
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    [searchResults_ removeAllObjects];
     [self rememberSearchFor:searchTerm inDirectory:dir];
 	[tableViewRecentSearches_ reloadData];
 

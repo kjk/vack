@@ -200,6 +200,10 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 
     // TODO: if invoked via vack, go straight to search results
     mainWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
+    [mainWindowController_ window];
+}
+
+- (IBAction)showMainWindow:(id)sender {
     [mainWindowController_ showWindow:self];
 }
 

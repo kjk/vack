@@ -22,11 +22,12 @@
 
     NSDictionary *              filePathStringAttrs_;
     NSDictionary *              matchStringAttrs_;
-
+    NSDictionary *              lineNumberStringAttrs_;
+    
     // array of NSString for recent searches. It has 2 strings per
     // search: search term and search location(s) (separated by ';' if
     // more than one). Recent searches are at the end.
-    NSMutableArray *    recentSearches_;
+    NSMutableArray *            recentSearches_;
 }
 
 - (IBAction)showWindow:(id)sender;

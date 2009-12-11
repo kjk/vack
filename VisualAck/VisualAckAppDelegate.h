@@ -11,5 +11,6 @@
 
 + (id)shared;
 - (void)addOperation:(NSOperation*)operation;
+- (IBAction)showMainWindow:(id)sender;
 
 @end
