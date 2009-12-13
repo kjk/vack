@@ -319,7 +319,7 @@ static void launchGui(char *argv[])
 		printf("realpath('%s') failed, cannot lanunch gui\n", path);
 		return;
 	}
-	
+
 	/* vack is in Contents/Resources, VisualAck is in /Contents/MacOS/
 	   so it's ../MacOS/VisualAck */
 	strlcpy(visualAckPath, rp, sizeof(visualAckPath));
@@ -329,7 +329,7 @@ static void launchGui(char *argv[])
 	/* when debugging vack can be in build/${VERSION}/vack while
 	   VisualAck in build/${VERSION}/VisualAck.app/Contents/MacOS/VisualAck */
 	if (!fileExists(visualAckPath)) {
-		printf("'%s' doesn't exist\n", visualAckPath);
+		//printf("'%s' doesn't exist\n", visualAckPath);
 		strlcpy(visualAckPath, rp, sizeof(visualAckPath));
 		basePathInPlace(visualAckPath);
 		strcat(visualAckPath, "/VisualAck.app/Contents/MacOS/VisualAck");
@@ -360,9 +360,6 @@ int main(int argc, char *argv[])
     init_search_options(&opts);
     cmd_line_to_search_options(&opts, argc, argv);
     
-	launchGui(argv);
-	return 0;
-
     if (opts.version) {
         print_version();
         goto Exit;
@@ -378,6 +375,11 @@ int main(int argc, char *argv[])
         goto Exit;
     }
 
+	if (opts.use_gui) {
+		launchGui(argv);
+		goto Exit;
+	}
+	
     // if search locations not given on cmd line, search current directory
     if (opts.search_loc_count == 0) {
         NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];

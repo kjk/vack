@@ -7,7 +7,7 @@
 */
 
 static search_options g_default_search_options = {
-    1, /* use_gui */
+    0, /* use_gui */
     0, /* noenv */
     0, /* help */
     0, /* version */
@@ -74,10 +74,9 @@ void cmd_line_to_search_options(search_options *opts, int argc, char *argv[])
 
     int curr_arg = 1;
 
-    /* special case: if '-' is the first arg, it disables the ui and is the
-     equivalent of ack */
+    /* special case: if '-' is the first arg it launches VisualAck with the same arguments */
     if (streq("-", argv[curr_arg])) {
-        opts->use_gui = NO;
+        opts->use_gui = 1;
         ++curr_arg;
     }
 
