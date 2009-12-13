@@ -313,10 +313,11 @@
     [self updateSearchStatus];
 }
 
-- (void)didSkipFile:(NSString*)filePath {
+- (BOOL)didSkipFile:(NSString*)filePath {
     NSLog(@"didSkipFile %@", filePath);
     [self performSelectorOnMainThread:@selector(didSkipFileThreadSafe:)
                            withObject:filePath waitUntilDone:YES];
+	return YES;
 }
 
 - (void)didSkipDirectoryThreadSafe:(NSString*)dirPath {
@@ -325,14 +326,16 @@
     NSLog(@"didSkipDirectory %@", dirPath);
 }
 
-- (void)didSkipDirectory:(NSString*)dirPath {
+- (BOOL)didSkipDirectory:(NSString*)dirPath {
     NSLog(@"didSkipDirectory %@", dirPath);
     [self performSelectorOnMainThread:@selector(didSkipDirectoryThreadSafe:)
                            withObject:dirPath waitUntilDone:YES];
+	return YES;
 }
 
-- (void)didSkipNonExistent:(NSString*)path {
+- (BOOL)didSkipNonExistent:(NSString*)path {
     NSLog(@"didSkipNonExistent %@", path);    
+	return YES;
 }
 
 - (void)didStartSearchInFileThreadSafe:(NSString*)filePath {
@@ -342,13 +345,15 @@
     [self updateSearchStatus];
 }
 
-- (void)didStartSearchInFile:(NSString*)filePath {
+- (BOOL)didStartSearchInFile:(NSString*)filePath {
     [self performSelectorOnMainThread:@selector(didStartSearchInFileThreadSafe:)
                            withObject:filePath waitUntilDone:YES];
+	return YES;
 }
 
-- (void)didFinishSearchInFile:(NSString*)filePath {
+- (BOOL)didFinishSearchInFile:(NSString*)filePath {
     NSLog(@"didFinishSearchInFile in %@", filePath);
+	return YES;
 }
 
 - (void)didFinishSearchThreadSafe:(id)ignore {
@@ -396,9 +401,10 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     ++resultsInCurrentFile_;
 }
 
-- (void)didFind:(FileSearchResult*)searchResult {
+- (BOOL)didFind:(FileSearchResult*)searchResult {
     [self performSelectorOnMainThread:@selector(didFindThreadSafe:) withObject:searchResult waitUntilDone:YES];
     // TODO: check if the user cancelled search and abort if he did by returning YES
+	return YES;
 }
 
 - (void)updateSearchStatus {

@@ -4,11 +4,11 @@
 
 @protocol FileSearchProtocol
 
-- (void)didSkipFile:(NSString*)filePath;
-- (void)didSkipDirectory:(NSString*)dirPath;
-- (void)didSkipNonExistent:(NSString*)path;
-- (void)didStartSearchInFile:(NSString*)filePath;
-- (void)didFinishSearchInFile:(NSString*)filePath;
-- (void)didFind:(FileSearchResult*)searchResult;
+- (BOOL)didSkipFile:(NSString*)filePath;
+- (BOOL)didSkipDirectory:(NSString*)dirPath;
+- (BOOL)didSkipNonExistent:(NSString*)path;
+- (BOOL)didStartSearchInFile:(NSString*)filePath;
+- (BOOL)didFinishSearchInFile:(NSString*)filePath;
+- (BOOL)didFind:(FileSearchResult*)searchResult;
 - (void)didFinishSearch;
 @end
