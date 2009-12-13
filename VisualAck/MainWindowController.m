@@ -317,7 +317,7 @@
     NSLog(@"didSkipFile %@", filePath);
     [self performSelectorOnMainThread:@selector(didSkipFileThreadSafe:)
                            withObject:filePath waitUntilDone:YES];
-	return YES;
+	return !forceSearchEnd_;
 }
 
 - (void)didSkipDirectoryThreadSafe:(NSString*)dirPath {
@@ -330,12 +330,12 @@
     NSLog(@"didSkipDirectory %@", dirPath);
     [self performSelectorOnMainThread:@selector(didSkipDirectoryThreadSafe:)
                            withObject:dirPath waitUntilDone:YES];
-	return YES;
+	return !forceSearchEnd_;
 }
 
 - (BOOL)didSkipNonExistent:(NSString*)path {
     NSLog(@"didSkipNonExistent %@", path);    
-	return YES;
+	return !forceSearchEnd_;
 }
 
 - (void)didStartSearchInFileThreadSafe:(NSString*)filePath {
@@ -348,12 +348,12 @@
 - (BOOL)didStartSearchInFile:(NSString*)filePath {
     [self performSelectorOnMainThread:@selector(didStartSearchInFileThreadSafe:)
                            withObject:filePath waitUntilDone:YES];
-	return YES;
+	return !forceSearchEnd_;
 }
 
 - (BOOL)didFinishSearchInFile:(NSString*)filePath {
     NSLog(@"didFinishSearchInFile in %@", filePath);
-	return YES;
+	return !forceSearchEnd_;
 }
 
 - (void)didFinishSearchThreadSafe:(id)ignore {
@@ -403,8 +403,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 
 - (BOOL)didFind:(FileSearchResult*)searchResult {
     [self performSelectorOnMainThread:@selector(didFindThreadSafe:) withObject:searchResult waitUntilDone:YES];
-    // TODO: check if the user cancelled search and abort if he did by returning YES
-	return YES;
+	return !forceSearchEnd_;
 }
 
 - (void)updateSearchStatus {
@@ -418,6 +417,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 }
 
 - (void)switchToSearchResultsView {
+	forceSearchEnd_ = NO;
     [textNoResultsFound_ setHidden:YES];
     [searchResults_ removeAllObjects];
     searchedFiles_ = 0;
@@ -458,6 +458,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     NSLog(@"windowShouldClose");
     NSWindow *window = [self window];
     if ([window contentView] == viewSearchResults_) {
+		forceSearchEnd_ = YES;
         [window setContentView:viewSearch_];
         [searchTermField_ setStringValue:@""];
         [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];

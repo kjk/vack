@@ -25,6 +25,8 @@
 	NSMutableArray *            searchResults_;
 	NSInteger					resultsInCurrentFile_;
 
+	BOOL						forceSearchEnd_;
+
     NSDictionary *              filePathStringAttrs_;
     NSDictionary *              matchStringAttrs_;
     NSDictionary *              lineNumberStringAttrs_;

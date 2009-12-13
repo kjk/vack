@@ -1,5 +1,4 @@
 To do before first public release:
-* closing a window while search is in progress should stop the search
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
@@ -68,6 +67,7 @@ Things to do:
 Done:
 2009-12-13
  * make search results be NSOutlineView with collapsible per-file entries
+ * stop search when closing a window while search is in progress
 
 2009-12-12
  * start work on launch VisualAck from vack
