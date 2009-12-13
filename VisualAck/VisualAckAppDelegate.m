@@ -166,7 +166,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     // to destroy the credential.  To do so, call the AuthorizationFree
     // function with the flag kAuthorizationFlagDestroyRights.
     // http://developer.apple.com/documentation/Security/Conceptual/authorization_concepts/02authconcepts/chapter_2_section_7.html
-    status = AuthorizationFree(authorizationRef, kAuthorizationFlagDestroyRights);
+    AuthorizationFree(authorizationRef, kAuthorizationFlagDestroyRights);
 }
 
 - (BOOL)isVackLinkPresentAndCurrent {

@@ -16,7 +16,7 @@ static void dump_backtrace() {
         return;
     int frames = frames_count;
     if (frames_count > 8) frames_count = 8;
-    for (int i = 1; i < frames; i++) {
+    for (int i = 1; i < frames_count; i++) {
         char *s = symbols[i];
         printf("%s\n", s);
     }

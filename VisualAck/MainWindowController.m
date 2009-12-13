@@ -34,6 +34,50 @@
 }
 @end
 
+@interface SearchResultsFile : NSObject {
+	NSString *			fileName_;
+	NSMutableArray *	children_;
+}
+
+- (id)initWithFileName:(NSString*)fileName;
+- (void)addResult:(id)child;
+- (NSArray*)children;
+- (NSInteger)childrenCount;
+- (NSString*)fileName;
+@end
+
+@implementation SearchResultsFile
+
+- (id)initWithFileName:(NSString*)fileName {
+	if (![super init]) return nil;
+	fileName_ = [fileName copy];
+	children_ = [[NSMutableArray alloc] initWithCapacity:16];
+	return self;
+}
+
+- (void)dealloc {
+	[fileName_ release];
+	[children_ release];
+	[super dealloc];
+}
+
+- (void)addResult:(id)child {
+	[children_ addObject:child];
+}
+
+- (NSArray*)children {
+	return children_;
+}
+
+- (NSInteger)childrenCount {
+	return [children_ count];
+}
+
+- (NSString*)fileName {
+	return fileName_;
+}
+@end
+
 @interface MainWindowController(Private)
 - (BOOL)isSearchButtonEnabled;
 - (void)updateSearchButtonStatus;
@@ -50,7 +94,7 @@
     [window setContentView:viewSearch_];
 	[tableViewRecentSearches_ setDoubleAction:@selector(tableViewDoubleClick:)];
 
-    searchResults_ = [[NSMutableArray arrayWithCapacity:100] retain];
+    searchResults_ = [[NSMutableArray arrayWithCapacity:64] retain];
     // 0x47A72F - green
     NSColor *filePathColor = [NSColor colorWithCalibratedRed:0.2784 green:0.6549 blue:0.1843 alpha:1.0];
     filePathStringAttrs_ = [[NSDictionary dictionaryWithObject:filePathColor
@@ -73,6 +117,10 @@
 						NSForegroundColorAttributeName, font, NSFontAttributeName, nil] retain];
     [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
     [self updateSearchButtonStatus];
+	//NSLog(@"indentationLevel: %.2f", [searchResultsView_ indentationPerLevel]);
+	//NSLog(@"indentationMarkerFollowsCell: %d", (int)[searchResultsView_ indentationMarkerFollowsCell]);
+	[searchResultsView_ setIndentationMarkerFollowsCell:NO];
+	[searchResultsView_ setIndentationPerLevel:3.0];
 
 #if 0
     NSTableColumn *tableColumn = [[tableViewRecentSearches_  tableColumns] objectAtIndex:0];
@@ -152,7 +200,6 @@
     NSInteger res = [openPanel runModal];
     if (res != NSOKButton)
         return;
-    NSString * dir = [openPanel directory];
     NSArray *files = [openPanel filenames];
     NSMutableString *s = [NSMutableString stringWithString:@""];
     for (NSString *file in files) {
@@ -165,35 +212,26 @@
 
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-    if (aTableView == tableViewRecentSearches_) {
-        return [recentSearches_ count] / 2;
-    } else {
-        assert(aTableView == tableView_);
-        int count = [searchResults_ count];
-        return count;
-    }
+	assert(aTableView == tableViewRecentSearches_);
+    return [recentSearches_ count] / 2;
 }
 
 - (id)tableView:(NSTableView *)aTableView 
     objectValueForTableColumn:(NSTableColumn *)aTableColumn
                           row:(int)rowIndex {
-    if (aTableView == tableViewRecentSearches_) {
-        NSUInteger count = [recentSearches_ count];
-        // they are in reverse order
-        assert(count >= rowIndex * 2);
-        NSUInteger idx = count - ((rowIndex+1) * 2);
-        NSString *searchTerm = [recentSearches_ objectAtIndex:idx];
-        NSString *dir = [recentSearches_ objectAtIndex:idx+1];
-		//NSRange searchTermRange = NSMakeRange(0, [searchTerm length]);
-        NSString *s = [NSString stringWithFormat:@" %@\n %@", searchTerm, dir];
-		NSMutableAttributedString *as = [[NSMutableAttributedString alloc] initWithString:s];
-		NSRange dirRange = NSMakeRange([searchTerm length]+3, [dir length]);
-		[as setAttributes:dirStringAttrs_ range:dirRange];
-        return as;
-    } else {
-        assert(aTableView == tableView_);
-        return [searchResults_ objectAtIndex:rowIndex];
-    }        
+	assert(aTableView == tableViewRecentSearches_);
+	NSUInteger count = [recentSearches_ count];
+	// they are in reverse order
+	assert(count >= rowIndex * 2);
+	NSUInteger idx = count - ((rowIndex+1) * 2);
+	NSString *searchTerm = [recentSearches_ objectAtIndex:idx];
+	NSString *dir = [recentSearches_ objectAtIndex:idx+1];
+	//NSRange searchTermRange = NSMakeRange(0, [searchTerm length]);
+	NSString *s = [NSString stringWithFormat:@" %@\n %@", searchTerm, dir];
+	NSMutableAttributedString *as = [[NSMutableAttributedString alloc] initWithString:s];
+	NSRange dirRange = NSMakeRange([searchTerm length]+3, [dir length]);
+	[as setAttributes:dirStringAttrs_ range:dirRange];
+	return as;
 }
 
 - (IBAction)tableViewDoubleClick:(id)sender {
@@ -210,6 +248,7 @@
 
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification {
     NSTableView *tableView = [aNotification object];
+	assert(tableView == tableViewRecentSearches_);
     if (tableView != tableViewRecentSearches_) {
         return;
     }
@@ -223,6 +262,44 @@
 	NSString *searchDir = [recentSearches_ objectAtIndex:idx+1];
 	[searchTermField_ setStringValue:searchTerm];
 	[dirField_ setStringValue:searchDir];
+	[self updateSearchButtonStatus];
+}
+
+- (NSInteger)outlineView:(NSOutlineView*)outlineView numberOfChildrenOfItem:(id)item {
+	assert(outlineView == searchResultsView_);
+	if (nil == item) {
+		return [searchResults_ count];
+	}
+	if ([item isKindOfClass:[SearchResultsFile class]]) {
+		return [item childrenCount];
+	}
+	return 0;
+}
+
+- (BOOL)outlineView:(NSOutlineView*)outlineView isItemExpandable:(id)item {
+	assert(outlineView == searchResultsView_);
+	return [item isKindOfClass:[SearchResultsFile class]];
+}
+
+- (id)outlineView:(NSOutlineView*)outlineView child:(NSInteger)index ofItem:(id)item {
+	assert(outlineView == searchResultsView_);
+	if (nil == item) {
+		return [searchResults_ objectAtIndex:index];
+	}
+	assert([item isKindOfClass:[SearchResultsFile class]]);
+	SearchResultsFile* srf = (SearchResultsFile*)item;
+	return [[srf children] objectAtIndex:index];
+	
+}
+
+- (id)outlineView:(NSOutlineView*)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
+	assert(outlineView == searchResultsView_);
+	if ([item isKindOfClass:[SearchResultsFile class]]) {
+		return [[NSAttributedString alloc] initWithString:[item fileName]
+											   attributes:filePathStringAttrs_];
+	}
+	assert([item isKindOfClass:[NSAttributedString class]]);
+	return item;
 }
 
 - (void)didSkipFileThreadSafe:(NSString*)filePath {
@@ -293,20 +370,24 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 - (void)didFindThreadSafe:(FileSearchResult*)searchResult {
     NSString *s;
     NSAttributedString *as;
+	SearchResultsFile *srf = nil;
     if (0 == resultsCount_) {
-        s = searchResult.filePath;
-        as = [[NSAttributedString alloc] initWithString:s
-                                             attributes:filePathStringAttrs_];
-        [searchResults_ addObject:as];
-    }
-    NSMutableAttributedString *mas = [[NSMutableAttributedString alloc] initWithString:searchResult.line];
+		srf = [[[SearchResultsFile alloc] initWithFileName:searchResult.filePath] autorelease];
+        [searchResults_ addObject:srf];
+    } else {
+		srf = [searchResults_ objectAtIndex:[searchResults_ count]-1];
+	}
+    NSMutableAttributedString *mas = [[[NSMutableAttributedString alloc] initWithString:searchResult.line] autorelease];
     setAttributedStringRanges(mas, searchResult.matchesCount, searchResult.matches, matchStringAttrs_);
 	s = [NSString stringWithFormat:@"%d: ", (int)searchResult.lineNo];
-    as = [[NSAttributedString alloc] initWithString:s attributes:lineNumberStringAttrs_];
+    as = [[[NSAttributedString alloc] initWithString:s attributes:lineNumberStringAttrs_] autorelease];
     
     [mas insertAttributedString:as atIndex:0];
-	[searchResults_ addObject:mas];
-	[tableView_ reloadData];
+	[srf addResult:mas];
+	[searchResultsView_ reloadData];
+	if (0 == resultsCount_) {
+		[searchResultsView_ expandItem:srf];
+	}
     ++resultsCount_;
 }
 

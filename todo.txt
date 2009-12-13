@@ -1,5 +1,4 @@
 To do before release:
-* search results should be NSOutlineView with collapsible per-file entries
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
@@ -66,6 +65,9 @@ Things to do:
 * even nicer way to show recent searches (header like in xcode's startup screen recent projects list)
 
 Done:
+2009-12-13
+ * make search results be NSOutlineView with collapsible per-file entries
+
 2009-12-12
  * start work on launch VisualAck from vack
  * increase the size of recent searches table view row to fit 2 lines

@@ -16,14 +16,14 @@
 	IBOutlet NSTableView *		tableViewRecentSearches_;
 
     // Outlets for results window
-    IBOutlet NSTableView *      tableView_;
+    IBOutlet NSOutlineView *    searchResultsView_;
     IBOutlet NSView *           customView_;
     IBOutlet NSTextField *      textFieldStatus_;
     IBOutlet NSProgressIndicator* searchProgressIndicator_;
 	IBOutlet NSTextField *      textNoResultsFound_;
 
 	NSMutableArray *            searchResults_;
-    int                         resultsCount_;
+	NSInteger					resultsCount_; // TODO: rename to resultsInCurrentFile_
 
     NSDictionary *              filePathStringAttrs_;
     NSDictionary *              matchStringAttrs_;

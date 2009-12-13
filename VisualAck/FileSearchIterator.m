@@ -7,9 +7,9 @@
 @implementation FileSearchIterator
 
 + (FileSearchIterator*)fileSearchIteratorWithFileName:(NSString*)path searchPattern:(NSString*)searchPattern {
-    return [[FileSearchIterator alloc]
+    return [[[FileSearchIterator alloc]
             initWithFileName:path 
-            searchPattern:searchPattern];    
+            searchPattern:searchPattern] autorelease];
 }
 
 - (void)dealloc {
