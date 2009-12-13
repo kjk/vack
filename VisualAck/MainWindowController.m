@@ -110,7 +110,7 @@
     [self startSearch:searchTerm inDirectory:dir];
 }
 
-- (IBAction) chooseDir:(id)sender {
+- (IBAction)chooseDir:(id)sender {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseFiles:YES];
     [openPanel setCanChooseDirectories:YES];
@@ -153,8 +153,9 @@
         // TODO: need to be displayed in a nicer way
         NSString *searchTerm = [recentSearches_ objectAtIndex:idx];
         NSString *dir = [recentSearches_ objectAtIndex:idx+1];
-        NSString *s = [NSString stringWithFormat:@"%@ in %@", searchTerm, dir];
-        return s;
+        NSString *s = [NSString stringWithFormat:@"%@ \nin %@", searchTerm, dir];
+		NSAttributedString *as = [[NSAttributedString alloc] initWithString:s];
+        return as;
     } else {
         assert(aTableView == tableView_);
         return [searchResults_ objectAtIndex:rowIndex];

@@ -3,6 +3,7 @@
 #import "FileSearchProtocol.h"
 #import "FileSearcher.h"
 #import "PrefKeys.h"
+#include <sys/stat.h>
 
 /*
  Usage: ack [OPTION]... PATTERN [FILE]
@@ -270,6 +271,86 @@ static void incSearchCount(void)
     CFPreferencesAppSynchronize(appId);
 }
 
+static int fileExists(const char *path)
+{
+	struct stat buf;
+	int res;
+	res = stat(path, &buf);
+	if (-1 == res) {
+		return FALSE;
+	}
+	if ((buf.st_mode & S_IFREG) != S_IFREG) {
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static void removeFromLastCharOf(char *s, char c) {
+	char *lastPos = NULL;
+	while (*s) {
+		if (c == *s) {
+			lastPos = s;
+		}
+		++s;
+	}
+
+	if (lastPos) {
+		*lastPos = 0;
+	}
+}
+
+static void basePathInPlace(char *s) {
+	removeFromLastCharOf(s, '/');
+}
+
+static void launchGui(char *argv[])
+{
+	char path[1024];
+	char *rp;
+	char visualAckPath[1024];
+
+	uint32_t size = sizeof(path);
+	if (0 != _NSGetExecutablePath(path, &size)) {
+		printf("_NSGetExecutablePath() failed, cannot launch gui\n");
+		return;
+	}
+	rp = realpath(path, NULL);
+	if (!rp) {
+		printf("realpath('%s') failed, cannot lanunch gui\n", path);
+		return;
+	}
+	
+	/* vack is in Contents/Resources, VisualAck is in /Contents/MacOS/
+	   so it's ../MacOS/VisualAck */
+	strlcpy(visualAckPath, rp, sizeof(visualAckPath));
+	basePathInPlace(visualAckPath);
+	strlcat(visualAckPath, "/../MacOS/VisualAck", sizeof(visualAckPath));
+
+	/* when debugging vack can be in build/${VERSION}/vack while
+	   VisualAck in build/${VERSION}/VisualAck.app/Contents/MacOS/VisualAck */
+	if (!fileExists(visualAckPath)) {
+		printf("'%s' doesn't exist\n", visualAckPath);
+		strlcpy(visualAckPath, rp, sizeof(visualAckPath));
+		basePathInPlace(visualAckPath);
+		strcat(visualAckPath, "/VisualAck.app/Contents/MacOS/VisualAck");
+		if (!fileExists(visualAckPath)) {
+			printf("'%s' doesn't exist\n", visualAckPath);
+			printf("Couldn't find VisualAck executable relative to '%s'\n", rp);
+			free(rp);
+			return;
+		}
+	}
+	pid_t pid = fork();
+	if (0 == pid) {
+		// This is the child, replace it with VisualAck executable. Close stdout and
+		// stderr so that we don't clutter the console (not sure if it's the right
+		// thing to do)
+		close(STDOUT_FILENO);
+		close(STDERR_FILENO);
+		execv(visualAckPath, argv);
+	}
+}
+
 /* Exit status is 0 if match, 1 if no match. */
 int main(int argc, char *argv[])
 {
@@ -279,6 +360,9 @@ int main(int argc, char *argv[])
     init_search_options(&opts);
     cmd_line_to_search_options(&opts, argc, argv);
     
+	launchGui(argv);
+	return 0;
+
     if (opts.version) {
         print_version();
         goto Exit;

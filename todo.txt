@@ -76,6 +76,10 @@ Things to do:
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 
 Done:
+2009-12-12
+ * start work on launch VisualAck from vack
+ * increase the size of recent searches table view row to fit 2 lines
+   (in preparation for displaying it in a nicer way)
 
 2009-12-10
  * don't add duplicate items to recent searches

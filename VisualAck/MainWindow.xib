@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="70"/>
+			<integer value="88"/>
 			<integer value="102"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -279,7 +279,7 @@
 												<bytes key="NSWhite">MC41AA</bytes>
 											</object>
 										</object>
-										<double key="NSRowHeight">17</double>
+										<double key="NSRowHeight">34</double>
 										<int key="NSTvFlags">314572800</int>
 										<reference key="NSDelegate"/>
 										<reference key="NSDataSource"/>
@@ -325,7 +325,7 @@
 						<reference key="NSVScroller" ref="130797263"/>
 						<reference key="NSHScroller" ref="900032845"/>
 						<reference key="NSContentView" ref="858893985"/>
-						<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
+						<bytes key="NSScrollAmts">QSAAAEEgAABCEAAAQhAAAA</bytes>
 					</object>
 					<object class="NSButton" id="966797136">
 						<reference key="NSNextResponder" ref="881998010"/>
@@ -798,7 +798,6 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="485889741"/>
-							<reference ref="56485039"/>
 							<reference ref="901050271"/>
 							<reference ref="921730705"/>
 							<reference ref="936087074"/>
@@ -806,6 +805,7 @@
 							<reference ref="966797136"/>
 							<reference ref="31036120"/>
 							<reference ref="990504646"/>
+							<reference ref="56485039"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
