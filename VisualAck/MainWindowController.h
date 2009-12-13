@@ -9,6 +9,7 @@
     // Outlets for main window
     IBOutlet NSSearchField *    searchTermField_;
     IBOutlet NSTextField *      dirField_;
+    IBOutlet NSTextField *      errorField_;
     IBOutlet NSButton *         buttonSearch_;
     IBOutlet NSButton *         buttonChooseDir_;
 	IBOutlet NSTableView *		tableViewRecentSearches_;
@@ -18,7 +19,8 @@
     IBOutlet NSView *           customView_;
     IBOutlet NSTextField *      textFieldStatus_;
     IBOutlet NSProgressIndicator* searchProgressIndicator_;
-	
+	IBOutlet NSTextField *      textNoResultsFound_;
+
 	NSMutableArray *            searchResults_;
     int                         resultsCount_;
 
@@ -42,6 +44,8 @@
 - (IBAction)search:(id)sender;
 - (IBAction)chooseDir:(id)sender;
 - (IBAction)tableViewDoubleClick:(id)sender;
+
+- (BOOL)isFontBold;
 
 - (NSInteger)searchCount;
 

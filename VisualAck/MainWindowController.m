@@ -101,17 +101,30 @@
 }
 
 - (BOOL)isSearchButtonEnabled {
-    if ([[searchTermField_ stringValue] length] == 0)
-        return NO;
-    // TODO: verify that all entries are valid directories
-    if ([[dirField_ stringValue] length] == 0)
-        return NO;
-    return YES;
+    BOOL enabled = YES;
+    if ([[searchTermField_ stringValue] length] == 0) {
+        enabled = NO;
+    }
+
+    // TODO: handle multiple directories separated by ';'
+    NSString *dir = [dirField_ stringValue];
+    if ([dir length] ==0) {
+        enabled = NO;
+    }
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:dir]) {
+        [errorField_ setStringValue:[NSString stringWithFormat:@"'%@' is not a directory or file", dir]];
+        [errorField_ setHidden:NO];
+        enabled = NO;
+    } else {
+        [errorField_ setHidden:YES];
+    }
+    return enabled;
 }
 
 - (void)updateSearchButtonStatus {
-    BOOL enabled = [self isSearchButtonEnabled];
-    [buttonSearch_ setEnabled:enabled];
+    [buttonSearch_ setEnabled:[self isSearchButtonEnabled]];
 }
 
 - (void)controlTextDidChange:(NSNotification*)aNotification {
@@ -124,7 +137,6 @@
     if (![self isSearchButtonEnabled])
         return;
 
-    VisualAckAppDelegate *appDelegate = [NSApp delegate];
     NSString *searchTerm = [searchTermField_ stringValue];
     NSString *dir = [dirField_ stringValue];
     [self startSearch:searchTerm inDirectory:dir];
@@ -259,6 +271,9 @@
 
 - (void)didFinishSearchThreadSafe:(id)ignore {
     [searchProgressIndicator_ stopAnimation:self];
+    if (0 == [searchResults_ count]) {
+        [textNoResultsFound_ setHidden:NO];
+    }
 }
 
 
@@ -307,7 +322,12 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     [textFieldStatus_ setStringValue:s];
 }
 
+- (BOOL)isFontBold {
+    return YES;
+}
+
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    [textNoResultsFound_ setHidden:YES];
     [searchResults_ removeAllObjects];
     searchedFiles_ = 0;
     skippedDirs_ = 0;

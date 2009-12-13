@@ -1,5 +1,4 @@
 To do before release:
-* indicate that entered directory doesn't exist + live validation while the user types
 * when launched with cmd-line arguments, go straight to search view
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * when printing matched file names, do it relative to the directory being
@@ -79,6 +78,8 @@ Done:
  * launch UI from vack if '-' argument was given
  * before trying to create vack link, show a dialog explaining that (like google app engine runtime)
  * pressing enter in recent search list does something weird (hides the window)
+ * indicate that entered directory doesn't exist + live validation while the user types
+ * a better indication that there were no results found (overlay a view saying "No results found")
 
 2009-12-10
  * don't add duplicate items to recent searches
