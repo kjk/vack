@@ -62,6 +62,10 @@
     NSColor *lineNumberColor = [NSColor grayColor];
     lineNumberStringAttrs_ = [[NSDictionary dictionaryWithObject:lineNumberColor
                                                          forKey:NSForegroundColorAttributeName] retain];
+
+	NSFont *font = [NSFont systemFontOfSize:10.0];
+	dirStringAttrs_ = [[NSDictionary dictionaryWithObjectsAndKeys:lineNumberColor,
+						NSForegroundColorAttributeName, font, NSFontAttributeName, nil] retain];
     [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
     [self updateSearchButtonStatus];
 }
@@ -72,6 +76,7 @@
     [matchStringAttrs_ release];
     [recentSearches_ release];
     [lineNumberStringAttrs_ release];
+	[dirStringAttrs_ release];
     [super dealloc];
 }
 
@@ -150,11 +155,13 @@
         // they are in reverse order
         assert(count >= rowIndex * 2);
         NSUInteger idx = count - ((rowIndex+1) * 2);
-        // TODO: need to be displayed in a nicer way
         NSString *searchTerm = [recentSearches_ objectAtIndex:idx];
         NSString *dir = [recentSearches_ objectAtIndex:idx+1];
-        NSString *s = [NSString stringWithFormat:@"%@ \nin %@", searchTerm, dir];
-		NSAttributedString *as = [[NSAttributedString alloc] initWithString:s];
+		//NSRange searchTermRange = NSMakeRange(0, [searchTerm length]);
+        NSString *s = [NSString stringWithFormat:@" %@\n %@", searchTerm, dir];
+		NSMutableAttributedString *as = [[NSMutableAttributedString alloc] initWithString:s];
+		NSRange dirRange = NSMakeRange([searchTerm length]+3, [dir length]);
+		[as setAttributes:dirStringAttrs_ range:dirRange];
         return as;
     } else {
         assert(aTableView == tableView_);
