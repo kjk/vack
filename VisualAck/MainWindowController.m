@@ -302,6 +302,11 @@
 	return item;
 }
 
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
+	assert(outlineView == searchResultsView_);
+	return ![item isKindOfClass:[SearchResultsFile class]];
+}
+
 - (void)didSkipFileThreadSafe:(NSString*)filePath {
     NSLog(@"didSkipFile %@", filePath);
     ++skippedFiles_;
