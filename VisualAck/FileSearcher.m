@@ -120,9 +120,9 @@ static NSString *nonNilValue = @"dummyString";
     return NO;
 }
 
-- (void)searchFile:(NSString*)fileName inDir:(NSString*)dir {
-    
+- (BOOL)searchFile:(NSString*)fileName inDir:(NSString*)dir {   
     NSString *filePath;
+	BOOL cont;
     if (dir) {
         filePath = [dir stringByAppendingPathComponent:fileName];
     } else {
@@ -135,51 +135,70 @@ static NSString *nonNilValue = @"dummyString";
         searchResult = [fileSearchIter getNextSearchResult];
         if (!searchResult)
             break;
-        [delegate_ didFind:searchResult];
+        cont = [delegate_ didFind:searchResult];
+		if (!cont) {
+			return NO;
+		}
     }
-    [delegate_ didFinishSearchInFile:filePath];
+    return [delegate_ didFinishSearchInFile:filePath];
 }
 
-- (void)searchDir:(NSString*)dir {
+- (BOOL)searchDir:(NSString*)dir {
     NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager]
                                       enumeratorAtPath:dir];
     NSString *file;
+	BOOL cont;
     for (file in dirEnum) {
         NSDictionary *fileAttrs = [dirEnum fileAttributes];
         NSString* fileType = [fileAttrs valueForKey:NSFileType];
         if ([fileType isEqualToString:NSFileTypeRegular]) {
             if ([self shouldSkipFile:file]) {
             } else {
-                [self searchFile:file inDir:dir];
+                cont = [self searchFile:file inDir:dir];
+				if (!cont) {
+					return NO;
+				}
             }
         } else if ([fileType isEqualToString:NSFileTypeDirectory]) {
             if ([self shouldSkipDirectory:file]) {
-                [delegate_ didSkipDirectory:file];
+                cont = [delegate_ didSkipDirectory:file];
+				if (!cont) {
+					return NO;
+				}
                 [dirEnum skipDescendents];
             }
         } else {
             NSLog(@"unhandled type %@ for file %@", fileType, file);
         }
-    }   
+    }
+	return YES;
 }
 
 - (void)doSearch {
     int i;
     NSFileManager *fm = [NSFileManager defaultManager];
+	BOOL cont;
     for (i = 0; i < opts_->search_loc_count; i++) {
         char *s = opts_->search_loc[i];
         NSString *dirOrFile = [NSString stringWithUTF8String:s];
         BOOL isDir = NO;
         if (![fm fileExistsAtPath:dirOrFile isDirectory:&isDir]) {
-            [delegate_ didSkipNonExistent:dirOrFile];
+            cont = [delegate_ didSkipNonExistent:dirOrFile];
+			if (!cont) {
+				goto Exit;
+			}
             continue;
         }
         if (isDir) {
-            [self searchDir:dirOrFile];
+			cont = [self searchDir:dirOrFile];
         } else {
-            [self searchFile:dirOrFile inDir:nil];
+            cont = [self searchFile:dirOrFile inDir:nil];
         }
+		if (!cont) {
+			goto Exit;
+		}
     }
+Exit:
     [delegate_ didFinishSearch];
 }
 
