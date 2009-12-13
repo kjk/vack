@@ -276,7 +276,6 @@
     }
 }
 
-
 - (void)didFinishSearch {
     [self performSelectorOnMainThread:@selector(didFinishSearchThreadSafe:)
                            withObject:nil waitUntilDone:YES];    
@@ -326,17 +325,20 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     return YES;
 }
 
-- (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
+- (void)switchToSearchResultsView {
     [textNoResultsFound_ setHidden:YES];
     [searchResults_ removeAllObjects];
     searchedFiles_ = 0;
     skippedDirs_ = 0;
     skippedFiles_ = 0;
-
-    [self rememberSearchFor:searchTerm inDirectory:dir];
 	[tableViewRecentSearches_ reloadData];
-
     [[self window] setContentView:viewSearchResults_];
+}
+
+- (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    [self switchToSearchResultsView];
+    [self rememberSearchFor:searchTerm inDirectory:dir];
+
 	search_options opts;
 	init_search_options(&opts);
 	opts.search_term = strdup([searchTerm UTF8String]);
@@ -344,6 +346,17 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     
     // takes ownership of opts, so no freeing them here
     SearchOperation *op = [[SearchOperation alloc] initWithSearchOptions:opts delegate:self];
+    [[VisualAckAppDelegate shared] addOperation:op];
+    [op release];
+    [searchProgressIndicator_ startAnimation:self];
+}
+
+- (void)startSearchForSearchOptions:(search_options)searchOptions {
+    [self switchToSearchResultsView];
+    // TODO: rememberSearchFor
+    //[self rememberSearchFor:searchTerm inDirectory:dir];
+
+    SearchOperation *op = [[SearchOperation alloc] initWithSearchOptions:searchOptions delegate:self];
     [[VisualAckAppDelegate shared] addOperation:op];
     [op release];
     [searchProgressIndicator_ startAnimation:self];

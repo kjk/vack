@@ -1,5 +1,4 @@
 To do before release:
-* when launched with cmd-line arguments, go straight to search view
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
@@ -77,6 +76,7 @@ Done:
  * indicate that entered directory doesn't exist + live validation while the user types
  * a better indication that there were no results found (overlay a view saying "No results found")
  * make 'New Search' menu item enabled only if window is not visible
+ * when launched with cmd-line arguments, go straight to search view
 
 2009-12-10
  * don't add duplicate items to recent searches

@@ -6,8 +6,8 @@
 #import "MainWindowController.h"
 #import <Sparkle/Sparkle.h>
 
-#define VACK_BIN_LINK "/usr/local/bin/vack"
-#define VACK_BIN_LINK_STR @"/usr/local/bin/vack"
+extern int g_argc;
+extern char **g_argv;
 
 @implementation VisualAckAppDelegate
 
@@ -147,7 +147,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     char *args[] = {
         "-s",
         NULL,
-        VACK_BIN_LINK,
+        "/usr/local/bin/vack",
         NULL
     };
     FILE *pipe = NULL;
@@ -172,7 +172,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 - (BOOL)isVackLinkPresentAndCurrent {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
-    NSString *realPath = [fileManager destinationOfSymbolicLinkAtPath:VACK_BIN_LINK_STR error:&error];
+    NSString *realPath = [fileManager destinationOfSymbolicLinkAtPath:@"/usr/local/bin/vack" error:&error];
     if (error || !realPath)
         return NO;
     return [realPath isEqualToString:[self vackPath]];
@@ -212,10 +212,19 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // TODO: if invoked via vack, go straight to search results
     mainWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
     [mainWindowController_ window];
-
+ 
+    // command line arguments were given. This means that we were invoked via
+    // vack, so we don't have to check for [self isVackLinkPresentAndCurrent]
+    if (g_argc > 1) {
+        search_options opts;
+        init_search_options(&opts);
+        cmd_line_to_search_options(&opts, g_argc, g_argv);
+        [mainWindowController_ startSearchForSearchOptions:opts];
+        // not freeing opts because startSearch: takes ownershipt
+    }
+    
     if (![self isVackLinkPresentAndCurrent]) {
         [self shouldCreateVackLink];
     }

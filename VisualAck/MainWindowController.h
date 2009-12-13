@@ -1,5 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import "FileSearchProtocol.h"
+#import "SearchOptions.h"
 
 @interface MainWindowController : NSWindowController <FileSearchProtocol> {
 
@@ -50,6 +51,7 @@
 - (NSInteger)searchCount;
 
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir;
+- (void)startSearchForSearchOptions:(search_options)searchOptions;
 
 // tableView_ and tableViewRecentSearches_ data source methods
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView;
