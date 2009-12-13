@@ -1,16 +1,14 @@
 To do before release:
+* indicate that entered directory doesn't exist + live validation while the user types
+* when launched with cmd-line arguments, go straight to search view
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * when printing matched file names, do it relative to the directory being
   searched
-* when launched with cmd-line arguments, go straight to search view
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
 * detect utf encodings that have bom (see e.g. http://svn.cocoasourcecode.com/FolderSweep/AppController.m)
-* indicate that entered directory doesn't exist + live validation while the user types
-* cleanup menu items
-* analyze stats from auto-updates
 * search results should be NSOutlineView with collapsible per-file entries
-* pressing enter in recent search list does something weird (hides the window)
+* cleanup menu items
 * the layout hangs when showing results of searching "line" in build-stat.dat.
   Callstack of hanged part below. Need to figure out if can prevent this
   (limit max line length? Can it be caused by some specific characters?)
@@ -52,6 +50,7 @@ To do before release:
 
 
 Things to do:
+* analyze stats from auto-updates
 * handle multiple search locations (search_options.search_loc needs to be a list)
 * remember list of all searches. Remembers search pattern, list
   of files/directories to search, maybe also search results
@@ -79,6 +78,7 @@ Done:
    (in preparation for displaying it in a nicer way)
  * launch UI from vack if '-' argument was given
  * before trying to create vack link, show a dialog explaining that (like google app engine runtime)
+ * pressing enter in recent search list does something weird (hides the window)
 
 2009-12-10
  * don't add duplicate items to recent searches

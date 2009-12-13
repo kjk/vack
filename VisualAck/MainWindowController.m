@@ -125,7 +125,6 @@
         return;
 
     VisualAckAppDelegate *appDelegate = [NSApp delegate];
-    [[self window] orderOut:nil];
     NSString *searchTerm = [searchTermField_ stringValue];
     NSString *dir = [dirField_ stringValue];
     [self startSearch:searchTerm inDirectory:dir];
@@ -335,6 +334,10 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     NSWindow *window = [self window];
     if ([window contentView] == viewSearchResults_) {
         [window setContentView:viewSearch_];
+        [searchTermField_ setStringValue:@""];
+        [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
+        [window makeFirstResponder:searchTermField_];
+        [self updateSearchButtonStatus];
         return NO;
     }
     return YES;
