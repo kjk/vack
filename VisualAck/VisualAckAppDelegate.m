@@ -192,15 +192,33 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 	[updater setSendsSystemProfile:YES];
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	// TODO: should this be in willFinishLaunching?
-    if (![self isVackLinkPresentAndCurrent]) {
-        [self createLinkToVack];
-    }
+- (void)alertDidEnd:(NSAlert*)alert returnCode:(NSInteger)returnCode contextInfo:(void*)contextInfo {
+	if (returnCode == NSAlertFirstButtonReturn) {
+        [self createLinkToVack];		
+	}
+}
 
+- (BOOL)shouldCreateVackLink {
+	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	[alert addButtonWithTitle:@"Create"];
+	[alert addButtonWithTitle:@"Cancel"];
+	[alert setMessageText:@"Create link to vack executable?"];
+	[alert setInformativeText:@"VisualAck includes 'vack' command-line executable.\n\nCreate a link to vack executable in /usr/local/bin so that it can be used from terminal?\n\nAn authorization will be required."];
+	[alert setAlertStyle:NSWarningAlertStyle];
+	[alert beginSheetModalForWindow:[mainWindowController_ window]
+					  modalDelegate:self
+					 didEndSelector:@selector(alertDidEnd:returnCode:contextInfo:)
+						contextInfo:nil];
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // TODO: if invoked via vack, go straight to search results
     mainWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
     [mainWindowController_ window];
+
+    if (![self isVackLinkPresentAndCurrent]) {
+        [self shouldCreateVackLink];
+    }
 }
 
 - (IBAction)showMainWindow:(id)sender {

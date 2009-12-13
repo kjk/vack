@@ -1,15 +1,11 @@
 To do before release:
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
-* launch UI from vack if '-' argument was given
 * when printing matched file names, do it relative to the directory being
   searched
+* when launched with cmd-line arguments, go straight to search view
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
 * detect utf encodings that have bom (see e.g. http://svn.cocoasourcecode.com/FolderSweep/AppController.m)
-* try to avoid security dialog by first creating /usr/local/bin/vack link with
-  regular security and retrying if it failed
-* before trying to create vack link, show a dialog explaining that (like google app engine runtime)
-* nicer way to list recent searches (e.g. the way xcode shows recent projects)
 * indicate that entered directory doesn't exist + live validation while the user types
 * cleanup menu items
 * 'Move to Application folder' http://www.potionfactory.com/node/251
@@ -74,12 +70,15 @@ Things to do:
 * parse ack config file for compatibility
 * search large files (bigger than, say, 1MB) at the end (to improve user experience)
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
+* even nicer way to show recent searches (header like in xcode's startup screen recent projects list)
 
 Done:
 2009-12-12
  * start work on launch VisualAck from vack
  * increase the size of recent searches table view row to fit 2 lines
    (in preparation for displaying it in a nicer way)
+ * launch UI from vack if '-' argument was given
+ * before trying to create vack link, show a dialog explaining that (like google app engine runtime)
 
 2009-12-10
  * don't add duplicate items to recent searches
