@@ -12,6 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="70"/>
+			<integer value="104"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -55,7 +57,7 @@
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
 			</object>
 			<object class="NSView" id="881998010">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -418,9 +420,10 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{480, 413}</string>
+				<reference key="NSSuperview"/>
 			</object>
 			<object class="NSView" id="412187315">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">256</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -441,14 +444,14 @@
 							<object class="NSTextField" id="1045715674">
 								<reference key="NSNextResponder" ref="190672505"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{3, 4}, {434, 17}}</string>
+								<string key="NSFrame">{{3, 4}, {434, 14}}</string>
 								<reference key="NSSuperview" ref="190672505"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSTextFieldCell" key="NSCell" id="358778936">
 									<int key="NSCellFlags">68288064</int>
-									<int key="NSCellFlags2">272630784</int>
+									<int key="NSCellFlags2">272761856</int>
 									<string key="NSContents">Label</string>
-									<reference key="NSSupport" ref="254299595"/>
+									<reference key="NSSupport" ref="26"/>
 									<reference key="NSControlView" ref="1045715674"/>
 									<reference key="NSBackgroundColor" ref="601162812"/>
 									<reference key="NSTextColor" ref="180066305"/>
@@ -589,6 +592,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{480, 420}</string>
+				<reference key="NSSuperview"/>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
