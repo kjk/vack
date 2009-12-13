@@ -56,14 +56,19 @@
     filePathStringAttrs_ = [[NSDictionary dictionaryWithObject:filePathColor
                                                         forKey:NSForegroundColorAttributeName] retain];
     // 898420 - yellowish
-    NSColor *matchColor = [NSColor colorWithCalibratedRed:0.5372 green:0.5176 blue:0.1254 alpha:1.0];
+    //NSColor *matchColor = [NSColor colorWithCalibratedRed:0.5372 green:0.5176 blue:0.1254 alpha:1.0];
+
+    // #AACCFB - light blue selection like in safari or xcode
+    NSColor *matchColor = [NSColor colorWithCalibratedRed:0.6679 green:0.8 blue:0.9843 alpha:1.0];
     matchStringAttrs_ = [[NSDictionary dictionaryWithObject:matchColor
                                                      forKey:NSBackgroundColorAttributeName] retain];
-    NSColor *lineNumberColor = [NSColor grayColor];
-    lineNumberStringAttrs_ = [[NSDictionary dictionaryWithObject:lineNumberColor
-                                                         forKey:NSForegroundColorAttributeName] retain];
 
 	NSFont *font = [NSFont systemFontOfSize:10.0];
+
+    NSColor *lineNumberColor = [NSColor grayColor];
+    lineNumberStringAttrs_ = [[NSDictionary dictionaryWithObjectsAndKeys:lineNumberColor,
+                               NSForegroundColorAttributeName, font, NSFontAttributeName, nil] retain];
+
 	dirStringAttrs_ = [[NSDictionary dictionaryWithObjectsAndKeys:lineNumberColor,
 						NSForegroundColorAttributeName, font, NSFontAttributeName, nil] retain];
     [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
