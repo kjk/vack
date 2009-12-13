@@ -73,6 +73,17 @@
 						NSForegroundColorAttributeName, font, NSFontAttributeName, nil] retain];
     [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
     [self updateSearchButtonStatus];
+
+#if 0
+    NSTableColumn *tableColumn = [[tableViewRecentSearches_  tableColumns] objectAtIndex:0];
+    NSDictionary *titleStringAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     NSFontAttributeName, [NSFont systemFontOfSize:28.0], nil];
+    
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Recent searches:"
+                                                                attributes:titleStringAttr];
+
+    [[tableColumn headerCell] setTitle:title];
+#endif
 }
 
 - (void)dealloc {
