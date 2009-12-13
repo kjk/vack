@@ -23,7 +23,7 @@
 	IBOutlet NSTextField *      textNoResultsFound_;
 
 	NSMutableArray *            searchResults_;
-	NSInteger					resultsCount_; // TODO: rename to resultsInCurrentFile_
+	NSInteger					resultsInCurrentFile_;
 
     NSDictionary *              filePathStringAttrs_;
     NSDictionary *              matchStringAttrs_;

@@ -332,7 +332,7 @@
 
 - (void)didStartSearchInFileThreadSafe:(NSString*)filePath {
     NSLog(@"didStartSearchInFile in %@", filePath);
-    resultsCount_ = 0;
+    resultsInCurrentFile_ = 0;
     ++searchedFiles_;
     [self updateSearchStatus];
 }
@@ -371,7 +371,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     NSString *s;
     NSAttributedString *as;
 	SearchResultsFile *srf = nil;
-    if (0 == resultsCount_) {
+    if (0 == resultsInCurrentFile_) {
 		srf = [[[SearchResultsFile alloc] initWithFileName:searchResult.filePath] autorelease];
         [searchResults_ addObject:srf];
     } else {
@@ -385,10 +385,10 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     [mas insertAttributedString:as atIndex:0];
 	[srf addResult:mas];
 	[searchResultsView_ reloadData];
-	if (0 == resultsCount_) {
+	if (0 == resultsInCurrentFile_) {
 		[searchResultsView_ expandItem:srf];
 	}
-    ++resultsCount_;
+    ++resultsInCurrentFile_;
 }
 
 - (void)didFind:(FileSearchResult*)searchResult {
