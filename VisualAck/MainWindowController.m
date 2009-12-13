@@ -74,7 +74,7 @@
 }
 
 - (NSString*)fileName {
-	return fileName_;
+	return [NSString stringWithFormat:@"  %@", fileName_];
 }
 @end
 
@@ -120,7 +120,7 @@
 	//NSLog(@"indentationLevel: %.2f", [searchResultsView_ indentationPerLevel]);
 	//NSLog(@"indentationMarkerFollowsCell: %d", (int)[searchResultsView_ indentationMarkerFollowsCell]);
 	[searchResultsView_ setIndentationMarkerFollowsCell:NO];
-	[searchResultsView_ setIndentationPerLevel:3.0];
+	[searchResultsView_ setIndentationPerLevel:2.0];
 
 #if 0
     NSTableColumn *tableColumn = [[tableViewRecentSearches_  tableColumns] objectAtIndex:0];
