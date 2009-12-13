@@ -1,13 +1,10 @@
 To do before release:
 * when launched with cmd-line arguments, go straight to search view
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
-* when printing matched file names, do it relative to the directory being
-  searched
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
 * detect utf encodings that have bom (see e.g. http://svn.cocoasourcecode.com/FolderSweep/AppController.m)
 * search results should be NSOutlineView with collapsible per-file entries
-* cleanup menu items
 * the layout hangs when showing results of searching "line" in build-stat.dat.
   Callstack of hanged part below. Need to figure out if can prevent this
   (limit max line length? Can it be caused by some specific characters?)
@@ -50,10 +47,10 @@ To do before release:
 
 Things to do:
 * analyze stats from auto-updates
+* when printing matched file names, do it relative to the directory being
+  searched
+* 'Move to Application folder' http://www.potionfactory.com/node/251
 * handle multiple search locations (search_options.search_loc needs to be a list)
-* remember list of all searches. Remembers search pattern, list
-  of files/directories to search, maybe also search results
-* show list of recent searches in the NSTableView
 * build test harness to simulate ack. Will need to change the way tests are
   executed in the harness. Currently invocation looks like:
   perl -T ./capture-stderr stderr.log \.\/ack \-\-noenv Sue \-1 \-h \-\-text t\/text
@@ -68,7 +65,6 @@ Things to do:
 * search large files (bigger than, say, 1MB) at the end (to improve user experience)
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 * even nicer way to show recent searches (header like in xcode's startup screen recent projects list)
-* 'Move to Application folder' http://www.potionfactory.com/node/251
 
 Done:
 2009-12-12
@@ -80,6 +76,7 @@ Done:
  * pressing enter in recent search list does something weird (hides the window)
  * indicate that entered directory doesn't exist + live validation while the user types
  * a better indication that there were no results found (overlay a view saying "No results found")
+ * make 'New Search' menu item enabled only if window is not visible
 
 2009-12-10
  * don't add duplicate items to recent searches

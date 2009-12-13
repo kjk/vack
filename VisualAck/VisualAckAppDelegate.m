@@ -225,4 +225,8 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     [mainWindowController_ showWindow:self];
 }
 
+- (BOOL)isNewSearchMenuEnabled {
+    return ![[mainWindowController_ window] isVisible];
+}
+
 @end
