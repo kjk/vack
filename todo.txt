@@ -1,9 +1,9 @@
 To do before release:
+* search results should be NSOutlineView with collapsible per-file entries
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
 * detect utf encodings that have bom (see e.g. http://svn.cocoasourcecode.com/FolderSweep/AppController.m)
-* search results should be NSOutlineView with collapsible per-file entries
 * the layout hangs when showing results of searching "line" in build-stat.dat.
   Callstack of hanged part below. Need to figure out if can prevent this
   (limit max line length? Can it be caused by some specific characters?)
