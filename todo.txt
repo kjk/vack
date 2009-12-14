@@ -1,4 +1,4 @@
-To do before first public release:
+uTo do before first public release:
 * skip the files that we shouldn't be searching
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
@@ -25,6 +25,8 @@ Things to do:
 * search large files (bigger than, say, 1MB) at the end (to improve user experience)
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 * even nicer way to show recent searches (header like in xcode's startup screen recent projects list)
+
+Days: 25
 
 Done:
 2009-12-13
