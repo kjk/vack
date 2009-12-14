@@ -4,6 +4,7 @@
 #import "FileSearcher.h"
 #import "PrefKeys.h"
 #include <sys/stat.h>
+#include <mach-o/dyld.h>
 
 /*
  Usage: ack [OPTION]... PATTERN [FILE]
@@ -245,12 +246,6 @@ static void print_version() {
 static void print_help() {
     printf("vack %s\n", VACK_VER);
     printf("\nThis is help. Write me.\n");
-}
-
-static NSString *prefsPath(void)
-{
-    NSString *path = @"~/Library/Preferences/info.kowalczyk.visualack.plist";
-    return [path stringByExpandingTildeInPath];    
 }
 
 static void incSearchCount(void)

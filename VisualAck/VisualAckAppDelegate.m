@@ -191,7 +191,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 	}
 }
 
-- (BOOL)shouldCreateVackLink {
+- (void)shouldCreateVackLink {
 	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
 	[alert addButtonWithTitle:@"Create"];
 	[alert addButtonWithTitle:@"Cancel"];
@@ -210,7 +210,15 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
  
     // command line arguments were given. This means that we were invoked via
     // vack, so we don't have to check for [self isVackLinkPresentAndCurrent]
-    if (g_argc > 1) {
+    // we check for 2 argc, because first is executable path and second is
+    // some -psnXXXX argument that Mac OS X seems to be giving to .app programs
+    if (g_argc > 2) {
+#if 0
+        NSLog(@"args: %d", g_argc);
+        for (int i=0; i<g_argc; i++) {
+            NSLog(@"arg: %s", g_argv[i]);
+        }
+#endif
         search_options opts;
         init_search_options(&opts);
         cmd_line_to_search_options(&opts, g_argc, g_argv);

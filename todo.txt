@@ -31,6 +31,7 @@ Done:
  * make search results be NSOutlineView with collapsible per-file entries
  * stop search when closing a window while search is in progress
  * limit the length of the line to a reasonable size
+ * when started as a .app don't go to results page
 
 2009-12-12
  * start work on launch VisualAck from vack

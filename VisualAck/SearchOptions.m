@@ -38,7 +38,7 @@ static inline int strstartswith(const char *s1, const char *s2) {
 
 static char **char_array_dup(char **arr, int count) {
     char **res = (char**)malloc(sizeof(char*) * (count+1));
-    for (int i=0; i++; i < count) {
+    for (int i=0; i < count; i++) {
         char *s = arr[i];
         assert(s);
         res[i] = strdup(s);

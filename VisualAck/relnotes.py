@@ -1,6 +1,8 @@
 import cgi
 
 relnotes = [
+    ["0.2.2", "2009-12-13",
+     "don't go directly to results page"],
     ["0.2.1", "2009-12-13",
      "remove vack link before creating a new one"],
     ["0.2", "2009-12-13",
