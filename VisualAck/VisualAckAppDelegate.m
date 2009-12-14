@@ -142,24 +142,17 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
         return;
     }
 
-    //NSLog(@"\n\n** %@ **\n\n", @"This command should work.");
-    char *cmd = "/bin/ln";
-    char *args[] = {
-        "-s",
-        NULL,
-        "/usr/local/bin/vack",
-        NULL
-    };
+    char *argsLn[] = { "-s", NULL, "/usr/local/bin/vack", NULL };
+    char *argsRm[] = { "/usr/local/bin/vack", NULL };
     FILE *pipe = NULL;
 
-    args[1] = (char*)[[self vackPath] UTF8String];
+    argsLn[1] = (char*)[[self vackPath] UTF8String];
 
-    status = AuthorizationExecuteWithPrivileges(authorizationRef, cmd,
-                                                kAuthorizationFlagDefaults, args, &pipe);
-    if (status != errAuthorizationSuccess) {
-        //NSLog(@"Error: %d", status);
-        return;
-    }
+    status = AuthorizationExecuteWithPrivileges(authorizationRef, "/bin/rm",
+                                                kAuthorizationFlagDefaults, argsRm, &pipe);    
+
+    status = AuthorizationExecuteWithPrivileges(authorizationRef, "/bin/ln",
+                                                kAuthorizationFlagDefaults, argsLn, &pipe);
 
     // The only way to guarantee that a credential acquired when you
     // request a right is not shared with other authorization instances is
