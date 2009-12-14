@@ -4,44 +4,6 @@ To do before first public release:
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
 * detect utf encodings that have bom (see e.g. http://svn.cocoasourcecode.com/FolderSweep/AppController.m)
-* the layout hangs when showing results of searching "line" in build-stat.dat.
-  Callstack of hanged part below. Need to figure out if can prevent this
-  (limit max line length? Can it be caused by some specific characters?)
-
-#0  0x00007fff86da7b46 in -[NSATSGlyphStorage _widthForStringRange:] ()
-#1  0x00007fff86c54664 in -[NSATSLineFragment layoutForStartingGlyphAtIndex:characterIndex:minPosition:maxPosition:lineFragmentRect:] ()
-#2  0x00007fff86c52b67 in -[NSATSTypesetter _layoutLineFragmentStartingWithGlyphAtIndex:characterIndex:atPoint:renderingContext:] ()
-#3  0x00007fff86ce75b7 in -[NSATSTypesetter layoutParagraphAtPoint:] ()
-#4  0x00007fff87189d9e in -[NSTypesetter _layoutGlyphsInLayoutManager:startingAtGlyphIndex:maxNumberOfLineFragments:maxCharacterIndex:nextGlyphIndex:nextCharacterIndex:] ()
-#5  0x00007fff86ce6d66 in -[NSTypesetter layoutCharactersInRange:forLayoutManager:maximumNumberOfLineFragments:] ()
-#6  0x00007fff86ce6c4f in -[NSATSTypesetter layoutCharactersInRange:forLayoutManager:maximumNumberOfLineFragments:] ()
-#7  0x00007fff86ce522c in -[NSLayoutManager(NSPrivate) _fillLayoutHoleForCharacterRange:desiredNumberOfLines:isSoft:] ()
-#8  0x00007fff86ce4bf4 in -[NSLayoutManager(NSPrivate) _fillLayoutHoleAtIndex:desiredNumberOfLines:] ()
-#9  0x00007fff86ce3873 in _NSFastFillAllLayoutHolesUpToEndOfContainerForGlyphIndex ()
-#10 0x00007fff86ce33e9 in -[NSLayoutManager textContainerForGlyphAtIndex:effectiveRange:] ()
-#11 0x00007fff86bf8f42 in -[NSLayoutManager glyphRangeForTextContainer:] ()
-#12 0x00007fff86d4ad51 in -[NSStringDrawingTextStorage drawTextContainer:withRect:graphicsContext:baselineMode:scrollable:padding:] ()
-#13 0x00007fff86c96318 in _NSStringDrawingCore ()
-#14 0x00007fff86c94fd7 in _NSDrawTextCell ()
-#15 0x00007fff86c9ccd8 in -[NSTableView drawRow:clipRect:] ()
-#16 0x00007fff86c9c5cb in -[NSTableView drawRowIndexes:clipRect:] ()
-#17 0x00007fff86c9af78 in -[NSTableView drawRect:] ()
-#18 0x00007fff86c9105e in -[NSView _drawRect:clip:] ()
-#19 0x00007fff86c8e834 in -[NSView _recursiveDisplayRectIfNeededIgnoringOpacity:isVisibleRect:rectIsVisibleRectForView:topView:] ()
-#20 0x00007fff86c8f1bf in -[NSView _recursiveDisplayRectIfNeededIgnoringOpacity:isVisibleRect:rectIsVisibleRectForView:topView:] ()
-#21 0x00007fff86c8a6bf in -[NSView _displayRectIgnoringOpacity:isVisibleRect:rectIsVisibleRectForView:] ()
-#22 0x00007fff86c03f37 in -[NSView displayIfNeeded] ()
-#23 0x00007fff86cd2a6f in -[NSClipView _immediateScrollToPoint:] ()
-#24 0x00007fff86cd1b35 in -[NSClipView scrollToPoint:] ()
-#25 0x00007fff86d0eb1e in -[NSScrollView scrollClipView:toPoint:] ()
-#26 0x00007fff86c4cb00 in -[NSClipView _scrollTo:animate:] ()
-#27 0x00007fff86d2956b in -[NSScrollView _doScroller:hitPart:multiplier:] ()
-#28 0x00007fff86d2909a in -[NSApplication sendAction:to:from:] ()
-#29 0x00007fff86d28ff9 in -[NSControl sendAction:to:] ()
-#30 0x00007fff86d28f84 in -[NSScroller sendAction:to:] ()
-#31 0x00007fff87079434 in -[NSScroller trackPagingArea:] ()
-#32 0x00007fff87078a64 in -[NSScroller mouseDown:] ()
-#33 0x00007fff86ccd68f in -[NSWindow sendEvent:] ()
 
 Things to do:
 * analyze stats from auto-updates
@@ -68,6 +30,7 @@ Done:
 2009-12-13
  * make search results be NSOutlineView with collapsible per-file entries
  * stop search when closing a window while search is in progress
+ * limit the length of the line to a reasonable size
 
 2009-12-12
  * start work on launch VisualAck from vack

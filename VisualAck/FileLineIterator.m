@@ -9,6 +9,8 @@
 #define CR 0xd
 #define LF 0xa
 
+#define MAX_LINE_LEN 512
+
 @implementation FileLineIterator
 
 + (FileLineIterator*) fileLineIteratorWithFileName:(NSString*)path {
@@ -81,6 +83,11 @@
     int len = lineEnd - fileCurrPos_;
     // TODO: figure out the right code page
     s = [NSString stringWithCString:fileCurrPos_ length:len];
+    // lines that are too long might slow down or even hang display in
+    // NSOutlineView, so limit them to a reasonable size
+    if ([s length] > MAX_LINE_LEN) {
+        s = [s substringToIndex:MAX_LINE_LEN];
+    }
     fileCurrPos_ = curr;
     *lineNo = ++currLineNo_;
     return s;
