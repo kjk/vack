@@ -211,7 +211,7 @@ def get_appcast(path, version, length):
 
     newlen = 'length="%d"' % length
     appcast = re.sub("length=\"[^\"]*\"", newlen, appcast)
-    writefile(path, appcast)
+    #writefile(path, appcast)
 
     newurl = 'url="%s"' % zip_url(version)
     appcast = re.sub('url="[^\"]*"', newurl, appcast)

@@ -10,7 +10,7 @@
       <sparkle:releaseNotesLink>https://kjkpub.s3.amazonaws.com/vack/relnotes.html</sparkle:releaseNotesLink>
       <pubDate>Mon, 14 Dec 09 06:28:11 -0800</pubDate>
       <enclosure
-        url="https://kjkpub.s3.amazonaws.com/vack/BTerm-0.1.6.zip"
+        url="https://kjkpub.s3.amazonaws.com/vack/VisualAck-0.2.zip"
         sparkle:version="0.2"
         sparkle:shortVersionString="0.2"
         length="2000548"
