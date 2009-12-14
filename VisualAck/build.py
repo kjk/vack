@@ -60,7 +60,7 @@ def s3connection():
 def s3PubBucket(): return s3connection().get_bucket(S3_BUCKET)
 
 def ul_cb(sofar, total):
-    if 0 ! = sofar:
+    if 0 != sofar:
         print("So far: %d, total: %d" % (sofar , total))
 
 def s3UploadFilePublic(local_file_name, remote_file_name):
