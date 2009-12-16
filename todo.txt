@@ -4,6 +4,8 @@ uTo do before first public release:
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
 * detect utf encodings that have bom (see e.g. http://svn.cocoasourcecode.com/FolderSweep/AppController.m)
+* launch the app properly using Launch Services, so that we don't get 2 copies running at the same time
+* figure out why it didn't find all ga.js entries in web/blog directory
 
 Things to do:
 * analyze stats from auto-updates
@@ -25,6 +27,10 @@ Things to do:
 * search large files (bigger than, say, 1MB) at the end (to improve user experience)
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 * even nicer way to show recent searches (header like in xcode's startup screen recent projects list)
+* a different way to show results, using HTML, like ack textmate bundle
+* write textmate bundle (based on ack textmate bundle) and automatically install it if
+  TextMate is detected on the computer
+* launch an editor with a given file directly from the the app
 
 Days: 25
 
