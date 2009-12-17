@@ -143,12 +143,78 @@ static NSString *nonNilValue = @"dummyString";
     return [delegate_ didFinishSearchInFile:filePath];
 }
 
+- (BOOL)searchDir:(NSString*)dir withParent:(NSString*)parentDir {
+	NSDictionary *fileAttrs;
+	if (parentDir) {
+		dir = [parentDir stringByAppendingPathComponent:dir];
+	}
+	NSFileManager *fm = [NSFileManager defaultManager];
+	NSString *cwd = [fm currentDirectoryPath];
+	NSString *myPath = cwd;
+	myPath = [myPath stringByAppendingPathComponent:dir];
+	NSArray *entries = [fm contentsOfDirectoryAtPath:dir error:nil];
+	if (!entries) {
+		NSLog(@"Couldn't enumerate directory %@", dir);
+		return YES;
+	}
+	BOOL cont;
+	for (NSString *file in entries) {
+		file = [myPath stringByAppendingPathComponent:file];
+		NSError *err;
+		fileAttrs = [fm attributesOfItemAtPath:file error:&err];
+		if (!fileAttrs) {
+			printf("%s NOT FOUND\n", [file UTF8String]);
+			NSString *cwd = [fm currentDirectoryPath];
+			//NSLog(@"err=%@", err);
+			//NSLog(@"cwd=%@", cwd);
+			continue;
+		}
+		printf("%s\n", [file UTF8String]);
+        NSString* fileType = [fileAttrs valueForKey:NSFileType];
+        if ([fileType isEqualToString:NSFileTypeRegular]) {
+            if ([self shouldSkipFile:file]) {
+            } else {
+                cont = [self searchFile:file inDir:dir];
+				if (!cont) {
+					return NO;
+				}
+            }
+        } else if ([fileType isEqualToString:NSFileTypeDirectory]) {
+            if ([self shouldSkipDirectory:file]) {
+                cont = [delegate_ didSkipDirectory:file];
+				if (!cont) {
+					return NO;
+				}
+            } else {
+				NSString *newParentDir = dir;
+				if (parentDir) {
+					newParentDir = [parentDir stringByAppendingPathComponent:dir];
+				}
+				cont = [self searchDir:file withParent:newParentDir];
+				if (!cont) {
+					return NO;
+				}
+			}
+        } else {
+            NSLog(@"unhandled type %@ for file %@", fileType, file);
+        }
+		
+	}
+	return YES;
+}
+
+- (BOOL)searchDir:(NSString*)dir {
+	return [self searchDir:dir withParent:nil];
+}
+
+#if 0
 - (BOOL)searchDir:(NSString*)dir {
     NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager]
                                       enumeratorAtPath:dir];
     NSString *file;
 	BOOL cont;
     for (file in dirEnum) {
+		//printf("file: %s\n", [file UTF8String]);
         NSDictionary *fileAttrs = [dirEnum fileAttributes];
         NSString* fileType = [fileAttrs valueForKey:NSFileType];
         if ([fileType isEqualToString:NSFileTypeRegular]) {
@@ -173,6 +239,7 @@ static NSString *nonNilValue = @"dummyString";
     }
 	return YES;
 }
+#endif
 
 - (void)doSearch {
     int i;

@@ -192,17 +192,23 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 }
 
 - (BOOL)didSkipFile:(NSString*)filePath {
+#ifndef NDEBUG
     printf("didSkipFile %s\n", [filePath UTF8String]);
+#endif
 	return YES;
 }
 
 - (BOOL)didSkipDirectory:(NSString*)dirPath {
+#ifndef NDEBUG
     printf("didSkipDirectory %s\n", [dirPath UTF8String]);
+#endif
 	return YES;
 }
 
 - (BOOL)didSkipNonExistent:(NSString*)path {
+#ifndef NDEBUG
     printf("didSkipNonExistent %s\n", [path UTF8String]);
+#endif
 	return YES;
 }
 
