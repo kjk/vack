@@ -143,6 +143,7 @@ static NSString *nonNilValue = @"dummyString";
     return [delegate_ didFinishSearchInFile:filePath];
 }
 
+#if 1
 - (BOOL)searchDir:(NSString*)dir withParent:(NSString*)parentDir {
     // Need auto-release pool with tighter scope because inside we alloc
     // FileLineIterator which needs fd and we need to force closing those
@@ -208,9 +209,16 @@ Exit:
     NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
 	return [self searchDir:dir withParent:cwd];
 }
+#endif
 
 #if 0
 - (BOOL)searchDir:(NSString*)dir {
+    // Need auto-release pool with tighter scope because inside we alloc
+    // FileLineIterator which needs fd and we need to force closing those
+    // file descriptors befre we accumulate too many
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    BOOL result = YES;
+
     NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager]
                                       enumeratorAtPath:dir];
     NSString *file;
@@ -224,14 +232,16 @@ Exit:
             } else {
                 cont = [self searchFile:file inDir:dir];
 				if (!cont) {
-					return NO;
+                    result = NO;
+                    goto Exit;
 				}
             }
         } else if ([fileType isEqualToString:NSFileTypeDirectory]) {
             if ([self shouldSkipDirectory:file]) {
                 cont = [delegate_ didSkipDirectory:file];
 				if (!cont) {
-					return NO;
+                    result = NO;
+                    goto Exit;
 				}
                 [dirEnum skipDescendents];
             }
@@ -239,7 +249,9 @@ Exit:
             NSLog(@"unhandled type %@ for file %@", fileType, file);
         }
     }
-	return YES;
+Exit:
+    [pool drain];
+	return result;
 }
 #endif
 
