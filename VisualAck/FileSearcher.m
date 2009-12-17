@@ -144,67 +144,69 @@ static NSString *nonNilValue = @"dummyString";
 }
 
 - (BOOL)searchDir:(NSString*)dir withParent:(NSString*)parentDir {
+    // Need auto-release pool with tighter scope because inside we alloc
+    // FileLineIterator which needs fd and we need to force closing those
+    // file descriptors befre we accumulate too many
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    BOOL result = YES;
 	NSDictionary *fileAttrs;
-	if (parentDir) {
-		dir = [parentDir stringByAppendingPathComponent:dir];
-	}
-	NSFileManager *fm = [NSFileManager defaultManager];
-	NSString *cwd = [fm currentDirectoryPath];
-	NSString *myPath = cwd;
-	myPath = [myPath stringByAppendingPathComponent:dir];
-	NSArray *entries = [fm contentsOfDirectoryAtPath:dir error:nil];
+    assert(parentDir);
+	NSFileManager *fm = [[[NSFileManager alloc] init] autorelease];
+    NSString *fullDirPath = [parentDir stringByAppendingPathComponent:dir];
+	NSArray *entries = [fm contentsOfDirectoryAtPath:fullDirPath error:nil];
 	if (!entries) {
-		NSLog(@"Couldn't enumerate directory %@", dir);
-		return YES;
+		NSLog(@"Couldn't enumerate directory %@", fullDirPath);
+        goto Exit;
 	}
 	BOOL cont;
 	for (NSString *file in entries) {
-		file = [myPath stringByAppendingPathComponent:file];
+        NSString *fullPath = [fullDirPath stringByAppendingPathComponent:file];
 		NSError *err;
-		fileAttrs = [fm attributesOfItemAtPath:file error:&err];
+		fileAttrs = [fm attributesOfItemAtPath:fullPath error:&err];
 		if (!fileAttrs) {
-			printf("%s NOT FOUND\n", [file UTF8String]);
-			NSString *cwd = [fm currentDirectoryPath];
+			NSLog(@"%@ NOT FOUND\n", fullPath);
 			//NSLog(@"err=%@", err);
-			//NSLog(@"cwd=%@", cwd);
 			continue;
 		}
-		printf("%s\n", [file UTF8String]);
         NSString* fileType = [fileAttrs valueForKey:NSFileType];
         if ([fileType isEqualToString:NSFileTypeRegular]) {
+            //NSLog(@"%@", fullPath);
             if ([self shouldSkipFile:file]) {
             } else {
-                cont = [self searchFile:file inDir:dir];
+                cont = [self searchFile:file inDir:fullDirPath];
 				if (!cont) {
-					return NO;
+                    result = NO;
+                    goto Exit;
 				}
             }
         } else if ([fileType isEqualToString:NSFileTypeDirectory]) {
+            //NSLog(@"%@", fullPath);
             if ([self shouldSkipDirectory:file]) {
-                cont = [delegate_ didSkipDirectory:file];
+                cont = [delegate_ didSkipDirectory:fullDirPath];
 				if (!cont) {
-					return NO;
+                    result = NO;
+                    goto Exit;
 				}
             } else {
-				NSString *newParentDir = dir;
-				if (parentDir) {
-					newParentDir = [parentDir stringByAppendingPathComponent:dir];
-				}
-				cont = [self searchDir:file withParent:newParentDir];
+				cont = [self searchDir:file withParent:fullDirPath];
 				if (!cont) {
-					return NO;
+                    result = NO;
+                    goto Exit;
 				}
 			}
         } else {
-            NSLog(@"unhandled type %@ for file %@", fileType, file);
+            NSLog(@"unhandled type %@ for file %@", fileType, fullPath);
         }
 		
 	}
-	return YES;
+Exit:
+    [pool drain];
+	return result;
 }
 
 - (BOOL)searchDir:(NSString*)dir {
-	return [self searchDir:dir withParent:nil];
+    NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
+	return [self searchDir:dir withParent:cwd];
 }
 
 #if 0

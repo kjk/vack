@@ -5,7 +5,6 @@ uTo do before first public release:
   returning BOOL from delegate methods, returning NO would mean "stop"
 * detect utf encodings that have bom (see e.g. http://svn.cocoasourcecode.com/FolderSweep/AppController.m)
 * launch the app properly using Launch Services, so that we don't get 2 copies running at the same time
-* figure out why it didn't find all ga.js entries in web/blog directory
 
 Things to do:
 * analyze stats from auto-updates
@@ -32,9 +31,13 @@ Things to do:
   TextMate is detected on the computer
 * launch an editor with a given file directly from the the app
 
-Days: 25
+Days: 26
 
 Done:
+2009-12-16
+ * we would stop working after a number of files searched because we were keeping
+   open file descriptors for too long
+
 2009-12-13
  * make search results be NSOutlineView with collapsible per-file entries
  * stop search when closing a window while search is in progress
