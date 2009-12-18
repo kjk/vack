@@ -151,9 +151,11 @@ static NSString *nonNilValue = @"dummyString";
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     BOOL result = YES;
 	NSDictionary *fileAttrs;
-    assert(parentDir);
 	NSFileManager *fm = [[[NSFileManager alloc] init] autorelease];
-    NSString *fullDirPath = [parentDir stringByAppendingPathComponent:dir];
+    NSString *fullDirPath = dir;
+    if (parentDir) {
+        fullDirPath = [parentDir stringByAppendingPathComponent:dir];
+    }
 	NSArray *entries = [fm contentsOfDirectoryAtPath:fullDirPath error:nil];
 	if (!entries) {
 		NSLog(@"Couldn't enumerate directory %@", fullDirPath);
@@ -206,7 +208,11 @@ Exit:
 }
 
 - (BOOL)searchDir:(NSString*)dir {
-    NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
+    NSString *cwd = nil;
+    if ([dir characterAtIndex:0] != '/') {
+        // for non-absolute paths consider them relative to current directory
+        cwd = [[NSFileManager defaultManager] currentDirectoryPath];
+    }
 	return [self searchDir:dir withParent:cwd];
 }
 #endif

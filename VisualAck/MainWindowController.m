@@ -95,6 +95,10 @@
 	[tableViewRecentSearches_ setDoubleAction:@selector(tableViewDoubleClick:)];
 
     searchResults_ = [[NSMutableArray arrayWithCapacity:64] retain];
+
+	NSFont *font = [NSFont systemFontOfSize:10.0];
+    NSFont *fontBold = [NSFont boldSystemFontOfSize:0.0];
+        
     // 0x47A72F - green
     NSColor *filePathColor = [NSColor colorWithCalibratedRed:0.2784 green:0.6549 blue:0.1843 alpha:1.0];
     filePathStringAttrs_ = [[NSDictionary dictionaryWithObject:filePathColor
@@ -104,10 +108,8 @@
 
     // #AACCFB - light blue selection like in safari or xcode
     NSColor *matchColor = [NSColor colorWithCalibratedRed:0.6679 green:0.8 blue:0.9843 alpha:1.0];
-    matchStringAttrs_ = [[NSDictionary dictionaryWithObject:matchColor
-                                                     forKey:NSBackgroundColorAttributeName] retain];
-
-	NSFont *font = [NSFont systemFontOfSize:10.0];
+    matchStringAttrs_ = [[NSDictionary dictionaryWithObjectsAndKeys:matchColor,
+                          NSBackgroundColorAttributeName, fontBold, NSFontAttributeName, nil] retain];
 
     NSColor *lineNumberColor = [NSColor grayColor];
     lineNumberStringAttrs_ = [[NSDictionary dictionaryWithObjectsAndKeys:lineNumberColor,
