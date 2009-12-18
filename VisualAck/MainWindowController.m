@@ -425,6 +425,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     skippedFiles_ = 0;
 	[tableViewRecentSearches_ reloadData];
     [[self window] setContentView:viewSearchResults_];
+    [self updateSearchStatus];
 }
 
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {

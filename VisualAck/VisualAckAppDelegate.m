@@ -207,7 +207,9 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     mainWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
     [mainWindowController_ window];
- 
+
+	// TODO: this needs to be replaced by an apple event, so that it works even if
+	// the app is already running
     // command line arguments were given. This means that we were invoked via
     // vack, so we don't have to check for [self isVackLinkPresentAndCurrent]
     // we check for 2 argc, because first is executable path and second is
@@ -223,7 +225,8 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
         init_search_options(&opts);
         cmd_line_to_search_options(&opts, g_argc, g_argv);
         [mainWindowController_ startSearchForSearchOptions:opts];
-        // not freeing opts because startSearch: takes ownershipt
+        // not freeing opts because startSearch: takes ownership
+		return;
     }
     
     if (![self isVackLinkPresentAndCurrent]) {
