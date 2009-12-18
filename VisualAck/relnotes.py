@@ -1,10 +1,13 @@
 import cgi
 
 relnotes = [
+    ["0.2.4", "2009-12-18",
+     "fix searching from ui by handling searching in absolute paths",
+     "show match in bold font"
     ["0.2.3", "2009-12-17",
-	 "fix running of file descriptors",
-	 "use Launch Services to launch UI from vack"
-	],
+     "fix running of file descriptors",
+     "use Launch Services to launch UI from vack"
+    ],
     ["0.2.2", "2009-12-13",
      "don't go directly to results page"],
     ["0.2.1", "2009-12-13",

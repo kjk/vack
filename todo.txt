@@ -39,6 +39,8 @@ Done:
 2009-12-17
  * launch gui from vack using Launch Services instead of fork()
  * detect utf encodings in files that have bom
+ * fix search from ui by handling searching in absolute paths
+ * use bold font for showing match in the string
 
 2009-12-16
  * we would stop working after a number of files searched because we were keeping
