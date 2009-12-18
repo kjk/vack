@@ -3,7 +3,6 @@ uTo do before first public release:
 * at the top of search results window, show "searching for 'xxx' in 'xxx' text
 * a way to stop search (e.g. when user press a button in the ui). Possibly by
   returning BOOL from delegate methods, returning NO would mean "stop"
-* detect utf encodings that have bom (see e.g. http://svn.cocoasourcecode.com/FolderSweep/AppController.m)
 * add scripting so that I can implement launching gui from vack even when gui is already running
 
 Things to do:
@@ -30,6 +29,8 @@ Things to do:
 * write textmate bundle (based on ack textmate bundle) and automatically install it if
   TextMate is detected on the computer
 * launch an editor with a given file directly from the the app
+* even more sophisticated file encoding detection (e.g. in html files parse
+  metadata about charset; there's code in mozilla somewhere)
 
 Days: 27
 
@@ -37,6 +38,7 @@ Done:
 
 2009-12-17
  * launch gui from vack using Launch Services instead of fork()
+ * detect utf encodings in files that have bom
 
 2009-12-16
  * we would stop working after a number of files searched because we were keeping

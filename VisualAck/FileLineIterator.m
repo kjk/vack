@@ -49,6 +49,32 @@
     }
     fileEnd_ = fileStart_ + fileSize_;
     fileCurrPos_ = fileStart_;
+
+    // default to utf8, auto-detect files with BOM
+    currentEncoding_ = kCFStringEncodingUTF8;
+    static const unsigned char utf32be[4] = {0   , 0,    0xfe, 0xff};
+    static const unsigned char utf32le[4] = {0xff, 0xfe, 0,    0};
+    static const unsigned char utf16be[2] = {0xfe, 0xff};
+    static const unsigned char utf16le[2] = {0xff, 0xfe};
+    static const unsigned char utf8[3]    = {0xef, 0xbb, 0xbf};
+    if (fileSize_ > 4) {
+        if (0 == memcmp(fileStart_, utf32be, 4)) {
+            currentEncoding_ = kCFStringEncodingUTF32BE;
+            fileCurrPos_ += 4;
+        } else if (0 == memcmp(fileStart_, utf32le, 4)) {
+            currentEncoding_ = kCFStringEncodingUTF32LE;
+            fileCurrPos_ += 4;
+        } else if (0 == memcmp(fileStart_, utf16be, 2)) {
+            currentEncoding_ = kCFStringEncodingUTF16BE;
+            fileCurrPos_ += 2;
+        } else if (0 == memcmp(fileStart_, utf16le, 2)) {
+            currentEncoding_ = kCFStringEncodingUTF16LE;
+            fileCurrPos_ += 2;
+        } else if (0 == memcmp(fileStart_, utf8, 3)) {
+            currentEncoding_ = kCFStringEncodingUTF8;
+            fileCurrPos_ += 3;
+        }
+    }
     return YES;
 }
 
@@ -56,7 +82,6 @@
 // number (starting with 1)
 // TODO: handle unicode files
 - (NSString*)getNextLine:(int*)lineNo {
-    NSString *s = nil;
     BOOL ok = [self openFileIfNeeded];
     if (!ok)
         return nil;
@@ -81,16 +106,33 @@
     }
     assert(lineEnd != NULL);
     int len = lineEnd - fileCurrPos_;
-    // TODO: figure out the right code page
-    s = [NSString stringWithCString:fileCurrPos_ length:len];
+
+    Boolean isExternal = FALSE;
+    CFStringRef s = CFStringCreateWithBytesNoCopy(kCFAllocatorDefault, 
+                                                  (UInt8*)fileCurrPos_, len, 
+                                                  currentEncoding_, isExternal,
+                                                  kCFAllocatorNull);
+
+    if (!s) {
+        // if failed, try system encoding, usually MacRoman
+        CFStringEncoding encoding = CFStringGetSystemEncoding();
+        s = CFStringCreateWithBytesNoCopy(kCFAllocatorDefault, 
+                                          (UInt8*)fileCurrPos_, len, 
+                                          encoding, isExternal,
+                                          kCFAllocatorNull);
+    }
+    if (!s) {
+        return nil;
+    }
+    NSString* str = (NSString*)s;
     // lines that are too long might slow down or even hang display in
     // NSOutlineView, so limit them to a reasonable size
-    if ([s length] > MAX_LINE_LEN) {
-        s = [s substringToIndex:MAX_LINE_LEN];
+    if ([str length] > MAX_LINE_LEN) {
+        str = [str substringToIndex:MAX_LINE_LEN];
     }
     fileCurrPos_ = curr;
     *lineNo = ++currLineNo_;
-    return s;
+    return str;
 }
 
 @end

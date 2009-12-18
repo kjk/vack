@@ -8,6 +8,7 @@
     char *      fileEnd_;
     char *      fileCurrPos_;
     int         currLineNo_;
+    CFStringEncoding currentEncoding_;
 }
 
 + (FileLineIterator*) fileLineIteratorWithFileName:(NSString*)path;
