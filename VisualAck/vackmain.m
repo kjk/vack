@@ -310,42 +310,102 @@ static void basePathInPlace(char *s) {
 	removeFromLastCharOf(s, '/');
 }
 
-static void launchGui(char *argv[])
+static BOOL findVisualAckPath(char *visualAckPath, size_t visualAckPathLen)
 {
 	char path[1024];
-	char *rp;
-	char visualAckPath[1024];
-
+	char *rp = NULL;
 	uint32_t size = sizeof(path);
+	BOOL found = YES;
+
 	if (0 != _NSGetExecutablePath(path, &size)) {
-		printf("_NSGetExecutablePath() failed, cannot launch gui\n");
-		return;
+		NSLog(@"_NSGetExecutablePath() failed, cannot launch gui\n");
+		return NO;
 	}
 	rp = realpath(path, NULL);
 	if (!rp) {
-		printf("realpath('%s') failed, cannot lanunch gui\n", path);
-		return;
+		NSLog(@"realpath('%s') failed, cannot lanunch gui\n", path);
+		return NO;
 	}
-
+	
 	/* vack is in Contents/Resources, VisualAck is in /Contents/MacOS/
-	   so it's ../MacOS/VisualAck */
-	strlcpy(visualAckPath, rp, sizeof(visualAckPath));
+	 so it's ../MacOS/VisualAck */
+	strlcpy(visualAckPath, rp, visualAckPathLen);
 	basePathInPlace(visualAckPath);
-	strlcat(visualAckPath, "/../MacOS/VisualAck", sizeof(visualAckPath));
-
+	strlcat(visualAckPath, "/../MacOS/VisualAck", visualAckPathLen);
+	
 	/* when debugging vack can be in build/${VERSION}/vack while
-	   VisualAck in build/${VERSION}/VisualAck.app/Contents/MacOS/VisualAck */
+	 VisualAck in build/${VERSION}/VisualAck.app/Contents/MacOS/VisualAck */
 	if (!fileExists(visualAckPath)) {
-		//printf("'%s' doesn't exist\n", visualAckPath);
-		strlcpy(visualAckPath, rp, sizeof(visualAckPath));
+		strlcpy(visualAckPath, rp, visualAckPathLen);
 		basePathInPlace(visualAckPath);
 		strcat(visualAckPath, "/VisualAck.app/Contents/MacOS/VisualAck");
 		if (!fileExists(visualAckPath)) {
-			printf("'%s' doesn't exist\n", visualAckPath);
-			printf("Couldn't find VisualAck executable relative to '%s'\n", rp);
-			free(rp);
-			return;
+			NSLog(@"'%s' doesn't exist\n", visualAckPath);
+			NSLog(@"Couldn't find VisualAck executable relative to '%s'\n", rp);
+			found = NO;
 		}
+	}
+	free(rp);
+	return found;
+}
+
+#define MAX_CMD_ARGS 32
+
+static inline int streq(const char *s1, const char *s2) {
+    return 0 == strcmp(s1, s2);
+}
+
+static void launchGui(int argc, char *argv[])
+{
+	char visualAckPath[1024];
+	CFStringRef args[MAX_CMD_ARGS];
+	OSStatus err;
+	FSRef fref;
+	int realArgc = 0;
+	int i;
+
+	BOOL ok = findVisualAckPath(visualAckPath, sizeof(visualAckPath));
+	if (!ok) {
+		return;
+	}
+	for (i=1; i<argc; i++) {
+		if (streq(argv[i], "-")) {
+			continue;
+		}
+		if (realArgc >= MAX_CMD_ARGS) {
+			break;
+		}
+		args[realArgc++] = CFStringCreateWithCString(NULL, argv[i], kCFStringEncodingUTF8);
+	}
+
+	err = FSPathMakeRef((unsigned char*)visualAckPath, &fref, NULL);
+	if (err != noErr) {
+		return;
+	}
+
+	CFArrayRef argsArray = CFArrayCreate(NULL, (void*)args, realArgc, &kCFTypeArrayCallBacks);
+	LSApplicationParameters params;
+	params.application = &fref;
+	params.version = 0;
+	params.flags = kLSLaunchAsync;
+	params.asyncLaunchRefCon = NULL;
+	params.argv = argsArray;
+	params.environment = NULL;
+	params.initialEvent = NULL;
+	LSOpenApplication(&params, NULL);
+	CFRelease(argsArray);
+	for (i=0; i<realArgc; i++) {
+		CFRelease(args[i]);
+	}
+}
+
+#if 0
+static void launchGui(char *argv[])
+{
+	char visualAckPath[1024];
+	BOOL ok = findVisualAckPath(visualAckPath, sizeof(visualAckPath));
+	if (!ok) {
+		return;
 	}
 	pid_t pid = fork();
 	if (0 == pid) {
@@ -357,6 +417,7 @@ static void launchGui(char *argv[])
 		execv(visualAckPath, argv);
 	}
 }
+#endif
 
 /* Exit status is 0 if match, 1 if no match. */
 int main(int argc, char *argv[])
@@ -383,7 +444,7 @@ int main(int argc, char *argv[])
     }
 
 	if (opts.use_gui) {
-		launchGui(argv);
+		launchGui(argc, argv);
 		goto Exit;
 	}
 	
