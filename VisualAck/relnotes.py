@@ -3,7 +3,7 @@ import cgi
 relnotes = [
     ["0.2.4", "2009-12-18",
      "fix searching from ui by handling searching in absolute paths",
-     "show match in bold font"
+     "show match in bold font"],
     ["0.2.3", "2009-12-17",
      "fix running of file descriptors",
      "use Launch Services to launch UI from vack"
