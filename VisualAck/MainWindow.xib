@@ -106,7 +106,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="913033130">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">In:</string>
+							<string key="NSContents">in:</string>
 							<reference key="NSSupport" ref="254299595"/>
 							<reference key="NSControlView" ref="936087074"/>
 							<reference key="NSBackgroundColor" ref="601162812"/>
@@ -405,7 +405,7 @@
 							<int key="NSCellFlags">67239424</int>
 							<int key="NSCellFlags2">138706944</int>
 							<string key="NSContents">Multiline Label</string>
-							<object class="NSFont" key="NSSupport">
+							<object class="NSFont" key="NSSupport" id="22">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">9</double>
 								<int key="NSfFlags">3614</int>
@@ -416,6 +416,26 @@
 								<int key="NSColorSpace">1</int>
 								<bytes key="NSRGB">MC43MDEwODY5NTY1IDAuMDY0NDU5MzAwNjYgMC4xMzkwMzM4MjQ0AA</bytes>
 							</object>
+						</object>
+					</object>
+					<object class="NSButton" id="31187433">
+						<reference key="NSNextResponder" ref="881998010"/>
+						<int key="NSvFlags">289</int>
+						<string key="NSFrame">{{257, 2}, {203, 17}}</string>
+						<reference key="NSSuperview" ref="881998010"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSButtonCell" key="NSCell" id="991146135">
+							<int key="NSCellFlags">-2080244224</int>
+							<int key="NSCellFlags2">134512640</int>
+							<string key="NSContents">http://blog.kowalczyk.info/software/vack/</string>
+							<reference key="NSSupport" ref="22"/>
+							<reference key="NSControlView" ref="31187433"/>
+							<int key="NSButtonFlags">-2035007233</int>
+							<int key="NSButtonFlags2">45</int>
+							<string key="NSAlternateContents"/>
+							<string key="NSKeyEquivalent"/>
+							<int key="NSPeriodicDelay">400</int>
+							<int key="NSPeriodicInterval">75</int>
 						</object>
 					</object>
 				</object>
@@ -838,6 +858,22 @@
 					</object>
 					<int key="connectionID">180</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">launchWebsite:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="31187433"/>
+					</object>
+					<int key="connectionID">189</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">websiteUrl_</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="31187433"/>
+					</object>
+					<int key="connectionID">190</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -896,6 +932,7 @@
 							<reference ref="966797136"/>
 							<reference ref="56485039"/>
 							<reference ref="442775287"/>
+							<reference ref="31187433"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -1145,6 +1182,20 @@
 						<reference key="object" ref="58201650"/>
 						<reference key="parent" ref="441042951"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">187</int>
+						<reference key="object" ref="31187433"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="991146135"/>
+						</object>
+						<reference key="parent" ref="881998010"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">188</int>
+						<reference key="object" ref="991146135"/>
+						<reference key="parent" ref="31187433"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1168,6 +1219,8 @@
 					<string>167.IBPluginDependency</string>
 					<string>175.IBPluginDependency</string>
 					<string>176.IBPluginDependency</string>
+					<string>187.IBPluginDependency</string>
+					<string>188.IBPluginDependency</string>
 					<string>3.IBEditorWindowLastContentRect</string>
 					<string>3.IBPluginDependency</string>
 					<string>3.IBWindowTemplateEditedContentRect</string>
@@ -1215,6 +1268,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{445, 393}, {480, 360}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>{{445, 393}, {480, 360}}</string>
@@ -1222,7 +1277,7 @@
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{313, 102}, {480, 413}}</string>
+					<string>{{1659, 998}, {480, 413}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1260,7 +1315,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">180</int>
+			<int key="maxID">190</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1273,12 +1328,14 @@
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>chooseDir:</string>
+							<string>launchWebsite:</string>
 							<string>search:</string>
 							<string>showWindow:</string>
 							<string>tableViewDoubleClick:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1302,6 +1359,7 @@
 							<string>textNoResultsFound_</string>
 							<string>viewSearchResults_</string>
 							<string>viewSearch_</string>
+							<string>websiteUrl_</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1318,6 +1376,7 @@
 							<string>NSTextField</string>
 							<string>NSView</string>
 							<string>NSView</string>
+							<string>NSButton</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

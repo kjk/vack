@@ -2,18 +2,21 @@
 #import "FileSearchProtocol.h"
 #import "SearchOptions.h"
 
+@class MyTextFieldCell;
+
 @interface MainWindowController : NSWindowController <FileSearchProtocol> {
 
     IBOutlet NSView *           viewSearch_;
     IBOutlet NSView *           viewSearchResults_;
 
-    // Outlets for main window
+    // Outlets for search window
     IBOutlet NSSearchField *    searchTermField_;
     IBOutlet NSTextField *      dirField_;
     IBOutlet NSTextField *      errorField_;
     IBOutlet NSButton *         buttonSearch_;
     IBOutlet NSButton *         buttonChooseDir_;
 	IBOutlet NSTableView *		tableViewRecentSearches_;
+	IBOutlet NSButton *			websiteUrl_;
 
     // Outlets for results window
     IBOutlet NSOutlineView *    searchResultsView_;
@@ -47,6 +50,7 @@
 - (IBAction)search:(id)sender;
 - (IBAction)chooseDir:(id)sender;
 - (IBAction)tableViewDoubleClick:(id)sender;
+- (IBAction)launchWebsite:(id)sender;
 
 - (BOOL)isFontBold;
 

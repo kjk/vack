@@ -98,7 +98,8 @@
 
 	NSFont *font = [NSFont systemFontOfSize:10.0];
     NSFont *fontBold = [NSFont boldSystemFontOfSize:0.0];
-        
+	NSFont *fontSmall = [NSFont systemFontOfSize:9.0];
+
     // 0x47A72F - green
     NSColor *filePathColor = [NSColor colorWithCalibratedRed:0.2784 green:0.6549 blue:0.1843 alpha:1.0];
     filePathStringAttrs_ = [[NSDictionary dictionaryWithObject:filePathColor
@@ -123,6 +124,17 @@
 	//NSLog(@"indentationMarkerFollowsCell: %d", (int)[searchResultsView_ indentationMarkerFollowsCell]);
 	[searchResultsView_ setIndentationMarkerFollowsCell:NO];
 	[searchResultsView_ setIndentationPerLevel:2.0];
+
+							   
+    NSDictionary *urlAttr = [NSDictionary dictionaryWithObjectsAndKeys:
+									[NSColor grayColor], NSForegroundColorAttributeName,
+									[NSFont systemFontOfSize:9.0], NSFontAttributeName, nil];
+
+    NSAttributedString *url = [[NSAttributedString alloc] initWithString:@"http://blog.kowalczyk.info/software/vack"
+								   attributes:urlAttr];
+							   
+	[websiteUrl_ setAttributedTitle:url];
+	[websiteUrl_ setShowsBorderOnlyWhileMouseInside:YES];
 
 #if 0
     NSTableColumn *tableColumn = [[tableViewRecentSearches_  tableColumns] objectAtIndex:0];
@@ -479,7 +491,6 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     [prefs setInteger:count forKey:PREF_SEARCH_COUNT];    
 }
 
-
 - (NSInteger)recentSearchIndex:(NSString*)searchTerm inDirectory:(NSString*)dir {
     NSInteger n = [recentSearches_ count] / 2;
     NSString *searchTermTable;
@@ -529,6 +540,11 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
         return;
     }
     recentSearches_ = [[NSMutableArray alloc] initWithCapacity:MAX_RECENT_SEARCHES * 2];
+}
+
+- (IBAction)launchWebsite:(id)sender {
+    [[NSWorkspace sharedWorkspace]
+	 openURL:[NSURL URLWithString:@"http://blog.kowalczyk.info/software/vack/"]];
 }
 
 @end
