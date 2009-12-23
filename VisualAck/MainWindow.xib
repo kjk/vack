@@ -12,9 +12,9 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="3"/>
 			<integer value="70"/>
 			<integer value="102"/>
-			<integer value="3"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1025,14 +1025,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">search:</string>
-						<reference key="source" ref="1001"/>
-						<reference key="destination" ref="37024146"/>
-					</object>
-					<int key="connectionID">271</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">stopSearch:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="193186883"/>
@@ -1078,6 +1070,14 @@
 						<reference key="destination" ref="939876589"/>
 					</object>
 					<int key="connectionID">282</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">search2:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="37024146"/>
+					</object>
+					<int key="connectionID">283</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1631,7 +1631,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">282</int>
+			<int key="maxID">283</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1645,6 +1645,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>chooseDir:</string>
 							<string>launchWebsite:</string>
+							<string>search2:</string>
 							<string>search:</string>
 							<string>showWindow:</string>
 							<string>stopSearch:</string>
@@ -1652,6 +1653,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

@@ -53,6 +53,7 @@
 
 - (IBAction)showWindow:(id)sender;
 - (IBAction)search:(id)sender;
+- (IBAction)search2:(id)sender;
 - (IBAction)stopSearch:(id)sender;
 - (IBAction)chooseDir:(id)sender;
 - (IBAction)tableViewDoubleClick:(id)sender;

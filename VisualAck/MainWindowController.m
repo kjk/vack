@@ -80,6 +80,7 @@
 
 @interface MainWindowController(Private)
 - (BOOL)isSearchButtonEnabled;
+- (BOOL)isSearchButtonEnabled2;
 - (void)updateSearchButtonStatus;
 - (void)loadRecentSearches;
 - (void)rememberSearchFor:(NSString*)searchTerm inDirectory:(NSString*)dir;
@@ -200,23 +201,65 @@
     return enabled;
 }
 
+- (BOOL)isSearchButton2Enabled {
+    BOOL enabled = YES;
+    if ([[searchTermField2_ stringValue] length] == 0) {
+        enabled = NO;
+    }
+    
+    // TODO: handle multiple directories separated by ';'
+    NSString *dir = [dirField2_ stringValue];
+    if ([dir length] ==0) {
+        enabled = NO;
+    }
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    if (![fm fileExistsAtPath:dir]) {
+        // TODO: need a way to show that in UI
+        enabled = NO;
+    } else {
+        // TODO: need a way to show that in UI
+    }
+    return enabled;
+}
+
 - (void)updateSearchButtonStatus {
     [buttonSearch_ setEnabled:[self isSearchButtonEnabled]];
 }
 
-- (void)controlTextDidChange:(NSNotification*)aNotification {
-    [self updateSearchButtonStatus];
+- (void)updateSearchButton2Status {
+    [searchButton_ setEnabled:[self isSearchButton2Enabled]];
 }
 
-// Sent by "Search" button
+- (void)controlTextDidChange:(NSNotification*)aNotification {
+    NSTextField *textField = [aNotification object];
+    if (textField == searchTermField_ || textField == dirField_) {
+        [self updateSearchButtonStatus];
+    } else if (textField == searchTermField2_ || textField == dirField2_) {
+        [self updateSearchButton2Status];
+    } else {
+        assert(0);
+    }
+}
+
+// Sent by "Search" button in main view or pressing enter in search field
 - (IBAction)search:(id)sender {
-    // came from text field but not ready to do search
     if (![self isSearchButtonEnabled])
         return;
 
     NSString *searchTerm = [searchTermField_ stringValue];
     NSString *dir = [dirField_ stringValue];
     [self startSearch:searchTerm inDirectory:dir];
+}
+
+// Sent by "Search" button in results view or pressing enter in search field
+- (IBAction)search2:(id)sender {
+    if (![self isSearchButton2Enabled])
+        return;
+
+    NSString *searchTerm = [searchTermField2_ stringValue];
+    NSString *dir = [dirField2_ stringValue];
+    [self startSearch:searchTerm inDirectory:dir];    
 }
 
 - (IBAction)chooseDir:(id)sender {
@@ -488,6 +531,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     [searchProgressIndicator_ startAnimation:self];
 }
 
+#if 0
 - (BOOL)windowShouldClose:(id)sender {
     NSLog(@"windowShouldClose");
     NSWindow *window = [self window];
@@ -502,6 +546,7 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     }
     return YES;
 }
+#endif
 
 - (void)incSearchCount {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
@@ -569,13 +614,6 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 - (IBAction)stopSearch:(id)sender {
     forceSearchEnd_ = YES;
     [self switchToFinishSearchingState];
-
-#if 0
-    [searchTermField_ setStringValue:@""];
-    [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
-    [window makeFirstResponder:searchTermField_];
-    [self updateSearchButtonStatus];
-#endif
 }
 
 @end

@@ -1,13 +1,15 @@
 To do before first public release:
 * skip the files that we shouldn't be searching
-* handle search and directory text fields in results window
+* a way to show in UI that a directory is invalid in results view (used attached
+  window?)
+* 'Move to Application folder' http://www.potionfactory.com/node/251
+* more tests
 
 Things to do:
 * add scripting so that I can implement launching gui from vack even when gui is already running
 * analyze stats from auto-updates
 * when printing matched file names, do it relative to the directory being
   searched
-* 'Move to Application folder' http://www.potionfactory.com/node/251
 * handle multiple search locations (search_options.search_loc needs to be a list)
 * build test harness to simulate ack. Will need to change the way tests are
   executed in the harness. Currently invocation looks like:
@@ -40,6 +42,7 @@ Done:
  * at the top of search results window, show "searching for 'xxx' in 'xxx' text
  * a way to stop search (e.g. when user press a button in the ui). Possibly by
    returning BOOL from delegate methods, returning NO would mean "stop"
+ * handle search and directory text fields in results window
 
 2009-12-18
  * add a button that launches website
