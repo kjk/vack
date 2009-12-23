@@ -65,6 +65,7 @@
 
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir;
 - (void)startSearchForSearchOptions:(search_options)searchOptions;
+- (void)switchToMainView;
 
 // tableView_ and tableViewRecentSearches_ data source methods
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView;

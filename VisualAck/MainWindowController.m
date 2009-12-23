@@ -175,6 +175,7 @@
 }
 
 - (IBAction)showWindow:(id)sender {
+    [self switchToMainView];
     [[self window] makeKeyAndOrderFront:sender];
 }
 
@@ -499,6 +500,15 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 	[tableViewRecentSearches_ reloadData];
     [[self window] setContentView:viewSearchResults_];
     [self updateSearchStatus];
+}
+
+- (void)switchToMainView {
+    forceSearchEnd_ = YES;
+    [[self window] setContentView:viewSearch_];
+    [searchTermField_ setStringValue:@""];
+    [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
+    [[self window] makeFirstResponder:searchTermField_];
+    [self updateSearchButtonStatus];
 }
 
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
