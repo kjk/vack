@@ -19,6 +19,11 @@
 	IBOutlet NSButton *			websiteUrl_;
 
     // Outlets for results window
+    IBOutlet NSButton *         stopButton_;
+    IBOutlet NSButton *         searchButton_;
+    IBOutlet NSTextField *      searchTermField2_;
+    IBOutlet NSTextField *      dirField2_;
+
     IBOutlet NSOutlineView *    searchResultsView_;
     IBOutlet NSView *           customView_;
     IBOutlet NSTextField *      textFieldStatus_;
@@ -48,6 +53,7 @@
 
 - (IBAction)showWindow:(id)sender;
 - (IBAction)search:(id)sender;
+- (IBAction)stopSearch:(id)sender;
 - (IBAction)chooseDir:(id)sender;
 - (IBAction)tableViewDoubleClick:(id)sender;
 - (IBAction)launchWebsite:(id)sender;

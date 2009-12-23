@@ -125,12 +125,12 @@
 	[searchResultsView_ setIndentationMarkerFollowsCell:NO];
 	[searchResultsView_ setIndentationPerLevel:2.0];
 
-							   
     NSDictionary *urlAttr = [NSDictionary dictionaryWithObjectsAndKeys:
 									[NSColor grayColor], NSForegroundColorAttributeName,
 									[NSFont systemFontOfSize:9.0], NSFontAttributeName, nil];
 
-    NSAttributedString *url = [[NSAttributedString alloc] initWithString:@"http://blog.kowalczyk.info/software/vack"
+    NSAttributedString *url = [[NSAttributedString alloc] 
+                               initWithString:@"http://blog.kowalczyk.info/software/vack"
 								   attributes:urlAttr];
 							   
 	[websiteUrl_ setAttributedTitle:url];
@@ -156,6 +156,21 @@
     [lineNumberStringAttrs_ release];
 	[dirStringAttrs_ release];
     [super dealloc];
+}
+
+- (void)switchToFinishSearchingState {
+    [searchButton_ setHidden:NO];
+    [stopButton_ setHidden:YES];
+    [searchTermField2_ setEnabled:YES];
+    [dirField2_ setEnabled:YES];
+    [[self window] makeFirstResponder:searchTermField2_];
+}
+
+- (void)switchToSearchInProgressState {
+    [searchButton_ setHidden:YES];
+    [stopButton_ setHidden:NO];
+    [searchTermField2_ setEnabled:NO];
+    [dirField2_ setEnabled:NO];
 }
 
 - (IBAction)showWindow:(id)sender {
@@ -375,6 +390,7 @@
     if (0 == [searchResults_ count]) {
         [textNoResultsFound_ setHidden:NO];
     }
+    [self switchToFinishSearchingState];
 }
 
 - (void)didFinishSearch {
@@ -443,6 +459,9 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 }
 
 - (void)startSearch:(NSString*)searchTerm inDirectory:(NSString*)dir {
+    [self switchToSearchInProgressState];
+    [searchTermField2_ setStringValue:searchTerm];
+    [dirField2_ setStringValue:dir];
     [self switchToSearchResultsView];
     [self rememberSearchFor:searchTerm inDirectory:dir];
 
@@ -545,6 +564,18 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 - (IBAction)launchWebsite:(id)sender {
     [[NSWorkspace sharedWorkspace]
 	 openURL:[NSURL URLWithString:@"http://blog.kowalczyk.info/software/vack/"]];
+}
+
+- (IBAction)stopSearch:(id)sender {
+    forceSearchEnd_ = YES;
+    [self switchToFinishSearchingState];
+
+#if 0
+    [searchTermField_ setStringValue:@""];
+    [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
+    [window makeFirstResponder:searchTermField_];
+    [self updateSearchButtonStatus];
+#endif
 }
 
 @end

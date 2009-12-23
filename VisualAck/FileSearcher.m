@@ -277,7 +277,7 @@ Exit:
             continue;
         }
         if (isDir) {
-			cont = [self searchDir:dirOrFile];
+			cont = [self searchDir:@"." withParent:dirOrFile];
         } else {
             cont = [self searchFile:dirOrFile inDir:nil];
         }
