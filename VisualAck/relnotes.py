@@ -1,6 +1,10 @@
 import cgi
 
 relnotes = [
+    ["0.2.5", "2009-12-23",
+     "results view now includes search and directory text fields",
+     "in main view add a button to launch a website"
+    ],
     ["0.2.4", "2009-12-18",
      "fix searching from ui by handling searching in absolute paths",
      "show match in bold font"],
