@@ -480,9 +480,20 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 	return !forceSearchEnd_;
 }
 
+// TODO: make it a stand-alone function or NSString category function
+- (NSString*)pluralizedString:(NSString*)s withNumber:(int)num {
+	if (1 == num) {
+		return [NSString stringWithFormat:@"%d %@", num, s];
+	} else {
+		return [NSString stringWithFormat:@"%d %@s", num, s];
+	}
+}
+
 - (void)updateSearchStatus {
-    NSString *s = [NSString stringWithFormat:@"Searched %d files. Skipped %d dirs, %d files.", 
-                   searchedFiles_, skippedDirs_, skippedFiles_];
+    NSString *s = [NSString stringWithFormat:@"Searched %@. Skipped %@, %@.",
+				   [self pluralizedString:@"file" withNumber:searchedFiles_],
+				   [self pluralizedString:@"dir" withNumber:skippedDirs_],
+				   [self pluralizedString:@"file" withNumber:skippedFiles_]];
     [textFieldStatus_ setStringValue:s];
 }
 

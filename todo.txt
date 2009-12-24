@@ -22,20 +22,25 @@ Things to do:
   about wheter or not to show colored output; this can be over-written with
   --[no-][color|colour]
 * parse ack config file for compatibility
-* search large files (bigger than, say, 1MB) at the end (to improve user experience)
-* multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
 * even nicer way to show recent searches (header like in xcode's startup screen recent projects list)
 * a different way to show results, using HTML, like ack textmate bundle
 * write textmate bundle (based on ack textmate bundle) and automatically install it if
   TextMate is detected on the computer
 * launch an editor with a given file directly from the the app
+* allow multiple search windows at the same time?
+
+Maybe:
+* multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
+* search large files (bigger than, say, 1MB) at the end (to improve user experience)
 * even more sophisticated file encoding detection (e.g. in html files parse
   metadata about charset; there's code in mozilla somewhere)
-* allow multiple search windows at the same time?
 
 Days: 29
 
 Done:
+
+2009-12-23
+ * proper pluralization of search status string
 
 2009-12-22
  * vack doesn't work if we don't provide starting directory
