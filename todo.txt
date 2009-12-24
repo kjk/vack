@@ -33,7 +33,7 @@ Maybe:
 * even more sophisticated file encoding detection (e.g. in html files parse
   metadata about charset; there's code in mozilla somewhere)
 
-Days: 29
+Days: 30
 
 Done:
 
