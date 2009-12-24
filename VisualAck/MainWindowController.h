@@ -31,6 +31,7 @@
     IBOutlet NSProgressIndicator* searchProgressIndicator_;
 	IBOutlet NSTextField *      textNoResultsFound_;
 
+	IBOutlet NSTextField *		dirDoesntExistLabel_;
 	IBOutlet NSView *			dirDoesntExistView_;
 
 	NSMutableArray *            searchResults_;

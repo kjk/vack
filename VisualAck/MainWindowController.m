@@ -218,21 +218,34 @@
     
     NSFileManager *fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:dir]) {
-		// TODO: the text should show file/directory name and the view should be dynamically
-		// sized to acommodate the full text
-		if (!dirDoesntExistWindow_) {
-			NSPoint p = NSMakePoint(NSMidX([dirField2_ frame]),
-									NSMidY([dirField2_ frame]));
-
-			dirDoesntExistWindow_ = [[MAAttachedWindow alloc]
-									 initWithView:dirDoesntExistView_
-									 attachedToPoint:(NSPoint)p 
-									 inWindow:[dirField2_ window] 
-									 onSide:MAPositionBottom
-									 atDistance:2.0];
-			[[dirField2_ window] addChildWindow:dirDoesntExistWindow_ ordered:NSWindowAbove];
+		NSDisableScreenUpdates(); // otherwise we get flickering
+		if (dirDoesntExistWindow_) {
+			// need to re-crecreate the window to make sure it'll be of the right
+			// size to match the dynamic text. Wish there was a simpler way by just
+			// resizing the window.
+			[[dirField2_ window] removeChildWindow:dirDoesntExistWindow_];
+			[dirDoesntExistWindow_ orderOut:self];
+			[dirDoesntExistWindow_ release];
+			dirDoesntExistWindow_ = nil;
 		}
-        enabled = NO;
+
+		NSPoint p = NSMakePoint(NSMidX([dirField2_ frame]),
+								NSMidY([dirField2_ frame]));
+
+		[dirDoesntExistLabel_ setStringValue:[NSString stringWithFormat:@"'%@' is not a directory or file", dir]];
+		[dirDoesntExistLabel_ sizeToFit];
+		NSSize newViewSize = dirDoesntExistView_.bounds.size;
+		newViewSize.width = dirDoesntExistLabel_.bounds.size.width + 32.0;
+		[dirDoesntExistView_ setFrameSize:newViewSize];
+		dirDoesntExistWindow_ = [[MAAttachedWindow alloc]
+								 initWithView:dirDoesntExistView_
+								 attachedToPoint:(NSPoint)p 
+								 inWindow:[dirField2_ window] 
+								 onSide:MAPositionBottom
+								 atDistance:2.0];
+		[[dirField2_ window] addChildWindow:dirDoesntExistWindow_ ordered:NSWindowAbove];
+		NSEnableScreenUpdates();
+		enabled = NO;
     } else {
 		if (dirDoesntExistWindow_) {
 			[[dirField2_ window] removeChildWindow:dirDoesntExistWindow_];
@@ -240,7 +253,7 @@
 			[dirDoesntExistWindow_ release];
 			dirDoesntExistWindow_ = nil;
 		}
-   }
+    }
     return enabled;
 }
 

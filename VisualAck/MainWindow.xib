@@ -12,9 +12,9 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="70"/>
-			<integer value="3"/>
 			<integer value="102"/>
+			<integer value="3"/>
+			<integer value="70"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -756,7 +756,7 @@
 				<reference key="NSSuperview"/>
 			</object>
 			<object class="NSCustomView" id="1020107979">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">268</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -765,7 +765,6 @@
 						<int key="NSvFlags">268</int>
 						<string key="NSFrame">{{17, 20}, {228, 17}}</string>
 						<reference key="NSSuperview" ref="1020107979"/>
-						<reference key="NSWindow"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="680958665">
 							<int key="NSCellFlags">68288064</int>
@@ -782,8 +781,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{262, 52}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<string key="NSClassName">NSView</string>
 			</object>
 		</object>
@@ -1117,6 +1114,14 @@
 						<reference key="destination" ref="1020107979"/>
 					</object>
 					<int key="connectionID">287</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">dirDoesntExistLabel_</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="690333999"/>
+					</object>
+					<int key="connectionID">288</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1702,7 +1707,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">287</int>
+			<int key="maxID">288</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1740,6 +1745,7 @@
 							<string>buttonChooseDir_</string>
 							<string>buttonSearch_</string>
 							<string>customView_</string>
+							<string>dirDoesntExistLabel_</string>
 							<string>dirDoesntExistView_</string>
 							<string>dirField2_</string>
 							<string>dirField_</string>
@@ -1762,6 +1768,7 @@
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSView</string>
+							<string>NSTextField</string>
 							<string>NSView</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>

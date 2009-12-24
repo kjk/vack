@@ -3,11 +3,12 @@ To do before first public release:
 * more tests
 
 Things to do:
-* 'Move to Application folder' http://www.potionfactory.com/node/251
-* add scripting so that I can implement launching gui from vack even when gui is already running
-* analyze stats from auto-updates
 * when printing matched file names, do it relative to the directory being
   searched
+* analyze stats from auto-updates
+* 'Move to Application folder' http://www.potionfactory.com/node/251
+* a different way to show results, using HTML, like ack textmate bundle
+* add scripting so that I can implement launching gui from vack even when gui is already running
 * handle multiple search locations (search_options.search_loc needs to be a list)
 * build test harness to simulate ack. Will need to change the way tests are
   executed in the harness. Currently invocation looks like:
@@ -21,7 +22,6 @@ Things to do:
   --[no-][color|colour]
 * parse ack config file for compatibility
 * even nicer way to show recent searches (header like in xcode's startup screen recent projects list)
-* a different way to show results, using HTML, like ack textmate bundle
 * write textmate bundle (based on ack textmate bundle) and automatically install it if
   TextMate is detected on the computer
 * launch an editor with a given file directly from the the app
