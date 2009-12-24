@@ -29,12 +29,141 @@ static NSString *dirsToIgnore[] = {
     nil
 };
 
-static BOOL shouldIgnoreDir(NSString *dir) {
+static NSString *fileTypes[] = {
+    @"actionscript", @"as", @"mxml", nil,
+    @"ada", @"ada", @"adb", @"ads", nil,
+    @"asm", @"asm", @"s", nil,
+    @"batch", @"bat", @"cmd", nil,
+//    @"binary      => q{Binary files, as defined by Perl's -B op (default: off)},
+    @"cc", @"c", @"h", @"xs", nil,
+    @"cfmx", @"cfc", @"cfm", @"cfml", nil,
+    @"cpp", @"cpp", @"cc", @"cxx", @"m", @"hpp", @"hh", @"h", @"hxx", nil,
+    @"csharp", @"cs", nil,
+    @"css", @"css", nil,
+    @"elisp", @"el", nil,
+    @"erlang", @"erl", @"hrl", nil,
+    @"fortran", @"f", @"f77", @"f90", @"f95", @"f03", @"for", @"ftn", @"fpp", nil,
+    @"haskell", @"hs", @"lhs", nil,
+    @"hh", @"h", nil,
+    @"html", @"htm", @"html", @"shtml", @"xhtml", nil,
+    @"java", @"java", @"properties", nil,
+    @"js", @"js", nil,
+    @"jsp", @"jsp", @"jspx", @"jhtm", @"jhtml", nil,
+    @"lisp", @"lisp", @"lsp", nil,
+    @"lua", @"lua", nil,
+//    @"make        => q{Makefiles},
+    @"mason", @"mas", @"mhtml", @"mpl", @"mtxt", nil,
+    @"objc", @"m", @"h", nil,
+    @"objcpp", @"mm", @"h", nil,
+    @"ocaml", @"ml", @"mli", nil,
+    @"parrot" @"pir", @"pasm", @"pmc", @"ops", @"pod", @"pg", @"tg", nil,
+    @"perl", @"pl", @"pm", @"pod", @"t", nil,
+    @"php", @"php", @"phpt", @"php3", @"php4", @"php5", nil,
+    @"plone", @"pt", @"cpt", @"metadata", @"cpy", @"py", nil,
+    @"python", @"py", nil,
+//    @"rake        => q{Rakefiles},
+    @"ruby", @"rb", @"rhtml", @"rjs", @"rxml", @"erb", @"rake", nil,
+    @"scala", @"scala", nil,
+    @"scheme", @"scm", @"ss", nil,
+    @"shell", @"sh", @"bash", @"csh", @"tcsh", @"ksh", @"zsh", nil,
+//    @"skipped     => q{Files, but not directories, normally skipped by ack (default: off)},
+    @"smalltalk", @"st", nil,
+    @"sql", @"sql", @"ctl", nil,
+    @"tcl", @"tcl", @"itcl", @"itk", nil,
+    @"tex", @"tex", @"cls", @"sty", nil,
+    @"text", @"txt", nil,
+    @"tt", @"tt", @"tt2", @"ttml", nil,
+    @"vb", @"bas", @"cls", @"frm", @"ctl", @"vb", @"resx", nil,
+    @"vim", @"vim", nil,
+    @"yaml", @"yaml", @"yml", nil,
+    @"xml", @"xml", @"dtd", @"xslt", @"ent", nil,
+    nil
+};
+
+static BOOL shouldIgnoreDir(NSString* dir) {
     for (int i=0; dirsToIgnore[i]; i++) {
         NSString *dirToIgnore = dirsToIgnore[i];
         if (NSOrderedSame == [dir caseInsensitiveCompare:dirToIgnore]) {
             return YES;
         }
+    }
+    return NO;
+}
+
+#define MAX_TYPES 6
+
+static int getTypes(NSString* fileName, NSString **types) {
+    int i = 0;
+    int typesCount = 0;
+    NSString* e;
+    NSString* type;
+
+    if (0 == [fileName caseInsensitiveCompare:@"makefile"]) {
+        types[0] = @"make";
+        types[1] = @"text";
+        return 2;
+    }
+
+    if (0 == [fileName caseInsensitiveCompare:@"rakefile"]) {
+        types[0] = @"rake";
+        types[1] = @"ruby";
+        types[2] = @"text";
+        return 3;
+    }
+    
+    NSString *ext = [fileName pathExtension];
+    while (fileTypes[i]) {
+        type = fileTypes[i++];
+        while (fileTypes[i]) {
+            e = fileTypes[i++];
+            if (0 == [e caseInsensitiveCompare:ext]) {
+                types[typesCount++] = type;
+                if (typesCount == MAX_TYPES) {
+                    return typesCount;
+                }
+            }
+        }
+        i++;
+    }
+    return typesCount;
+}
+
+static BOOL isSearchable(NSString* fileName) {
+
+    NSString *fileNameLowercase = [fileName lowercaseString];
+    if ([fileNameLowercase hasSuffix:@"bak"]) {
+        return NO;
+    }
+    if ([fileNameLowercase hasPrefix:@"~"]) {
+        return NO;
+    }
+    if ([fileNameLowercase hasPrefix:@"#"] &&
+        [fileNameLowercase hasSuffix:@"#"]) {
+        return NO;
+    }
+    if ([fileNameLowercase hasPrefix:@"core."]) {
+        return NO;
+    }
+    if ([fileNameLowercase hasSuffix:@".swp"] &&
+        ([fileNameLowercase hasPrefix:@"."] ||
+         ([fileNameLowercase hasPrefix:@"_"]))) {
+            return NO;
+    }
+    
+    return YES;
+}
+
+static BOOL isInteresting(NSString* fileName) {
+    if ([fileName hasPrefix:@"."]) {
+        return NO;
+    }
+    NSString *types[MAX_TYPES];
+    if (!isSearchable(fileName)) {
+        return NO;
+    }
+    int typesCount = getTypes(fileName, types);
+    if (typesCount > 0) {
+        return YES;
     }
     return NO;
 }
@@ -117,7 +246,7 @@ static NSString *nonNilValue = @"dummyString";
 }
 
 - (BOOL)shouldSkipFile:(NSString*)fileName {
-    return NO;
+    return !isInteresting(fileName);
 }
 
 - (BOOL)searchFile:(NSString*)fileName inDir:(NSString*)dir {   
@@ -175,6 +304,8 @@ static NSString *nonNilValue = @"dummyString";
         if ([fileType isEqualToString:NSFileTypeRegular]) {
             //NSLog(@"%@", fullPath);
             if ([self shouldSkipFile:file]) {
+                [delegate_ didSkipFile:fullDirPath];
+                cont = YES;
             } else {
                 cont = [self searchFile:file inDir:fullDirPath];
 				if (!cont) {
@@ -191,7 +322,7 @@ static NSString *nonNilValue = @"dummyString";
                     goto Exit;
 				}
             } else {
-				cont = [self searchDir:file withParent:fullDirPath];
+                cont = [self searchDir:file withParent:fullDirPath];
 				if (!cont) {
                     result = NO;
                     goto Exit;
@@ -279,7 +410,12 @@ Exit:
         if (isDir) {
 			cont = [self searchDir:@"." withParent:dirOrFile];
         } else {
-            cont = [self searchFile:dirOrFile inDir:nil];
+            if (isInteresting(dirOrFile)) {
+                cont = [self searchFile:dirOrFile inDir:nil];
+            } else {
+                [delegate_ didSkipFile:dirOrFile];
+                cont = YES;
+            }
         }
 		if (!cont) {
 			goto Exit;

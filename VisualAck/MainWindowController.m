@@ -414,13 +414,12 @@
 }
 
 - (void)didSkipFileThreadSafe:(NSString*)filePath {
-    NSLog(@"didSkipFile %@", filePath);
+    //NSLog(@"didSkipFileThreadSafe %@", filePath);
     ++skippedFiles_;
     [self updateSearchStatus];
 }
 
 - (BOOL)didSkipFile:(NSString*)filePath {
-    NSLog(@"didSkipFile %@", filePath);
     [self performSelectorOnMainThread:@selector(didSkipFileThreadSafe:)
                            withObject:filePath waitUntilDone:YES];
 	return !forceSearchEnd_;

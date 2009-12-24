@@ -1,5 +1,4 @@
 To do before first public release:
-* skip the files that we shouldn't be searching
 * more tests
 
 Things to do:
@@ -40,6 +39,7 @@ Done:
 2009-12-23
  * proper pluralization of search status string
  * in results view show that a directory/file doesn't exist
+ * skip the files that we shouldn't be searching
 
 2009-12-22
  * vack doesn't work if we don't provide starting directory
