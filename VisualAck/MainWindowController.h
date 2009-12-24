@@ -3,6 +3,7 @@
 #import "SearchOptions.h"
 
 @class MyTextFieldCell;
+@class MAAttachedWindow;
 
 @interface MainWindowController : NSWindowController <FileSearchProtocol> {
 
@@ -30,6 +31,8 @@
     IBOutlet NSProgressIndicator* searchProgressIndicator_;
 	IBOutlet NSTextField *      textNoResultsFound_;
 
+	IBOutlet NSView *			dirDoesntExistView_;
+
 	NSMutableArray *            searchResults_;
 	NSInteger					resultsInCurrentFile_;
 
@@ -40,6 +43,8 @@
     NSDictionary *              lineNumberStringAttrs_;
 
 	NSDictionary *				dirStringAttrs_;
+
+	MAAttachedWindow *			dirDoesntExistWindow_;
 
     // array of NSString for recent searches. It has 2 strings per
     // search: search term and search location(s) (separated by ';' if

@@ -2,6 +2,7 @@
 
 #import "FileSearcher.h"
 #import "FileSearchResult.h"
+#import "MAAttachedWindow.h"
 #import "PrefKeys.h"
 #import "VisualAckAppDelegate.h"
 
@@ -156,6 +157,7 @@
     [recentSearches_ release];
     [lineNumberStringAttrs_ release];
 	[dirStringAttrs_ release];
+	[dirDoesntExistWindow_ release];
     [super dealloc];
 }
 
@@ -216,11 +218,29 @@
     
     NSFileManager *fm = [NSFileManager defaultManager];
     if (![fm fileExistsAtPath:dir]) {
-        // TODO: need a way to show that in UI
+		// TODO: the text should show file/directory name and the view should be dynamically
+		// sized to acommodate the full text
+		if (!dirDoesntExistWindow_) {
+			NSPoint p = NSMakePoint(NSMidX([dirField2_ frame]),
+									NSMidY([dirField2_ frame]));
+
+			dirDoesntExistWindow_ = [[MAAttachedWindow alloc]
+									 initWithView:dirDoesntExistView_
+									 attachedToPoint:(NSPoint)p 
+									 inWindow:[dirField2_ window] 
+									 onSide:MAPositionBottom
+									 atDistance:2.0];
+			[[dirField2_ window] addChildWindow:dirDoesntExistWindow_ ordered:NSWindowAbove];
+		}
         enabled = NO;
     } else {
-        // TODO: need a way to show that in UI
-    }
+		if (dirDoesntExistWindow_) {
+			[[dirField2_ window] removeChildWindow:dirDoesntExistWindow_];
+			[dirDoesntExistWindow_ orderOut:self];
+			[dirDoesntExistWindow_ release];
+			dirDoesntExistWindow_ = nil;
+		}
+   }
     return enabled;
 }
 
@@ -551,23 +571,6 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     [op release];
     [searchProgressIndicator_ startAnimation:self];
 }
-
-#if 0
-- (BOOL)windowShouldClose:(id)sender {
-    NSLog(@"windowShouldClose");
-    NSWindow *window = [self window];
-    if ([window contentView] == viewSearchResults_) {
-		forceSearchEnd_ = YES;
-        [window setContentView:viewSearch_];
-        [searchTermField_ setStringValue:@""];
-        [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
-        [window makeFirstResponder:searchTermField_];
-        [self updateSearchButtonStatus];
-        return NO;
-    }
-    return YES;
-}
-#endif
 
 - (void)incSearchCount {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];

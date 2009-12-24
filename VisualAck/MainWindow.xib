@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="3"/>
 			<integer value="70"/>
+			<integer value="3"/>
 			<integer value="102"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -45,7 +45,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{335, 401}, {458, 349}}</string>
 				<int key="NSWTFlags">1954021376</int>
-				<string key="NSWindowTitle">Visual Ack</string>
+				<string key="NSWindowTitle">Visual Ack (beta)</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -755,6 +755,37 @@
 				<string key="NSFrameSize">{480, 420}</string>
 				<reference key="NSSuperview"/>
 			</object>
+			<object class="NSCustomView" id="1020107979">
+				<reference key="NSNextResponder"/>
+				<int key="NSvFlags">268</int>
+				<object class="NSMutableArray" key="NSSubviews">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="NSTextField" id="690333999">
+						<reference key="NSNextResponder" ref="1020107979"/>
+						<int key="NSvFlags">268</int>
+						<string key="NSFrame">{{17, 20}, {228, 17}}</string>
+						<reference key="NSSuperview" ref="1020107979"/>
+						<reference key="NSWindow"/>
+						<bool key="NSEnabled">YES</bool>
+						<object class="NSTextFieldCell" key="NSCell" id="680958665">
+							<int key="NSCellFlags">68288064</int>
+							<int key="NSCellFlags2">272630784</int>
+							<string key="NSContents">This directory or file doesn't exists.</string>
+							<reference key="NSSupport" ref="254299595"/>
+							<reference key="NSControlView" ref="690333999"/>
+							<reference key="NSBackgroundColor" ref="601162812"/>
+							<object class="NSColor" key="NSTextColor">
+								<int key="NSColorSpace">1</int>
+								<bytes key="NSRGB">MSAxIDEAA</bytes>
+							</object>
+						</object>
+					</object>
+				</object>
+				<string key="NSFrameSize">{262, 52}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<string key="NSClassName">NSView</string>
+			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -1078,6 +1109,14 @@
 						<reference key="destination" ref="37024146"/>
 					</object>
 					<int key="connectionID">283</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">dirDoesntExistView_</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="1020107979"/>
+					</object>
+					<int key="connectionID">287</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1478,6 +1517,30 @@
 						<reference key="object" ref="535433890"/>
 						<reference key="parent" ref="193186883"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">284</int>
+						<reference key="object" ref="1020107979"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="690333999"/>
+						</object>
+						<reference key="parent" ref="0"/>
+						<string key="objectName">Dir doesn't exist View</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">285</int>
+						<reference key="object" ref="690333999"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="680958665"/>
+						</object>
+						<reference key="parent" ref="1020107979"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">286</int>
+						<reference key="object" ref="680958665"/>
+						<reference key="parent" ref="690333999"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1513,6 +1576,10 @@
 					<string>267.IBPluginDependency</string>
 					<string>272.IBPluginDependency</string>
 					<string>273.IBPluginDependency</string>
+					<string>284.IBEditorWindowLastContentRect</string>
+					<string>284.IBPluginDependency</string>
+					<string>285.IBPluginDependency</string>
+					<string>286.IBPluginDependency</string>
 					<string>3.IBEditorWindowLastContentRect</string>
 					<string>3.IBPluginDependency</string>
 					<string>3.IBWindowTemplateEditedContentRect</string>
@@ -1547,7 +1614,7 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{286, 288}, {480, 420}}</string>
+					<string>{{251, 306}, {480, 420}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1576,9 +1643,13 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{445, 404}, {458, 349}}</string>
+					<string>{{1109, 912}, {262, 52}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{445, 404}, {458, 349}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{183, 783}, {458, 349}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>{{183, 783}, {458, 349}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<boolean value="NO"/>
@@ -1631,7 +1702,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">283</int>
+			<int key="maxID">287</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1669,6 +1740,7 @@
 							<string>buttonChooseDir_</string>
 							<string>buttonSearch_</string>
 							<string>customView_</string>
+							<string>dirDoesntExistView_</string>
 							<string>dirField2_</string>
 							<string>dirField_</string>
 							<string>errorField_</string>
@@ -1689,6 +1761,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
 							<string>NSButton</string>
+							<string>NSView</string>
 							<string>NSView</string>
 							<string>NSTextField</string>
 							<string>NSTextField</string>

@@ -1,11 +1,9 @@
 To do before first public release:
 * skip the files that we shouldn't be searching
-* a way to show in UI that a directory is invalid in results view (used attached
-  window?)
-* 'Move to Application folder' http://www.potionfactory.com/node/251
 * more tests
 
 Things to do:
+* 'Move to Application folder' http://www.potionfactory.com/node/251
 * add scripting so that I can implement launching gui from vack even when gui is already running
 * analyze stats from auto-updates
 * when printing matched file names, do it relative to the directory being
@@ -41,6 +39,7 @@ Done:
 
 2009-12-23
  * proper pluralization of search status string
+ * in results view show that a directory/file doesn't exist
 
 2009-12-22
  * vack doesn't work if we don't provide starting directory

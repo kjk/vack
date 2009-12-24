@@ -44,6 +44,7 @@
 		7F8EF9BB10BD259F001AF18B /* CrashReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F8EF9B910BD259F001AF18B /* CrashReporter.m */; };
 		7F9F2D3C10BA330D00287C32 /* Sparkle.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8EF96E10B92E44001AF18B /* Sparkle.framework */; };
 		7FA475C610BA37300050E022 /* vack in Copy Executables */ = {isa = PBXBuildFile; fileRef = 7FD0FFD1106B0A9B00A1927D /* vack */; };
+		7FC9251310E30D5B009C2432 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC9251210E30D5B009C2432 /* MAAttachedWindow.m */; };
 		7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */; };
 		7FD0FFD7106B0B7000A1927D /* vackmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFD6106B0B7000A1927D /* vackmain.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -151,6 +152,8 @@
 		7F8EF9B810BD259F001AF18B /* CrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
 		7F8EF9B910BD259F001AF18B /* CrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CrashReporter.m; sourceTree = "<group>"; };
 		7FC0F8F310647CA40000B779 /* todo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = todo.txt; path = ../todo.txt; sourceTree = SOURCE_ROOT; };
+		7FC9251110E30D5B009C2432 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
+		7FC9251210E30D5B009C2432 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
 		7FD0FFA31067090A00A1927D /* SearchResultsStatusBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultsStatusBarView.h; sourceTree = "<group>"; };
 		7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsStatusBarView.m; sourceTree = "<group>"; };
 		7FD0FFD1106B0A9B00A1927D /* vack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vack; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -310,6 +313,8 @@
 		7F74E20D107D804F00D3AB3D /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				7FC9251110E30D5B009C2432 /* MAAttachedWindow.h */,
+				7FC9251210E30D5B009C2432 /* MAAttachedWindow.m */,
 				7F74E232107D818200D3AB3D /* RegexKitLite.h */,
 				7F74E233107D818200D3AB3D /* RegexKitLite.m */,
 			);
@@ -460,6 +465,7 @@
 				7F52F49110BE742500D9395A /* Http.m in Sources */,
 				7F8ED79B10C6100A00EEDE30 /* PrefKeys.m in Sources */,
 				7F881CD110C8E29F0082F3FE /* FileSearchResult.m in Sources */,
+				7FC9251310E30D5B009C2432 /* MAAttachedWindow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
