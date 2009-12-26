@@ -1,4 +1,5 @@
 To do before first public release:
+* add about box with credit link for the icon
 * more tests
 
 Things to do:
@@ -174,3 +175,17 @@ Done:
 
 2009-09-18
  * started the project
+
+Icons:
+http://www.iconfinder.net/icondetails/27877/128/?q=search
+CC Attrib NoDeriv
+http://www.visualpharm.com/must_have_icon_set/ - attribution link
+
+http://www.iconfinder.net/icondetails/23273/128/?q=search
+http://linux.softpedia.com/developer/Oliver-Scholtz-93.html Human O2 theme
+http://schollidesign.deviantart.com/art/Human-O2-Iconset-105344123
+
+http://www.iconfinder.net/icondetails/18213/128/?q=search
+LGPL
+http://www.everaldo.com/crystal/
+
