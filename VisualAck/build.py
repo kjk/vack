@@ -5,9 +5,11 @@
 #   * extract program version from .plist file
 #   * build
 #   * upload to s3 kjkpub bucket. Uploaded files:
-#       vack/SumatraPDF-prerelase-<svnrev>.exe
-#       vack/sumatralatest.js
-#       vack/sumpdf-prerelease-latest.txt
+#       vack/VisualAck-<ver>.zip
+#       vack/latestver.js
+#       vack/relnotes.xml
+#       vack/relnotes.html
+#       vack/appcast.xml
 
 # TODO:
 #  - should also save every version of appcast and relnotes, so that it's
@@ -188,10 +190,11 @@ def build_and_zip(version):
 
 def latest_js(version):
     return """
+var vackLatestVer = "%s";
 var vackLatestUrl = "%s";
 var vackLatestName = "%s";
 var vackBuiltOn = "%s";
-""" % (zip_url(version), zip_name(version), time.strftime("%Y-%m-%d"))
+""" % (version, zip_url(version), zip_name(version), time.strftime("%Y-%m-%d"))
 
 def get_appcast(path, version, length):
     appcast = readfile(path)
