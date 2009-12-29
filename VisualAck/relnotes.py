@@ -1,20 +1,19 @@
 import cgi
 
 relnotes = [
+    ["0.3", "2009-12-28",
+     "added About window"],
     ["0.2.6", "2009-12-25",
-     "changed the icon"
-    ],
+     "changed the icon"],
     ["0.2.5", "2009-12-23",
      "results view now includes search and directory text fields",
-     "in main view add a button to launch a website"
-    ],
+     "in main view add a button to launch a website"],
     ["0.2.4", "2009-12-18",
      "fix searching from ui by handling searching in absolute paths",
      "show match in bold font"],
     ["0.2.3", "2009-12-17",
      "fix running of file descriptors",
-     "use Launch Services to launch UI from vack"
-    ],
+     "use Launch Services to launch UI from vack"],
     ["0.2.2", "2009-12-13",
      "don't go directly to results page"],
     ["0.2.1", "2009-12-13",
