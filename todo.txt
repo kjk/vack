@@ -1,5 +1,4 @@
 To do before first public release:
-* add about box with credit link for the icon
 * more tests
 
 Things to do:
@@ -33,9 +32,13 @@ Maybe:
 * even more sophisticated file encoding detection (e.g. in html files parse
   metadata about charset; there's code in mozilla somewhere)
 
-Days: 30
+Days: 31
 
 Done:
+
+2009-12-28
+ * add about box with credit link for the icon
+ * bump version to 0.3
 
 2009-12-23
  * proper pluralization of search status string
