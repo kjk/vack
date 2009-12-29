@@ -47,6 +47,9 @@
 		7FC9251310E30D5B009C2432 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FC9251210E30D5B009C2432 /* MAAttachedWindow.m */; };
 		7FD0FFA51067090A00A1927D /* SearchResultsStatusBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */; };
 		7FD0FFD7106B0B7000A1927D /* vackmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0FFD6106B0B7000A1927D /* vackmain.m */; };
+		7FE9C87D10E9A32D003E7469 /* AboutWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FE9C87C10E9A32D003E7469 /* AboutWindowController.m */; };
+		7FE9C89410E9A455003E7469 /* AboutWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7FE9C89310E9A455003E7469 /* AboutWindow.xib */; };
+		7FE9C89710E9A54C003E7469 /* About.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 7FE9C89610E9A54C003E7469 /* About.rtf */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -158,6 +161,10 @@
 		7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultsStatusBarView.m; sourceTree = "<group>"; };
 		7FD0FFD1106B0A9B00A1927D /* vack */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = vack; sourceTree = BUILT_PRODUCTS_DIR; };
 		7FD0FFD6106B0B7000A1927D /* vackmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vackmain.m; sourceTree = "<group>"; };
+		7FE9C87B10E9A32D003E7469 /* AboutWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutWindowController.h; sourceTree = "<group>"; };
+		7FE9C87C10E9A32D003E7469 /* AboutWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutWindowController.m; sourceTree = "<group>"; };
+		7FE9C89310E9A455003E7469 /* AboutWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutWindow.xib; sourceTree = "<group>"; };
+		7FE9C89610E9A54C003E7469 /* About.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = About.rtf; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* VisualAck-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "VisualAck-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* VisualAck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisualAck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -278,6 +285,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				7FE9C89610E9A54C003E7469 /* About.rtf */,
+				7FE9C89310E9A455003E7469 /* AboutWindow.xib */,
 				7F7AAF651097B596009D785D /* VisualAck.icns */,
 				8D1107310486CEB800E47090 /* VisualAck-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -300,10 +309,12 @@
 			isa = PBXGroup;
 			children = (
 				29B97316FDCFA39411CA2CEA /* main.m */,
-				7FD0FFA31067090A00A1927D /* SearchResultsStatusBarView.h */,
-				7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */,
+				7FE9C87B10E9A32D003E7469 /* AboutWindowController.h */,
+				7FE9C87C10E9A32D003E7469 /* AboutWindowController.m */,
 				7F884913106476810041161E /* MainWindowController.h */,
 				7F884914106476810041161E /* MainWindowController.m */,
+				7FD0FFA31067090A00A1927D /* SearchResultsStatusBarView.h */,
+				7FD0FFA41067090A00A1927D /* SearchResultsStatusBarView.m */,
 				256AC3D80F4B6AC300CF3369 /* VisualAckAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* VisualAckAppDelegate.m */,
 			);
@@ -411,6 +422,8 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				7F7AAF661097B596009D785D /* VisualAck.icns in Resources */,
 				7F52F5B810C10CA200D9395A /* MainWindow.xib in Resources */,
+				7FE9C89410E9A455003E7469 /* AboutWindow.xib in Resources */,
+				7FE9C89710E9A54C003E7469 /* About.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +479,7 @@
 				7F8ED79B10C6100A00EEDE30 /* PrefKeys.m in Sources */,
 				7F881CD110C8E29F0082F3FE /* FileSearchResult.m in Sources */,
 				7FC9251310E30D5B009C2432 /* MAAttachedWindow.m in Sources */,
+				7FE9C87D10E9A32D003E7469 /* AboutWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,6 @@
 #import "VisualAckAppDelegate.h"
 
+#import "AboutWindowController.h"
 #import "CrashReporter.h"
 #import "Http.h"
 #import "PrefKeys.h"
@@ -240,6 +241,10 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 
 - (BOOL)isNewSearchMenuEnabled {
     return ![[mainWindowController_ window] isVisible];
+}
+
+- (void)showAboutWindow:(id)sender {
+	[[AboutWindowController aboutController] showWindow:sender];
 }
 
 @end

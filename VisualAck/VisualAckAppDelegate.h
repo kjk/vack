@@ -12,6 +12,7 @@
 + (id)shared;
 - (void)addOperation:(NSOperation*)operation;
 - (IBAction)showMainWindow:(id)sender;
+- (IBAction)showAboutWindow:(id)sender;
 - (BOOL)isNewSearchMenuEnabled;
 
 @end
