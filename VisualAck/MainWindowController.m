@@ -574,9 +574,28 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 }
 
 - (void)startSearchForSearchOptions:(search_options)searchOptions {
+    [self switchToSearchInProgressState];
+
+	NSString *searchTerm = nil;
+	NSString *dir = nil;
+	if (searchOptions.search_term) {
+		searchTerm = [NSString stringWithUTF8String:searchOptions.search_term];
+		if (searchTerm) {
+			[searchTermField2_ setStringValue:searchTerm];
+		}
+	}
+
+	if ((searchOptions.search_loc_count > 0) && searchOptions.search_loc[0]) {
+		dir = [NSString stringWithUTF8String:searchOptions.search_loc[0]];
+	}
+	if (dir) {
+		[dirField2_ setStringValue:dir];
+	}
     [self switchToSearchResultsView];
-    // TODO: rememberSearchFor
-    //[self rememberSearchFor:searchTerm inDirectory:dir];
+
+	if (searchTerm && dir) {
+		[self rememberSearchFor:searchTerm inDirectory:dir];
+	}
 
     SearchOperation *op = [[SearchOperation alloc] initWithSearchOptions:searchOptions delegate:self];
     [[VisualAckAppDelegate shared] addOperation:op];
