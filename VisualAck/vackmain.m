@@ -5,6 +5,7 @@
 #import "PrefKeys.h"
 #include <sys/stat.h>
 #include <mach-o/dyld.h>
+#include "ProgramVersion.h"
 
 /*
  Usage: ack [OPTION]... PATTERN [FILE]
@@ -243,15 +244,14 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 
 @end
 
-#define VACK_VER "0.01"
-
 static void print_version() {
-    printf("vack %s\n", VACK_VER);
+    printf("vack %s\n", VACK_PROGRAM_VERSION);
 }
 
 static void print_help() {
-    printf("vack %s\n", VACK_VER);
-    printf("\nThis is help. Write me.\n");
+    printf("Usage: vack [OPTION]... PATTERN [FILE]\n");
+	printf("\n");
+	printf("This is version %s of vack.\n", VACK_PROGRAM_VERSION);
 }
 
 static void incSearchCount(void)

@@ -146,6 +146,7 @@
 		7F74E243107DA1ED00D3AB3D /* FileLineIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLineIterator.h; sourceTree = "<group>"; };
 		7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileLineIterator.m; sourceTree = "<group>"; };
 		7F7AAF651097B596009D785D /* VisualAck.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = VisualAck.icns; sourceTree = "<group>"; };
+		7F7EAFCD10ED7D64000A128D /* ProgramVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgramVersion.h; sourceTree = "<group>"; };
 		7F881CD010C8E29F0082F3FE /* FileSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSearchResult.m; sourceTree = "<group>"; };
 		7F884913106476810041161E /* MainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainWindowController.h; sourceTree = "<group>"; };
 		7F884914106476810041161E /* MainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainWindowController.m; sourceTree = "<group>"; };
@@ -274,6 +275,7 @@
 		29B97315FDCFA39411CA2CEA /* Vack */ = {
 			isa = PBXGroup;
 			children = (
+				7F7EAFCD10ED7D64000A128D /* ProgramVersion.h */,
 				7FC0F8F310647CA40000B779 /* todo.txt */,
 				7FD0FFD6106B0B7000A1927D /* vackmain.m */,
 				7F69A1701088582D00E8DDAC /* utvackmain.m */,

@@ -44,6 +44,7 @@ except:
 SRC_DIR = os.path.dirname(os.path.realpath(__file__))
 RELEASE_BUILD_DIR = os.path.join(SRC_DIR, "build", "Release")
 INFO_PLIST_PATH = os.path.realpath(os.path.join(SRC_DIR, "VisualAck-Info.plist"))
+PROGRAM_VERSION_PATH = os.path.realpath(os.path.join(SRC_DIR, "ProgramVersion.h"))
 APP_CAST_PATH = os.path.join(SRC_DIR, "appcast_template.xml")
 S3_APPCAST_NAME = "vack/appcast.xml"
 S3_LATEST_VER_NAME = "vack/latestver.js"
@@ -159,6 +160,19 @@ def extract_version_from_plist(plist_path):
     #print("version: '%s'" % version)
     return version
 
+def extract_version_from_source(program_version_path):
+    plist = readfile(program_version_path)
+    regex = re.compile("#define VACK_PROGRAM_VERSION \"([^\"]+)\"", re.DOTALL | re.MULTILINE)
+    m = regex.search(plist)
+    version = m.group(1).strip()
+    return version
+
+def extract_version(plist_path, program_version_path):
+    plist_version = extract_version_from_plist(plist_path)
+    source_version = extract_version_from_source(program_version_path)
+    assert plist_version == source_version, "version in *.plist file (%s) must be the same as version in ProgramVersion.h (%s)" % (plist_version, source_version)
+    return plist_version
+
 # build version is either x.y or x.y.z
 def ensure_valid_version(version):
     m = re.match("\d+\.\d+", version)
@@ -228,7 +242,7 @@ def main():
         print("Building but not uploading VisualAck")
     ensure_file_exists(INFO_PLIST_PATH)
     ensure_file_exists(APP_CAST_PATH)
-    version = extract_version_from_plist(INFO_PLIST_PATH)
+    version = extract_version(INFO_PLIST_PATH, PROGRAM_VERSION_PATH)
     ensure_valid_version(version)
     relnotes.validate_relnotes(version)
     relnotes_html = relnotes.relnotes_html()
