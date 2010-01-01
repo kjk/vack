@@ -20,11 +20,11 @@ Things to do:
   about wheter or not to show colored output; this can be over-written with
   --[no-][color|colour]
 * parse ack config file for compatibility
-* even nicer way to show recent searches (header like in xcode's startup screen recent projects list)
 * write textmate bundle (based on ack textmate bundle) and automatically install it if
   TextMate is detected on the computer
 * launch an editor with a given file directly from the the app
 * allow multiple search windows at the same time?
+* even nicer way to show recent searches (header like in xcode's startup screen recent projects list)
 
 Maybe:
 * multi-threaded search (assuming we're CPU bound on searches, not I/O bound)
@@ -32,9 +32,13 @@ Maybe:
 * even more sophisticated file encoding detection (e.g. in html files parse
   metadata about charset; there's code in mozilla somewhere)
 
-Days: 31
+Days: 32 (to get it: egrep "^(2009|2010)-" ../todo.txt | wc -l)
 
 Done:
+
+2009-12-31
+ * add version number to vack
+ * fix launching GUI from vack in the case where no search path was given
 
 2009-12-28
  * add about box with credit link for the icon

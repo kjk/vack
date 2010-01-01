@@ -329,18 +329,19 @@ static BOOL findVisualAckPath(char *visualAckPath, size_t visualAckPathLen)
 		return NO;
 	}
 	
-	/* vack is in Contents/Resources, VisualAck is in /Contents/MacOS/
-	 so it's ../MacOS/VisualAck */
+	/* when debugging vack can be in build/${VERSION}/vack while
+	 VisualAck in build/${VERSION}/VisualAck.app/Contents/MacOS/VisualAck.
+	 We want to try that first */
 	strlcpy(visualAckPath, rp, visualAckPathLen);
 	basePathInPlace(visualAckPath);
-	strlcat(visualAckPath, "/../MacOS/VisualAck", visualAckPathLen);
+	strcat(visualAckPath, "/VisualAck.app/Contents/MacOS/VisualAck");
 	
-	/* when debugging vack can be in build/${VERSION}/vack while
-	 VisualAck in build/${VERSION}/VisualAck.app/Contents/MacOS/VisualAck */
+	/* vack is in Contents/Resources, VisualAck is in /Contents/MacOS/
+	 so it's ../MacOS/VisualAck */
 	if (!fileExists(visualAckPath)) {
 		strlcpy(visualAckPath, rp, visualAckPathLen);
 		basePathInPlace(visualAckPath);
-		strcat(visualAckPath, "/VisualAck.app/Contents/MacOS/VisualAck");
+		strlcat(visualAckPath, "/../MacOS/VisualAck", visualAckPathLen);
 		if (!fileExists(visualAckPath)) {
 			NSLog(@"'%s' doesn't exist\n", visualAckPath);
 			NSLog(@"Couldn't find VisualAck executable relative to '%s'\n", rp);
@@ -357,7 +358,7 @@ static inline int streq(const char *s1, const char *s2) {
     return 0 == strcmp(s1, s2);
 }
 
-static void launchGui(int argc, char *argv[])
+static void launchGui(int argc, char *argv[], search_options *opts)
 {
 	char visualAckPath[1024];
 	CFStringRef args[MAX_CMD_ARGS];
@@ -379,6 +380,14 @@ static void launchGui(int argc, char *argv[])
 		}
 		args[realArgc++] = CFStringCreateWithCString(NULL, argv[i], kCFStringEncodingUTF8);
 	}
+
+    // if search locations not given on cmd line, search current directory
+    if ((opts->search_loc_count == 0) && (realArgc < MAX_CMD_ARGS)) {
+        NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
+        if (nil != cwd) {
+			args[realArgc++] = (CFStringRef)cwd;
+        }
+    }	
 
 	err = FSPathMakeRef((unsigned char*)visualAckPath, &fref, NULL);
 	if (err != noErr) {
@@ -446,7 +455,7 @@ int main(int argc, char *argv[])
     }
 
 	if (opts.use_gui) {
-		launchGui(argc, argv);
+		launchGui(argc, argv, &opts);
 		goto Exit;
 	}
 	
