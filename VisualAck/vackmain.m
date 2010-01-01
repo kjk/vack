@@ -132,6 +132,8 @@
  
 */
 
+#define LOG_SEARCH 0
+
 typedef enum {
     ANSI_COLOR_RESET = 0,
     ANSI_COLOR_FILE,
@@ -193,21 +195,21 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 }
 
 - (BOOL)didSkipFile:(NSString*)filePath {
-#ifndef NDEBUG
+#if LOG_SEARCH
     printf("didSkipFile %s\n", [filePath UTF8String]);
 #endif
 	return YES;
 }
 
 - (BOOL)didSkipDirectory:(NSString*)dirPath {
-#ifndef NDEBUG
+#if LOG_SEARCH
     printf("didSkipDirectory %s\n", [dirPath UTF8String]);
 #endif
 	return YES;
 }
 
 - (BOOL)didSkipNonExistent:(NSString*)path {
-#ifndef NDEBUG
+#if LOG_SEARCH
     printf("didSkipNonExistent %s\n", [path UTF8String]);
 #endif
 	return YES;

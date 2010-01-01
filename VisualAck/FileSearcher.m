@@ -43,6 +43,7 @@ static NSString *fileTypes[] = {
     @"elisp", @"el", nil,
     @"erlang", @"erl", @"hrl", nil,
     @"fortran", @"f", @"f77", @"f90", @"f95", @"f03", @"for", @"ftn", @"fpp", nil,
+	@"go", @"go", nil,
     @"haskell", @"hs", @"lhs", nil,
     @"hh", @"h", nil,
     @"html", @"htm", @"html", @"shtml", @"xhtml", nil,
@@ -76,7 +77,7 @@ static NSString *fileTypes[] = {
     @"vb", @"bas", @"cls", @"frm", @"ctl", @"vb", @"resx", nil,
     @"vim", @"vim", nil,
     @"yaml", @"yaml", @"yml", nil,
-    @"xml", @"xml", @"dtd", @"xslt", @"ent", nil,
+    @"xml", @"xml", @"dtd", @"xslt", @"ent", @"xib", nil,
     nil
 };
 
@@ -328,7 +329,10 @@ static NSString *nonNilValue = @"dummyString";
                     goto Exit;
 				}
 			}
-        } else {
+        } else if ([fileType isEqualToString:NSFileTypeSymbolicLink]) {
+			// do nothing, we ignore symbolic links
+		} else
+		{
             NSLog(@"unhandled type %@ for file %@", fileType, fullPath);
         }
 		
