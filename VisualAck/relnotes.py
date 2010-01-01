@@ -1,7 +1,7 @@
 import cgi
 
 relnotes = [
-    ["0.3.1", "2009-12-31"
+    ["0.3.1", "2009-12-31",
      "fixes to vack"],
     ["0.3", "2009-12-28",
      "added About window"],
