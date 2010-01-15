@@ -32,9 +32,12 @@ Maybe:
 * even more sophisticated file encoding detection (e.g. in html files parse
   metadata about charset; there's code in mozilla somewhere)
 
-Days: 32 (to get it: egrep "^(2009|2010)-" ../todo.txt | wc -l)
+Days: 33 (to get it: egrep "^(2009|2010)-" ../todo.txt | wc -l)
 
 Done:
+
+2010-01-14
+ * enabled -i (ignore case) option
 
 2009-12-31
  * add version number to vack

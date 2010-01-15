@@ -258,7 +258,8 @@ static NSString *nonNilValue = @"dummyString";
     } else {
         filePath = fileName;
     }
-    FileSearchIterator *fileSearchIter = [FileSearchIterator fileSearchIteratorWithFileName:filePath searchPattern:searchPattern_];    
+    FileSearchIterator *fileSearchIter = [FileSearchIterator fileSearchIteratorWithFileName:filePath searchPattern:searchPattern_];
+    fileSearchIter.ignoreCase = opts_->ignore_case;
     [delegate_ didStartSearchInFile:filePath];
     FileSearchResult *searchResult;
     for (;;) {

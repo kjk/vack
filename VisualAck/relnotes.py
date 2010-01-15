@@ -1,6 +1,8 @@
 import cgi
 
 relnotes = [
+    ["0.3.2", "???",
+      "implement -i (ignore case) option"],
     ["0.3.1", "2009-12-31",
      "fixes to vack"],
     ["0.3", "2009-12-28",

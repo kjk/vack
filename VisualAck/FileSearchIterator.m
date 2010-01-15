@@ -6,6 +6,8 @@
 
 @implementation FileSearchIterator
 
+@synthesize ignoreCase = ignoreCase_;
+
 + (FileSearchIterator*)fileSearchIteratorWithFileName:(NSString*)path searchPattern:(NSString*)searchPattern {
     return [[[FileSearchIterator alloc]
             initWithFileName:path 
@@ -22,6 +24,7 @@
     self = [super initWithFileName:path];
     if (!self) return nil;
     searchPattern_ = [searchPattern copy];
+    ignoreCase_ = 0;
     return self;
 }
 
@@ -42,8 +45,17 @@
     NSRange toSearchRange;
     toSearchRange.location = 0;
     toSearchRange.length = lineLen;
+    // TODO: this could be done once and options kept as instance variable
+    RKLRegexOptions options = RKLNoOptions;
+    if (self.ignoreCase) {
+        options |= RKLCaseless;
+    }
     for (;;) {
-        currMatchPos_ = [currLine_ rangeOfRegex:searchPattern_ inRange:toSearchRange];
+        currMatchPos_ = [currLine_ rangeOfRegex:searchPattern_ 
+                                        options:options 
+                                        inRange:toSearchRange 
+                                        capture:0 
+                                          error:nil];
         if (currMatchPos_.location == NSNotFound)
             break;
         [self addSearchResult];
