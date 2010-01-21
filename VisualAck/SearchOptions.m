@@ -13,6 +13,7 @@ static search_options g_default_search_options = {
     0, /* version */
     0, /* thppt */
     0, /* ignore_case */
+    1, /* color */
     NULL, /* ignore_dirs */
     NULL, /* no_ignore_dirs */
     NULL, /* search_term */
@@ -102,6 +103,12 @@ void cmd_line_to_search_options(search_options *opts, int argc, char *argv[])
             ++curr_arg;
         } else if (streq(arg, "-i") || (streq(arg, "--ignore-case"))) {
             opts->ignore_case = 1;
+            ++curr_arg;
+        } else if (streq(arg, "--color") || (streq(arg, "--colour"))) {
+            opts->color = 1;
+            ++curr_arg;
+        } else if (streq(arg, "--nocolor") || (streq(arg, "--nocolour"))) {
+            opts->color = 0;
             ++curr_arg;
         } else if (strstartswith(arg, "--ignore-dir=")) {
             val = arg + strlen("--ignore-dir=");

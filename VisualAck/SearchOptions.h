@@ -10,6 +10,7 @@ typedef struct {
     int version;            /* --version */
     int thpppt;             /* --thppt */
     int ignore_case;        /* -i, --ignore-case */
+    int color;              /* --[no]color, --[no]colour */
     char **ignore_dirs;     /* --ignore-dir=$dir */
     char **no_ignore_dirs;  /* --noignore-dir=$dir */
     char *search_term;      /* first unrecognized argument */

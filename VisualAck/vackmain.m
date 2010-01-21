@@ -22,7 +22,6 @@
  Example: ack -i select
  
  Searching:
- -i, --ignore-case     Ignore case distinctions in PATTERN
  --[no]smart-case      Ignore case distinctions in PATTERN,
  only if PATTERN contains no upper case
  Ignored if -i is specified
@@ -71,9 +70,6 @@
  (default: on when used interactively)
  --group               Same as --heading --break
  --nogroup             Same as --noheading --nobreak
- --[no]color           Highlight the matching text (default: on unless
- output is redirected, or on Windows)
- --[no]colour          Same as --[no]color
  --flush               Flush output immediately, even when ack is used
  non-interactively (when output goes to a pipe or
  file).
@@ -129,7 +125,11 @@
 /* Implemented:
  --version             Display version & copyright
  --help                This help
- 
+ -i, --ignore-case     Ignore case distinctions in PATTERN
+
+ --[no]color           Highlight the matching text (default: on unless
+ output is redirected, or on Windows)
+ --[no]colour          Same as --[no]color
 */
 
 #define LOG_SEARCH 0
@@ -185,13 +185,21 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 {
     NSString *  currFilePath_;
     int         resultsCount_;
+    search_options opts_;
 }
+
+- (void)setSearchOptions:(search_options*)opts;
 @end
 
 @implementation SearchResults
 - (void)dealloc {
     assert(!currFilePath_);
     [super dealloc];
+}
+
+- (void)setSearchOptions:(search_options*)opts {
+    // shallow copy, we don't need to free it
+    opts_ = *opts;
 }
 
 - (BOOL)didSkipFile:(NSString*)filePath {
@@ -217,13 +225,19 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 
 - (BOOL)didFind:(FileSearchResult*)searchResult {
     if (0 == resultsCount_) {
-        // TODO: if not color, don't color
-        NSString *fileColored = [NSString stringWithFormat:@"%@%@%@", ansiColor(ANSI_COLOR_FILE), currFilePath_, ansiColor(ANSI_COLOR_RESET)];
-        printf("%s\n", [fileColored UTF8String]);
+        if (opts_.color) {
+            NSString *fileColored = [NSString stringWithFormat:@"%@%@%@", ansiColor(ANSI_COLOR_FILE), currFilePath_, ansiColor(ANSI_COLOR_RESET)];
+            printf("%s\n", [fileColored UTF8String]);
+        } else {
+            printf("%s\n", [currFilePath_ UTF8String]);
+        }
     }
-    // TODO: if not color, don't color
-    NSString *toPrint = wrapStringRangesInColor(searchResult.line, searchResult.matchesCount, searchResult.matches, ansiColor(ANSI_COLOR_MATCH));
-    printf("%s\n", [toPrint UTF8String]);
+    if (opts_.color) {
+        NSString *toPrint = wrapStringRangesInColor(searchResult.line, searchResult.matchesCount, searchResult.matches, ansiColor(ANSI_COLOR_MATCH));
+        printf("%s\n", [toPrint UTF8String]);
+    } else {
+        printf("%s\n", [searchResult.line UTF8String]);
+    }
     ++resultsCount_;
 	return YES;
 }
@@ -437,6 +451,14 @@ int main(int argc, char *argv[])
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     search_options opts;
     init_search_options(&opts);
+
+    /* default setting for showing searches highlighted or not depends on whether
+       stdout is a tty (use highlight) or something else (e.g. redirected to a file
+       => don't use color highlight) */
+    if (!isatty(1)) {
+        opts.color = 0;
+    }
+
     cmd_line_to_search_options(&opts, argc, argv);
     
     if (opts.version) {
@@ -454,11 +476,11 @@ int main(int argc, char *argv[])
         goto Exit;
     }
 
-	if (opts.use_gui) {
-		launchGui(argc, argv, &opts);
-		goto Exit;
-	}
-	
+    if (opts.use_gui) {
+        launchGui(argc, argv, &opts);
+        goto Exit;
+    }
+
     // if search locations not given on cmd line, search current directory
     if (opts.search_loc_count == 0) {
         NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
@@ -472,6 +494,7 @@ int main(int argc, char *argv[])
     incSearchCount();
     FileSearcher *fileSearcher = [[FileSearcher alloc] initWithSearchOptions:&opts];
     SearchResults *sr = [[SearchResults alloc] init];
+    [sr setSearchOptions:&opts];
     [fileSearcher setDelegate:sr];
     [fileSearcher doSearch];
 
@@ -482,4 +505,3 @@ Exit:
     free_search_options(&opts);
     return exit_status;
 }
-
