@@ -266,8 +266,21 @@ static void print_version() {
 
 static void print_help() {
     printf("Usage: vack [OPTION]... PATTERN [FILE]\n");
-	printf("\n");
-	printf("This is version %s of vack.\n", VACK_PROGRAM_VERSION);
+    printf("\n");
+    printf("Example: vack -i foo\n");
+    printf("\n");
+    printf("Searching:\n");
+    printf("  -i, --ignore-case     Ignore case distinctions in PATTERN\n");
+    printf("File presentation:\n");
+    printf("  --[no]color           Highlight the matching text (default: on unless\n");
+    printf("                        output is redirected)\n");
+    printf("  --[no]colour          Same as --[no]color\n");
+    printf("\n");
+    printf("Miscellaneous:\n");
+    printf("  --help                This help\n");
+    printf("  --version             Display version & copyright\n");
+    printf("\n");
+    printf("This is version %s of vack.\n", VACK_PROGRAM_VERSION);
 }
 
 static void incSearchCount(void)
