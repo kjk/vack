@@ -1,6 +1,9 @@
 import cgi
 
 relnotes = [
+    ["0.3.3", "2010-01-21",
+      "remove control characters from output if not printing to tty",
+      "add --[no]color --[no]colour option to disable/force search highlight with control characters"],
     ["0.3.2", "2010-01-19",
       "implement -i (ignore case) option"],
     ["0.3.1", "2009-12-31",
