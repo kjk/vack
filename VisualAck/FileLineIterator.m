@@ -44,6 +44,7 @@
     // TODO: check for size > 4GB
     fileStart_ = (char*)mmap(NULL, fileSize_, PROT_READ, MAP_SHARED, fd_, 0);
     if ((void*)fileStart_ == MAP_FAILED) {
+		fd_ = -1;
         close(fd_);
         return NO;
     }
