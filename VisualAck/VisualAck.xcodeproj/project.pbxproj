@@ -403,7 +403,11 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "VisualAck" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* VisualAck */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -592,6 +596,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = vack;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -614,6 +619,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = vack;
+				SDKROOT = "";
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -676,9 +682,10 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = "";
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -700,8 +707,9 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				SDKROOT = "";
 			};
 			name = Release;
 		};
