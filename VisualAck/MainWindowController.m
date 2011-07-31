@@ -100,7 +100,7 @@
 
 	NSFont *font = [NSFont systemFontOfSize:10.0];
     NSFont *fontBold = [NSFont boldSystemFontOfSize:0.0];
-	NSFont *fontSmall = [NSFont systemFontOfSize:9.0];
+	//NSFont *fontSmall = [NSFont systemFontOfSize:9.0];
 
     // 0x47A72F - green
     NSColor *filePathColor = [NSColor colorWithCalibratedRed:0.2784 green:0.6549 blue:0.1843 alpha:1.0];
