@@ -102,7 +102,9 @@ Error:
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-#pragma unused(error)
+    if (error) {
+        NSLog(@"connection:didFailWithError: error:%@", [error localizedDescription]);
+    }
     [connection release];
     [self uploadSucceeded:NO];
 }
