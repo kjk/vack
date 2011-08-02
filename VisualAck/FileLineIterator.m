@@ -126,6 +126,7 @@
         return nil;
     }
     NSString* str = (NSString*)s;
+    [str autorelease];
     // lines that are too long might slow down or even hang display in
     // NSOutlineView, so limit them to a reasonable size
     if ([str length] > MAX_LINE_LEN) {
