@@ -307,7 +307,6 @@ static NSString *nonNilValue = @"dummyString";
             //NSLog(@"%@", fullPath);
             if ([self shouldSkipFile:file]) {
                 [delegate_ didSkipFile:fullDirPath];
-                cont = YES;
             } else {
                 cont = [self searchFile:file inDir:fullDirPath];
 				if (!cont) {

@@ -59,12 +59,12 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     unsigned len = strlen(utf8);
     NSData *data = [NSData dataWithBytes:(const void*)utf8 length:len];
     NSURL *url = [NSURL URLWithString:REPORT_SUBMIT_URL];
-    [[Http alloc] initAndUploadWithURL:url
+    [[[Http alloc] initAndUploadWithURL:url
                                   data:data
                               filePath:crashReportPath
                               delegate:self
                           doneSelector:@selector(onHttpDoneOrError:)
-                         errorSelector:@selector(onHttpDoneOrError:)];
+                         errorSelector:@selector(onHttpDoneOrError:)] autorelease];
 }
 
 - (NSString*)uniqueId {

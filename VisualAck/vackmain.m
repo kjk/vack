@@ -415,14 +415,19 @@ static void launchGui(int argc, char *argv[], search_options *opts)
     if ((opts->search_loc_count == 0) && (realArgc < MAX_CMD_ARGS)) {
         NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
         if (nil != cwd) {
-			args[realArgc++] = (CFStringRef)cwd;
+			args[realArgc] = (CFStringRef)cwd;
+            CFRetain(args[realArgc]);
+            realArgc++;
         }
     }	
 
 	err = FSPathMakeRef((unsigned char*)visualAckPath, &fref, NULL);
 	if (err != noErr) {
-		return;
-	}
+        for (i=0; i<realArgc; i++) {
+            CFRelease(args[i]);
+        }
+        return;
+    }
 
 	CFArrayRef argsArray = CFArrayCreate(NULL, (void*)args, realArgc, &kCFTypeArrayCallBacks);
 	LSApplicationParameters params;

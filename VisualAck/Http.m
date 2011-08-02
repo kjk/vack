@@ -85,7 +85,7 @@ static NSString * const FORM_FLE_INPUT = @"file";
         goto Error;
 
     NSURLConnection * connection =
-            [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
+            [[[NSURLConnection alloc] initWithRequest:urlRequest delegate:self] autorelease];
 
     if (!connection)
         goto Error;
@@ -97,7 +97,6 @@ Error:
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [connection release];
     [self uploadSucceeded:uploadDidSucceed_];
 }
 
@@ -105,13 +104,7 @@ Error:
     if (error) {
         NSLog(@"connection:didFailWithError: error:%@", [error localizedDescription]);
     }
-    [connection release];
     [self uploadSucceeded:NO];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-#pragma unused(connection)
-#pragma unused(response)
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)aData {

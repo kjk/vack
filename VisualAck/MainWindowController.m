@@ -131,10 +131,10 @@
 									[NSColor grayColor], NSForegroundColorAttributeName,
 									[NSFont systemFontOfSize:9.0], NSFontAttributeName, nil];
 
-    NSAttributedString *url = [[NSAttributedString alloc] 
+    NSAttributedString *url = [[[NSAttributedString alloc] 
                                initWithString:@"http://blog.kowalczyk.info/software/vack"
-								   attributes:urlAttr];
-							   
+								   attributes:urlAttr] autorelease];
+
 	[websiteUrl_ setAttributedTitle:url];
 	[websiteUrl_ setShowsBorderOnlyWhileMouseInside:YES];
 
@@ -334,7 +334,7 @@
 	NSString *dir = [recentSearches_ objectAtIndex:idx+1];
 	//NSRange searchTermRange = NSMakeRange(0, [searchTerm length]);
 	NSString *s = [NSString stringWithFormat:@" %@\n %@", searchTerm, dir];
-	NSMutableAttributedString *as = [[NSMutableAttributedString alloc] initWithString:s];
+	NSMutableAttributedString *as = [[[NSMutableAttributedString alloc] initWithString:s] autorelease];
 	NSRange dirRange = NSMakeRange([searchTerm length]+3, [dir length]);
 	[as setAttributes:dirStringAttrs_ range:dirRange];
 	return as;
@@ -401,8 +401,8 @@
 - (id)outlineView:(NSOutlineView*)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
 	assert(outlineView == searchResultsView_);
 	if ([item isKindOfClass:[SearchResultsFile class]]) {
-		return [[NSAttributedString alloc] initWithString:[item fileName]
-											   attributes:filePathStringAttrs_];
+		return [[[NSAttributedString alloc] initWithString:[item fileName]
+											   attributes:filePathStringAttrs_] autorelease];
 	}
 	assert([item isKindOfClass:[NSAttributedString class]]);
 	return item;
