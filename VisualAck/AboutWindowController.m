@@ -24,6 +24,7 @@ static AboutWindowController * aboutWindowControllerInstance = nil;
 }
 
 - (void) windowWillClose:(id)sender {
+#pragma unused(sender)
 	[aboutWindowControllerInstance release];
     aboutWindowControllerInstance = nil;
 }

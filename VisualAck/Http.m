@@ -102,14 +102,18 @@ Error:
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+#pragma unused(error)
     [connection release];
     [self uploadSucceeded:NO];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+#pragma unused(connection)
+#pragma unused(response)
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)aData {
+#pragma unused(connection)
     reply_ = [[NSString alloc] initWithData:aData encoding:NSUTF8StringEncoding];
     uploadDidSucceed_ = YES;
 }

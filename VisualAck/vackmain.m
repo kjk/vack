@@ -180,6 +180,11 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
     }
     return sWrapped;
 }
+#if LOG_SEARCH
+#define LogSearch printf
+#else
+#define LogSearch(...) {}
+#endif
 
 @interface SearchResults : NSObject <FileSearchProtocol>
 {
@@ -203,23 +208,20 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 }
 
 - (BOOL)didSkipFile:(NSString*)filePath {
-#if LOG_SEARCH
-    printf("didSkipFile %s\n", [filePath UTF8String]);
-#endif
+#pragma unused(filePath)
+    LogSearch("didSkipFile %s\n", [filePath UTF8String]);
 	return YES;
 }
 
 - (BOOL)didSkipDirectory:(NSString*)dirPath {
-#if LOG_SEARCH
-    printf("didSkipDirectory %s\n", [dirPath UTF8String]);
-#endif
+#pragma unused(dirPath)
+    LogSearch("didSkipDirectory %s\n", [dirPath UTF8String]);
 	return YES;
 }
 
 - (BOOL)didSkipNonExistent:(NSString*)path {
-#if LOG_SEARCH
-    printf("didSkipNonExistent %s\n", [path UTF8String]);
-#endif
+#pragma unused(path)
+    LogSearch("didSkipNonExistent %s\n", [path UTF8String]);
 	return YES;
 }
 
@@ -250,6 +252,7 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 }
 
 - (BOOL)didFinishSearchInFile:(NSString*)filePath {
+#pragma unused(filePath)
     [currFilePath_ release];
     currFilePath_ = nil;
 	return YES;

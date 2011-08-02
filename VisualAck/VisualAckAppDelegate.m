@@ -21,7 +21,6 @@ static VisualAckAppDelegate *shared;
     }
     if (![super init]) return nil; 
     operationQueue_ = [[NSOperationQueue alloc] init];
-    shared = self;
     return self;
 }
 
@@ -32,7 +31,7 @@ static VisualAckAppDelegate *shared;
 
 + (id)shared; {
     if (!shared) {
-        [[VisualAckAppDelegate alloc] init];
+        shared = [[VisualAckAppDelegate alloc] init];
     }
     return shared;
 }
@@ -50,7 +49,7 @@ static VisualAckAppDelegate *shared;
 static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmit?appname=VisualAck";
 //static NSString *REPORT_SUBMIT_URL = @"http://127.0.0.1:9340/app/crashsubmit?appname=VisualAck";
 
-- (void) submitAndDeleteCrashReport:(NSString *)crashReportPath {
+- (void)submitAndDeleteCrashReport:(NSString *)crashReportPath {
     NSError *error = nil;
     NSStringEncoding encoding;
     NSString *s = [NSString stringWithContentsOfFile:crashReportPath usedEncoding:&encoding error:&error];
@@ -85,6 +84,8 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 // delegate for Sparkle's SUUpdater
 - (NSArray *)feedParametersForUpdater:(SUUpdater *)updater
                  sendingSystemProfile:(BOOL)sendingProfile {
+#pragma unused(updater)
+#pragma unused(sendingProfile)
     NSString *uniqueId = [self uniqueId];
     NSInteger count = [mainWindowController_ searchCount];
     NSNumber *countNum = [NSNumber numberWithInteger:count];
@@ -149,10 +150,10 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 
     argsLn[1] = (char*)[[self vackPath] UTF8String];
 
-    status = AuthorizationExecuteWithPrivileges(authorizationRef, "/bin/rm",
+    AuthorizationExecuteWithPrivileges(authorizationRef, "/bin/rm",
                                                 kAuthorizationFlagDefaults, argsRm, &pipe);    
 
-    status = AuthorizationExecuteWithPrivileges(authorizationRef, "/bin/ln",
+    AuthorizationExecuteWithPrivileges(authorizationRef, "/bin/ln",
                                                 kAuthorizationFlagDefaults, argsLn, &pipe);
 
     // The only way to guarantee that a credential acquired when you
@@ -173,6 +174,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 - (void)applicationWillFinishLaunching:(NSNotification *)notification {
+#pragma unused(notification)
     // find crash reports generated for our app and upload them to a website
     NSArray *crashReports = [CrashReporter findCrashReports];
     if (crashReports) {
@@ -187,6 +189,8 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 - (void)alertDidEnd:(NSAlert*)alert returnCode:(NSInteger)returnCode contextInfo:(void*)contextInfo {
+#pragma unused(alert)
+#pragma unused(contextInfo)
 	if (returnCode == NSAlertFirstButtonReturn) {
         [self createLinkToVack];		
 	}
@@ -206,6 +210,8 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+#pragma unused(aNotification)
+
     mainWindowController_ = [[MainWindowController alloc] initWithWindowNibName:@"MainWindow"];
     [mainWindowController_ window];
 
@@ -236,6 +242,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 - (IBAction)showMainWindow:(id)sender {
+#pragma unused(sender)
     [mainWindowController_ showWindow:self];
 }
 
