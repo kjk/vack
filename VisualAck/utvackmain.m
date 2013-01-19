@@ -7,35 +7,35 @@
 #import "FileLineIterator.h"
 #import "FileSearchIterator.h"
 
-void testLinesHelper(NSString *filePath, NSString **content) {
+void testLinesHelper(NSString *filePath, NSArray *content) {
     FileLineIterator *li = [FileLineIterator fileLineIteratorWithFileName:filePath];
-    int currLineNo = 0;
+    NSUInteger currLineNo = 0;
     int newLineNo;
     NSString *currLine;
     NSString *expectedLine;
     for (;;) {
-        expectedLine = content[currLineNo];
         currLine = [li getNextLine:&newLineNo];
         if (nil == currLine) {
-            utassert(nil == expectedLine);
+            utassert(currLineNo == [content count]);
             return;
         }
+        expectedLine = [content objectAtIndex:currLineNo];
         utassert(newLineNo == currLineNo + 1);
         utassert([expectedLine isEqualToString:currLine]);
         currLineNo = newLineNo;
     }
 }
 
-void testLines(NSString *dir, NSString *fileName, NSString **content) {
+void testLines(NSString *dir, NSString *fileName, NSArray *content) {
     NSString *path = [dir stringByAppendingPathComponent:fileName];
     testLinesHelper(path, content);
 }
 
 void testFileLineIteratorContent(NSString *testsDir) {
-    NSString *emptyContent[1] = { nil };
-    NSString *oneLineContent[2] = { @"t", nil };
-    NSString *threeLineContent[4] = { @"line1", @"", @"line3", nil };
-    NSString *fourEmptyLinesContent[5] = { @"", @"", @"", @"", nil };
+    NSArray *emptyContent = @[];
+    NSArray *oneLineContent = @[ @"t" ];
+    NSArray *threeLineContent = @[ @"line1", @"", @"line3" ];
+    NSArray *fourEmptyLinesContent = @[ @"", @"", @"", @"" ];
     testLines(testsDir, @"empty-file.txt", emptyContent);
     testLines(testsDir, @"one-line.txt", oneLineContent);
     testLines(testsDir, @"3-lines-unix-newline.txt", threeLineContent);
