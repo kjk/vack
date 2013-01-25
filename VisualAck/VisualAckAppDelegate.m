@@ -16,17 +16,11 @@ static VisualAckAppDelegate *shared;
 
 - (id)init {
     if (shared) {
-        [self autorelease];
         return shared;
     }
     if (![super init]) return nil; 
     operationQueue_ = [[NSOperationQueue alloc] init];
     return self;
-}
-
-- (void)dealloc {
-    [operationQueue_ release];
-    [super dealloc];
 }
 
 + (id)shared; {
@@ -43,7 +37,6 @@ static VisualAckAppDelegate *shared;
 - (void)onHttpDoneOrError:(Http*)aHttp {
     NSString *filePath = [aHttp filePath];
     [[NSFileManager defaultManager] removeItemAtPath:filePath error:NULL];
-    [aHttp release];
 }
 
 static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmit?appname=VisualAck";
@@ -59,12 +52,12 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
     unsigned len = strlen(utf8);
     NSData *data = [NSData dataWithBytes:(const void*)utf8 length:len];
     NSURL *url = [NSURL URLWithString:REPORT_SUBMIT_URL];
-    [[[Http alloc] initAndUploadWithURL:url
+    [[Http alloc] initAndUploadWithURL:url
                                   data:data
                               filePath:crashReportPath
                               delegate:self
                           doneSelector:@selector(onHttpDoneOrError:)
-                         errorSelector:@selector(onHttpDoneOrError:)] autorelease];
+                         errorSelector:@selector(onHttpDoneOrError:)];
 }
 
 - (NSString*)uniqueId {
@@ -74,8 +67,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
         CFUUIDRef uuidRef = CFUUIDCreate(kCFAllocatorDefault);
         CFStringRef sref = CFUUIDCreateString(kCFAllocatorDefault, uuidRef);
         CFRelease(uuidRef);
-        uuid = (NSString*)sref;
-        [uuid autorelease];
+        uuid = (__bridge NSString*)sref;
         [prefs setObject:uuid forKey:PREF_UNIQUE_ID];
     }
     return uuid;
@@ -197,7 +189,7 @@ static NSString *REPORT_SUBMIT_URL = @"http://blog.kowalczyk.info/app/crashsubmi
 }
 
 - (void)shouldCreateVackLink {
-	NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+	NSAlert *alert = [[NSAlert alloc] init];
 	[alert addButtonWithTitle:@"Create"];
 	[alert addButtonWithTitle:@"Cancel"];
 	[alert setMessageText:@"Create link to vack executable?"];

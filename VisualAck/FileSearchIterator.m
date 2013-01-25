@@ -9,15 +9,9 @@
 @synthesize ignoreCase = ignoreCase_;
 
 + (FileSearchIterator*)fileSearchIteratorWithFileName:(NSString*)path searchPattern:(NSString*)searchPattern {
-    return [[[FileSearchIterator alloc]
+    return [[FileSearchIterator alloc]
             initWithFileName:path 
-            searchPattern:searchPattern] autorelease];
-}
-
-- (void)dealloc {
-    [searchPattern_ release];
-    [currSearchResult_ release];
-    [super dealloc];
+            searchPattern:searchPattern];
 }
 
 - (id)initWithFileName:(NSString*)path searchPattern:(NSString*)searchPattern {
@@ -66,7 +60,6 @@
 }
 
 - (FileSearchResult*)getNextSearchResult {
-    [currSearchResult_ release];
     currSearchResult_ = nil;
     for (;;) {
         currLine_ = [self getNextLine:&currLineNo_];

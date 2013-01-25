@@ -26,11 +26,11 @@
 		7F69A17E108D848500E8DDAC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
 		7F69A228108D858500E8DDAC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
 		7F74E22F107D813100D3AB3D /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F74E22E107D813100D3AB3D /* libicucore.dylib */; };
-		7F74E234107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
-		7F74E235107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
+		7F74E234107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7F74E235107D818200D3AB3D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F74E245107DA1ED00D3AB3D /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
 		7F74E246107DA1ED00D3AB3D /* FileLineIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E244107DA1ED00D3AB3D /* FileLineIterator.m */; };
-		7F7AAF5610967E1E009D785D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; };
+		7F7AAF5610967E1E009D785D /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F74E233107D818200D3AB3D /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7F7AAF661097B596009D785D /* VisualAck.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7F7AAF651097B596009D785D /* VisualAck.icns */; };
 		7F881CD110C8E29F0082F3FE /* FileSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F881CD010C8E29F0082F3FE /* FileSearchResult.m */; };
 		7F881CD210C8E29F0082F3FE /* FileSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F881CD010C8E29F0082F3FE /* FileSearchResult.m */; };
@@ -668,6 +668,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -693,6 +694,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;

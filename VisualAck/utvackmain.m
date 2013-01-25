@@ -45,7 +45,7 @@ void testFileLineIteratorContent(NSString *testsDir) {
 }
 
 typedef struct {
-    NSString *	line;
+    const char *	line;
     int		lineNo;
     NSRange	matchPos;
 } FileSearchResultExpected;
@@ -70,7 +70,8 @@ void testMatchesHelper(NSString *path, NSString *searchPattern, FileSearchResult
             return;
         }
         utassert([path isEqualToString:currResult.filePath]);
-        utassert([expectedResult->line isEqualToString:currResult.line]);
+        NSString *expectedLine = [NSString stringWithUTF8String:expectedResult->line];
+        utassert([expectedLine isEqualToString:currResult.line]);
         utassert(expectedResult->lineNo == currResult.lineNo);
         NSRange m = [currResult matchAtIndex:0];
         utassert(NSRangeEqual(expectedResult->matchPos, m));
@@ -85,12 +86,12 @@ void testMatches(NSString *dir, NSString *fileName, NSString *searchPattern, Fil
 
 void testFileSearchIterator(NSString *testsDir) {
     FileSearchResultExpected threeLineResults[] = {
-        { @"line1", 1, { 0, 4 } },
-        { @"line3", 3, { 0, 4 } },
-        { nil, 0, { 0, 0 }}
+        { "line1", 1, { 0, 4 } },
+        { "line3", 3, { 0, 4 } },
+        { NULL, 0, { 0, 0 }}
     };
     FileSearchResultExpected noResults[] = {
-        { nil, 0, { 0, 0 }}
+        { NULL, 0, { 0, 0 }}
     };
 
     testMatches(testsDir, @"3-lines-unix-newline.txt", @"line", threeLineResults);
@@ -117,7 +118,6 @@ int main(int argc, char *argv[])
         return -1;
     }
     char *dirStr = argv[1];
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
     NSString *testsDir = [NSString stringWithUTF8String:dirStr];
     testsDir = [testsDir stringByAppendingPathComponent:@"test-files"];
@@ -128,7 +128,6 @@ int main(int argc, char *argv[])
     }
     testFileLineIteratorContent(testsDir);
     testFileSearchIterator(testsDir);
-    [pool drain];
     if (utassert_failed_count() > 0) {
         printf("\nFAILED %d out of %d tests\n", utassert_failed_count(), utassert_total_count());
     } else {

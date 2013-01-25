@@ -9,12 +9,6 @@
 @synthesize lineLenBytes;
 @synthesize matchesCount;
 
-- (void)dealloc {
-    [filePath release];
-    [line release];
-    [super dealloc];
-}
-
 - (NSRange*)matches {
     return matches_;
 }

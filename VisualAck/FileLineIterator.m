@@ -14,7 +14,7 @@
 @implementation FileLineIterator
 
 + (FileLineIterator*) fileLineIteratorWithFileName:(NSString*)path {
-    return [[[FileLineIterator alloc] initWithFileName:path] autorelease];
+    return [[FileLineIterator alloc] initWithFileName:path];
 }
 
 - (id)initWithFileName:(NSString*)path {
@@ -27,10 +27,8 @@
 }
 
 - (void)dealloc {
-    [path_ release];
     if (fd_ > 0)
         close(fd_);
-    [super dealloc];
 }
 
 - (BOOL)openFileIfNeeded {
@@ -125,8 +123,7 @@
     if (!s) {
         return nil;
     }
-    NSString* str = (NSString*)s;
-    [str autorelease];
+    NSString* str = (__bridge NSString*)s;
     // lines that are too long might slow down or even hang display in
     // NSOutlineView, so limit them to a reasonable size
     if ([str length] > MAX_LINE_LEN) {

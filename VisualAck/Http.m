@@ -17,14 +17,6 @@ static NSString * const FORM_FLE_INPUT = @"file";
 
 @implementation Http
 
-- (void)dealloc {
-    [serverURL_ release];
-    [reply_ release];
-    [delegate_ release];
-    [filePath_ release];
-    [super dealloc];
-}
-
 - (id)initAndUploadWithURL: (NSURL *)aServerURL
                       data: (NSData *)aData
                   filePath: (NSString*)filePath
@@ -33,8 +25,8 @@ static NSString * const FORM_FLE_INPUT = @"file";
              errorSelector: (SEL)anErrorSelector {
 
     if ((self = [super init])) {		
-        serverURL_ = [aServerURL retain];
-        delegate_ = [aDelegate retain];
+        serverURL_ = aServerURL;
+        delegate_ = aDelegate;
         doneSelector_ = aDoneSelector;
         errorSelector_ = anErrorSelector;
         filePath_ = [filePath copy];
@@ -75,17 +67,19 @@ static NSString * const FORM_FLE_INPUT = @"file";
 }
 
 - (void)upload:(NSData*)data {
+    NSURLRequest *urlRequest = nil;
+    NSURLConnection * connection = nil;
+
     if (!data || (0 == [data length]))
         goto Error;
 
-    NSURLRequest *urlRequest = [self postRequestWithURL:serverURL_
+    urlRequest = [self postRequestWithURL:serverURL_
                                                 boundry:BOUNDRY
                                                    data:data];
     if (!urlRequest)
         goto Error;
 
-    NSURLConnection * connection =
-            [[[NSURLConnection alloc] initWithRequest:urlRequest delegate:self] autorelease];
+    connection = [[NSURLConnection alloc] initWithRequest:urlRequest delegate:self];
 
     if (!connection)
         goto Error;

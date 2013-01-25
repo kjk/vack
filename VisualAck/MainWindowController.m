@@ -29,7 +29,6 @@
     FileSearcher *fileSearcher = [[FileSearcher alloc] initWithSearchOptions:&searchOptions_];
     [fileSearcher setDelegate:dlg];
     [fileSearcher doSearch];
-    [fileSearcher release];
     // took ownership of searchOptions, so must free them
 	free_search_options(&searchOptions_);
 }
@@ -54,12 +53,6 @@
 	fileName_ = [fileName copy];
 	children_ = [[NSMutableArray alloc] initWithCapacity:16];
 	return self;
-}
-
-- (void)dealloc {
-	[fileName_ release];
-	[children_ release];
-	[super dealloc];
 }
 
 - (void)addResult:(id)child {
@@ -96,7 +89,7 @@
     [window setContentView:viewSearch_];
 	[tableViewRecentSearches_ setDoubleAction:@selector(tableViewDoubleClick:)];
 
-    searchResults_ = [[NSMutableArray arrayWithCapacity:64] retain];
+    searchResults_ = [NSMutableArray arrayWithCapacity:64];
 
 	NSFont *font = [NSFont systemFontOfSize:10.0];
     NSFont *fontBold = [NSFont boldSystemFontOfSize:0.0];
@@ -104,22 +97,22 @@
 
     // 0x47A72F - green
     NSColor *filePathColor = [NSColor colorWithCalibratedRed:0.2784 green:0.6549 blue:0.1843 alpha:1.0];
-    filePathStringAttrs_ = [[NSDictionary dictionaryWithObject:filePathColor
-                                                        forKey:NSForegroundColorAttributeName] retain];
+    filePathStringAttrs_ = [NSDictionary dictionaryWithObject:filePathColor
+                                                        forKey:NSForegroundColorAttributeName];
     // 898420 - yellowish
     //NSColor *matchColor = [NSColor colorWithCalibratedRed:0.5372 green:0.5176 blue:0.1254 alpha:1.0];
 
     // #AACCFB - light blue selection like in safari or xcode
     NSColor *matchColor = [NSColor colorWithCalibratedRed:0.6679 green:0.8 blue:0.9843 alpha:1.0];
-    matchStringAttrs_ = [[NSDictionary dictionaryWithObjectsAndKeys:matchColor,
-                          NSBackgroundColorAttributeName, fontBold, NSFontAttributeName, nil] retain];
+    matchStringAttrs_ = [NSDictionary dictionaryWithObjectsAndKeys:matchColor,
+                          NSBackgroundColorAttributeName, fontBold, NSFontAttributeName, nil];
 
     NSColor *lineNumberColor = [NSColor grayColor];
-    lineNumberStringAttrs_ = [[NSDictionary dictionaryWithObjectsAndKeys:lineNumberColor,
-                               NSForegroundColorAttributeName, font, NSFontAttributeName, nil] retain];
+    lineNumberStringAttrs_ = [NSDictionary dictionaryWithObjectsAndKeys:lineNumberColor,
+                               NSForegroundColorAttributeName, font, NSFontAttributeName, nil];
 
-	dirStringAttrs_ = [[NSDictionary dictionaryWithObjectsAndKeys:lineNumberColor,
-						NSForegroundColorAttributeName, font, NSFontAttributeName, nil] retain];
+	dirStringAttrs_ = [NSDictionary dictionaryWithObjectsAndKeys:lineNumberColor,
+						NSForegroundColorAttributeName, font, NSFontAttributeName, nil];
     [dirField_ setStringValue:[@"~" stringByExpandingTildeInPath]];
     [self updateSearchButtonStatus];
 	//NSLog(@"indentationLevel: %.2f", [searchResultsView_ indentationPerLevel]);
@@ -131,9 +124,9 @@
 									[NSColor grayColor], NSForegroundColorAttributeName,
 									[NSFont systemFontOfSize:9.0], NSFontAttributeName, nil];
 
-    NSAttributedString *url = [[[NSAttributedString alloc] 
+    NSAttributedString *url = [[NSAttributedString alloc] 
                                initWithString:@"http://blog.kowalczyk.info/software/vack"
-								   attributes:urlAttr] autorelease];
+								   attributes:urlAttr];
 
 	[websiteUrl_ setAttributedTitle:url];
 	[websiteUrl_ setShowsBorderOnlyWhileMouseInside:YES];
@@ -148,17 +141,6 @@
 
     [[tableColumn headerCell] setTitle:title];
 #endif
-}
-
-- (void)dealloc {
-    [searchResults_ release];
-    [filePathStringAttrs_ release];
-    [matchStringAttrs_ release];
-    [recentSearches_ release];
-    [lineNumberStringAttrs_ release];
-	[dirStringAttrs_ release];
-	[dirDoesntExistWindow_ release];
-    [super dealloc];
 }
 
 - (void)switchToFinishSearchingState {
@@ -225,7 +207,6 @@
 			// resizing the window.
 			[[dirField2_ window] removeChildWindow:dirDoesntExistWindow_];
 			[dirDoesntExistWindow_ orderOut:self];
-			[dirDoesntExistWindow_ release];
 			dirDoesntExistWindow_ = nil;
 		}
 
@@ -250,7 +231,6 @@
 		if (dirDoesntExistWindow_) {
 			[[dirField2_ window] removeChildWindow:dirDoesntExistWindow_];
 			[dirDoesntExistWindow_ orderOut:self];
-			[dirDoesntExistWindow_ release];
 			dirDoesntExistWindow_ = nil;
 		}
     }
@@ -334,7 +314,7 @@
 	NSString *dir = [recentSearches_ objectAtIndex:idx+1];
 	//NSRange searchTermRange = NSMakeRange(0, [searchTerm length]);
 	NSString *s = [NSString stringWithFormat:@" %@\n %@", searchTerm, dir];
-	NSMutableAttributedString *as = [[[NSMutableAttributedString alloc] initWithString:s] autorelease];
+	NSMutableAttributedString *as = [[NSMutableAttributedString alloc] initWithString:s];
 	NSRange dirRange = NSMakeRange([searchTerm length]+3, [dir length]);
 	[as setAttributes:dirStringAttrs_ range:dirRange];
 	return as;
@@ -401,8 +381,8 @@
 - (id)outlineView:(NSOutlineView*)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
 	assert(outlineView == searchResultsView_);
 	if ([item isKindOfClass:[SearchResultsFile class]]) {
-		return [[[NSAttributedString alloc] initWithString:[item fileName]
-											   attributes:filePathStringAttrs_] autorelease];
+		return [[NSAttributedString alloc] initWithString:[item fileName]
+											   attributes:filePathStringAttrs_];
 	}
 	assert([item isKindOfClass:[NSAttributedString class]]);
 	return item;
@@ -488,15 +468,15 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     NSAttributedString *as;
 	SearchResultsFile *srf = nil;
     if (0 == resultsInCurrentFile_) {
-		srf = [[[SearchResultsFile alloc] initWithFileName:searchResult.filePath] autorelease];
+		srf = [[SearchResultsFile alloc] initWithFileName:searchResult.filePath];
         [searchResults_ addObject:srf];
     } else {
 		srf = [searchResults_ objectAtIndex:[searchResults_ count]-1];
 	}
-    NSMutableAttributedString *mas = [[[NSMutableAttributedString alloc] initWithString:searchResult.line] autorelease];
+    NSMutableAttributedString *mas = [[NSMutableAttributedString alloc] initWithString:searchResult.line];
     setAttributedStringRanges(mas, searchResult.matchesCount, searchResult.matches, matchStringAttrs_);
 	s = [NSString stringWithFormat:@"%d: ", (int)searchResult.lineNo];
-    as = [[[NSAttributedString alloc] initWithString:s attributes:lineNumberStringAttrs_] autorelease];
+    as = [[NSAttributedString alloc] initWithString:s attributes:lineNumberStringAttrs_];
     
     [mas insertAttributedString:as atIndex:0];
 	[srf addResult:mas];
@@ -569,7 +549,6 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
     // takes ownership of opts, so no freeing them here
     SearchOperation *op = [[SearchOperation alloc] initWithSearchOptions:opts delegate:self];
     [[VisualAckAppDelegate shared] addOperation:op];
-    [op release];
     [searchProgressIndicator_ startAnimation:self];
 }
 
@@ -599,7 +578,6 @@ static void setAttributedStringRanges(NSMutableAttributedString *s, int rangesCo
 
     SearchOperation *op = [[SearchOperation alloc] initWithSearchOptions:searchOptions delegate:self];
     [[VisualAckAppDelegate shared] addOperation:op];
-    [op release];
     [searchProgressIndicator_ startAnimation:self];
 }
 

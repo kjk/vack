@@ -91,25 +91,23 @@ static BOOL shouldIgnoreDir(NSString* dir) {
     return NO;
 }
 
-#define MAX_TYPES 6
-
-static int getTypes(NSString* fileName, NSString **types) {
+static NSArray *getTypes(NSString* fileName) {
     int i = 0;
-    int typesCount = 0;
+    NSMutableArray *types = [[NSMutableArray alloc] init];
     NSString* e;
     NSString* type;
 
     if (0 == [fileName caseInsensitiveCompare:@"makefile"]) {
-        types[0] = @"make";
-        types[1] = @"text";
-        return 2;
+        [types addObject:@"make"];
+        [types addObject:@"text"];
+        return types;
     }
 
     if (0 == [fileName caseInsensitiveCompare:@"rakefile"]) {
-        types[0] = @"rake";
-        types[1] = @"ruby";
-        types[2] = @"text";
-        return 3;
+        [types addObject:@"rake"];
+        [types addObject:@"ruby"];
+        [types addObject:@"text"];
+        return types;
     }
     
     NSString *ext = [fileName pathExtension];
@@ -118,15 +116,12 @@ static int getTypes(NSString* fileName, NSString **types) {
         while (fileTypes[i]) {
             e = fileTypes[i++];
             if (0 == [e caseInsensitiveCompare:ext]) {
-                types[typesCount++] = type;
-                if (typesCount == MAX_TYPES) {
-                    return typesCount;
-                }
+                [types addObject:type];
             }
         }
         i++;
     }
-    return typesCount;
+    return types;
 }
 
 static BOOL isSearchable(NSString* fileName) {
@@ -158,12 +153,11 @@ static BOOL isInteresting(NSString* fileName) {
     if ([fileName hasPrefix:@"."]) {
         return NO;
     }
-    NSString *types[MAX_TYPES];
     if (!isSearchable(fileName)) {
         return NO;
     }
-    int typesCount = getTypes(fileName, types);
-    if (typesCount > 0) {
+    NSArray *arr = getTypes(fileName);
+    if ([arr count] > 0) {
         return YES;
     }
     return NO;
@@ -207,7 +201,7 @@ static NSString *nonNilValue = @"dummyString";
         }
     }
 
-    dirsToIgnore_ = [dict retain];
+    dirsToIgnore_ = dict;
 }
 
 - (id)initWithSearchOptions:(search_options*)opts {
@@ -216,17 +210,11 @@ static NSString *nonNilValue = @"dummyString";
         return nil;
 
     opts_ = opts;
-    searchPattern_ = [[NSString stringWithUTF8String:opts->search_term] retain];
+    searchPattern_ = [NSString stringWithUTF8String:opts->search_term];
     if (opts->ignore_dirs || opts->no_ignore_dirs) {
         [self buildDirsToIgnoreDict:opts];
     }
     return self;
-}
-
-- (void)dealloc {
-    [dirsToIgnore_ release];
-    [searchPattern_ release];
-    [super dealloc];
 }
 
 - (void)setDelegate:(id <FileSearchProtocol>)delegate {
@@ -279,10 +267,9 @@ static NSString *nonNilValue = @"dummyString";
     // Need auto-release pool with tighter scope because inside we alloc
     // FileLineIterator which needs fd and we need to force closing those
     // file descriptors befre we accumulate too many
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     BOOL result = YES;
 	NSDictionary *fileAttrs;
-	NSFileManager *fm = [[[NSFileManager alloc] init] autorelease];
+	NSFileManager *fm = [[NSFileManager alloc] init];
     NSString *fullDirPath = dir;
     if (parentDir) {
         fullDirPath = [parentDir stringByAppendingPathComponent:dir];
@@ -338,7 +325,6 @@ static NSString *nonNilValue = @"dummyString";
 		
 	}
 Exit:
-    [pool drain];
 	return result;
 }
 

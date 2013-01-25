@@ -197,10 +197,6 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 @end
 
 @implementation SearchResults
-- (void)dealloc {
-    assert(!currFilePath_);
-    [super dealloc];
-}
 
 - (void)setSearchOptions:(search_options*)opts {
     // shallow copy, we don't need to free it
@@ -253,7 +249,6 @@ static NSString *wrapStringRangesInColor(NSString *s, int rangesCount, NSRange *
 
 - (BOOL)didFinishSearchInFile:(NSString*)filePath {
 #pragma unused(filePath)
-    [currFilePath_ release];
     currFilePath_ = nil;
 	return YES;
 }
@@ -289,7 +284,7 @@ static void print_help() {
 static void incSearchCount(void)
 {
     CFStringRef appId = CFSTR("info.kowalczyk.visualack");
-    CFStringRef keyStr = (CFStringRef)PREF_SEARCH_COUNT;
+    CFStringRef keyStr = (__bridge CFStringRef)PREF_SEARCH_COUNT;
     CFPropertyListRef val = CFPreferencesCopyAppValue(keyStr, appId);
     NSNumber *newVal;
     if (val == NULL) {
@@ -305,7 +300,7 @@ static void incSearchCount(void)
         }
         newVal = [NSNumber numberWithInteger:n+1];
     }
-    CFPreferencesSetAppValue(keyStr, (CFPropertyListRef)newVal, appId);
+    CFPreferencesSetAppValue(keyStr, (__bridge CFPropertyListRef)newVal, appId);
     if (val) CFRelease(val);
     CFPreferencesAppSynchronize(appId);
 }
@@ -415,7 +410,7 @@ static void launchGui(int argc, char *argv[], search_options *opts)
     if ((opts->search_loc_count == 0) && (realArgc < MAX_CMD_ARGS)) {
         NSString *cwd = [[NSFileManager defaultManager] currentDirectoryPath];
         if (nil != cwd) {
-			args[realArgc] = (CFStringRef)cwd;
+			args[realArgc] = (__bridge CFStringRef)cwd;
             CFRetain(args[realArgc]);
             realArgc++;
         }
@@ -469,7 +464,6 @@ static void launchGui(char *argv[])
 int main(int argc, char *argv[])
 {
     int exit_status = 0;
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     search_options opts;
     init_search_options(&opts);
 
@@ -484,22 +478,30 @@ int main(int argc, char *argv[])
     
     if (opts.version) {
         print_version();
-        goto Exit;
+        free_search_options(&opts);
+        return exit_status;
+        //goto Exit;
     }
 
     if (opts.help) {
         print_help();
-        goto Exit;
+        free_search_options(&opts);
+        return exit_status;
+        //goto Exit;
     }
 
     if (!opts.search_term) {
         print_help();
-        goto Exit;
+        free_search_options(&opts);
+        return exit_status;
+        //goto Exit;
     }
 
     if (opts.use_gui) {
         launchGui(argc, argv, &opts);
-        goto Exit;
+        free_search_options(&opts);
+        return exit_status;
+        //goto Exit;
     }
 
     // if search locations not given on cmd line, search current directory
@@ -519,10 +521,7 @@ int main(int argc, char *argv[])
     [fileSearcher setDelegate:sr];
     [fileSearcher doSearch];
 
-    [fileSearcher release];
-    [sr release];
-Exit:
-    [pool drain];
+//Exit:
     free_search_options(&opts);
     return exit_status;
 }

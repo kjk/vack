@@ -15,8 +15,8 @@ static AboutWindowController * aboutWindowControllerInstance = nil;
     NSDictionary * info = [[NSBundle mainBundle] infoDictionary];
     [versionLabel_ setStringValue: [NSString stringWithFormat: @"%@ (%@)",
 									[info objectForKey: @"CFBundleShortVersionString"], [info objectForKey: (NSString *)kCFBundleVersionKey]]];
-    [[textView_ textStorage] setAttributedString: [[[NSAttributedString alloc] initWithPath:
-													[[NSBundle mainBundle] pathForResource: @"About" ofType: @"rtf"] documentAttributes: nil] autorelease]];
+    [[textView_ textStorage] setAttributedString: [[NSAttributedString alloc] initWithPath:
+													[[NSBundle mainBundle] pathForResource: @"About" ofType: @"rtf"] documentAttributes: nil]];
 }
 
 - (void) windowDidLoad {
@@ -25,7 +25,6 @@ static AboutWindowController * aboutWindowControllerInstance = nil;
 
 - (void) windowWillClose:(id)sender {
 #pragma unused(sender)
-	[aboutWindowControllerInstance release];
     aboutWindowControllerInstance = nil;
 }
 
