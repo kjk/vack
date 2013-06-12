@@ -282,7 +282,8 @@
     [openPanel setCanChooseDirectories:YES];
     [openPanel setAllowsMultipleSelection:YES];
     [openPanel setAllowedFileTypes:nil];
-    [openPanel setDirectory:[dirField_ stringValue]];
+    NSURL *url = [NSURL URLWithString:[dirField_ stringValue]];
+    [openPanel setDirectoryURL:url];
     NSInteger res = [openPanel runModal];
     if (res != NSOKButton)
         return;
